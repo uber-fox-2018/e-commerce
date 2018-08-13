@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top row" style="opacity: 0.8;">
+    <div class="container col-md-3 col-3">
+      <img src="http://www.joinecom.com/wp-content/uploads/2015/04/cropped-join-logo21.png" style="height: 50%; width: 50%;" alt="logo">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link hover" href="#">Home
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Category</a>
+          <div class="dropdown-menu" style="height: 160px;width: 420px" aria-labelledby="dropdown01">
+            <div class="row">
+              <a class="dropdown-item col-md-6 col-6 col-sm-6" href="#container-drinks-cards">
+                <i class="fas fa-coffee"></i> Drinks
+              </a>
+              <a class="dropdown-item col-md-6 col-6 col-sm-6" href="#container-foods-cards">
+                <i class="fas fa-utensils"></i> Foods
+              </a>
+            </div>
+            <div class="row">
+              <a class="dropdown-item col-md-6 col-6 col-sm-6" href="#container-drinks-cards">
+                <i class="fas fa-male"></i> Man Clotes
+              </a>
+              <a class="dropdown-item col-md-6 col-6 col-sm-6" href="#container-foods-cards">
+                <i class="fas fa-female"></i> Women Clotes
+              </a>
+            </div>
+            <div class="row">
+              <a class="dropdown-item col-md-6 col-6 col-sm-6" href="#container-drinks-cards">
+                <i class="fas fa-mobile-alt"></i> Phone & Accessories
+              </a>
+              <a class="dropdown-item col-md-6 col-6 col-sm-6" href="#container-foods-cards">
+                <i class="fas fa-laptop"></i> Laptop & Accessories
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="container-menu col-md-5 col-5" style="padding-right: 0px;">
+      <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-2" style="width: 80%" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+    <div class="container-shop col-md-4 col-4 row" style="padding-left: 0px">
+      <div class="container-notif">
+        <ul class="navbar-nav">
+          <a class="nav-link hover" href="#" style="padding-right: 30px" data-toggle="modal" data-target="#modalCart">
+            <i class="fas fa-shopping-cart"></i> Cart
+          </a>
+          <a class="nav-link hover" href="#" style="padding-right: 30px">
+            <i class="far fa-money-bill-alt"></i> Checkout
+          </a>
+          <a class="nav-link hover" href="#" style="padding-right: 30px" data-toggle="modal" data-target="#exampleModalLong">
+            <i class="fas fa-question"></i> Help
+          </a>
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="button" style="margin-right: 5px" data-toggle="modal" data-target="#modalLogin">
+            Signin
+          </button>
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="button" data-toggle="modal" data-target="#modalSignup">
+            Signup
+          </button>
+        </ul>
+      </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    </div>
+  </nav>
+
+  <!-- MODAL SIGN IN -->
+  <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLoginLabel">Sign In</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="email-name">
+            </div>
+            <div class="form-group">
+              <label for="password-text" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="password-name">
+              <!-- <textarea class="form-control" id="password-text"></textarea> -->
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL SIGN IN -->
+
+  <!-- MODAL SIGN UP -->
+  <div class="modal fade" id="modalSignup" tabindex="-1" role="dialog" aria-labelledby="modalSignupLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalSignupLabel">Register</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Fullname:</label>
+              <input type="text" class="form-control" id="email-name">
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="email-name">
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Phone Number:</label>
+              <input type="text" class="form-control" id="phone-number">
+            </div>
+            <div class="form-group">
+              <label for="password-text" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="password-name">
+              <!-- <textarea class="form-control" id="password-text"></textarea> -->
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Register</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL SIGN UP -->
+
+  <!-- MODAL CART -->
+  <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="modalCartLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalCartLabel">List Items</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group col-md-3">
+              <img class="mx-auto" style="height: 100px; width: 100px" src="https://static01.nyt.com/images/2016/04/04/dining/04COOKING-FRIEDRICE1/04COOKING-FRIEDRICE1-superJumbo.jpg">
+            </div>
+            <div class="form-group col-md-9">
+              <!-- <label for="password-text" class="col-form-label">Description:</label> -->
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <td>Fried Rice</td>
+                  <td>Rp.10.000,00</td>
+                  <td>1</td>
+                  <td>Lorem ipsum dolor sit amet consectetur adipisicing elit.</td>
+                </tbody>
+              </table>
+              <!-- <textarea class="form-control" id="password-text"></textarea> -->
+            </div>
+          </div>
+          <div class="row">
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL CART -->
+
+  <!-- MODAL BUY ITEMS -->
+  <div class="modal fade" id="modalBuyItems" tabindex="-1" role="dialog" aria-labelledby="modalBuyItemsLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalBuyItemsLabel">Buy Item</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Qty</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td>Fried Rice</td>
+                <td>Rp.10.000,00</td>
+                <td>
+                  <i class="fas fa-minus-circle"></i>
+                  <input type="number" name="qty" style="text-align: center" placeholder="qty">
+                  <i class="fas fa-plus-circle"></i>
+                </td>
+              </tbody>
+            </table>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Description:</label>
+            <textarea class="form-control" id="description-text"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="#">Buy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL BUY ITEMS -->
+  <!-- MODAL HELP -->
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Help <i class="fas fa-info-circle"></i></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, vitae corrupti delectus nihil est quod asperiores
+            dolor magni voluptate doloribus? Inventore quibusdam at quaerat dolore assumenda modi sed illum esse?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL HELP -->
+
+  <div id="advantisement-content" style="margin-top: 60px">
+    <div id="carouselExampleIndicators" class="carousel slide container-fluid" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img class="d-block w-100" style="height: 500px;" src="https://www.lopesan.com/img/hotels/2728/Habitacion-abora-continental-by-lopesan-hotels.jpg"
+            alt="First slide">
+          <div class="carousel-caption d-none d-md-block" style="color: aqua">
+            <h5>Lore</h5>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa possimus commodi soluta quis voluptatem repudiandae
+              quas, totam deserunt suscipit non? Commodi voluptatibus accusamus reprehenderit excepturi repellat nobis impedit
+              laboriosam consequuntur.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" style="height: 500px;" src="https://assets.phenompeople.com/CareerConnectResources/WHFOGLOBAL/en_global/desktop/assets/images/Hero-banner-image.jpg"
+            alt="Second slide">
+          <div class="carousel-caption d-none d-md-block" style="color: aqua">
+            <h5>Lore</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum eos placeat officia aliquid dolor excepturi reiciendis
+              possimus praesentium nihil ex itaque nam cumque, eligendi, delectus debitis odio! Libero, voluptatibus fugit.
+            </p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img class="d-block w-100" src="https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg" style="height: 500px;"
+            alt="Third slide">
+          <div class="carousel-caption d-none d-md-block" style="color: aqua">
+            <h5>Lore</h5>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi porro iste eveniet provident magnam qui ex,
+              at ut tenetur excepturi minima dolorem incidunt, quia suscipit esse rem nam atque! Nobis.</p>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+
+
+  <h2 class="mt-2 mx-5" style="color: grey">Foods</h2>
+  <hr class="bg-dark mt-2 mx-5">
+  <div id="container-cards" class="row">
+    <div id="container-foods-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>Fried Rice</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto" src="https://static01.nyt.com/images/2016/04/04/dining/04COOKING-FRIEDRICE1/04COOKING-FRIEDRICE1-superJumbo.jpg"
+            alt="" style="height: 200px; width: 250px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="button" data-toggle="modal" data-target="#modalBuyItems">
+            Buy
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="container-foods-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>Fried Rice</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto" src="https://static01.nyt.com/images/2016/04/04/dining/04COOKING-FRIEDRICE1/04COOKING-FRIEDRICE1-superJumbo.jpg"
+            alt="" style="height: 200px; width: 250px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    <div id="container-foods-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>Fried Rice</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto" src="https://static01.nyt.com/images/2016/04/04/dining/04COOKING-FRIEDRICE1/04COOKING-FRIEDRICE1-superJumbo.jpg"
+            alt="" style="height: 200px; width: 250px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-2 mx-5" style="color: grey">Drinks</h2>
+  <hr class="bg-dark mt-2 mx-5">
+  <div id="container-cards" class="row">
+    <div id="container-drinks-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>King Mango</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto" src="https://b.zmtcdn.com/data/pictures/3/18539163/48c880dfe6e5966ce61fc5f12766adba.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A"
+            alt="" style="height: 200px; width: 250px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    <div id="container-drinks-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>King Mango</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto" src="https://b.zmtcdn.com/data/pictures/3/18539163/48c880dfe6e5966ce61fc5f12766adba.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A"
+            alt="" style="height: 200px; width: 200px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    <div id="container-drinks-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>King Mango</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto" src="https://b.zmtcdn.com/data/pictures/3/18539163/48c880dfe6e5966ce61fc5f12766adba.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A"
+            alt="" style="height: 200px; width: 200px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-2 mx-5" style="color: grey">Hotels</h2>
+  <hr class="bg-dark mt-2 mx-5">
+  <div id="container-cards" class="row">
+    <div id="container-hotels-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>King Mango</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto ml-2" src="https://ihg.scene7.com/is/image/ihg/Brand-Home_Desktop_Image-5-Travel-fit-even-during-downtime-with-EVEN-Hotels-Premium-Bedding@2x"
+            alt="" style="height: 200px; width: 250px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    <div id="container-hotels-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>King Mango</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto" src="https://b.zmtcdn.com/data/pictures/3/18539163/48c880dfe6e5966ce61fc5f12766adba.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A"
+            alt="" style="height: 200px; width: 250px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+    <div id="container-hotels-cards" class="mt-2 mx-5 col-md-3">
+      <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+        <div class="card-header col-md-12 mx-auto">
+          <h4>King Mango</h4>
+        </div>
+        <div class="card-body text-dark col-md-12">
+          <img class="card-image-center mx-auto" src="https://b.zmtcdn.com/data/pictures/3/18539163/48c880dfe6e5966ce61fc5f12766adba.jpg?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A"
+            alt="" style="height: 200px; width: 250px;">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

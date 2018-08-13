@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <title>E-Commerce - Ari Supriatna</title>
+  <style>
+    .space {
+      margin-left: 10px
+    }
+
+    .checked {
+      color: orange
+    }
+
+    .fa-diamond {
+      color: aqua
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-danger">
+    <a class="navbar-brand text-white" href="#">BUKALELANG</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fa fa-th-list"></i>
+            Kategori
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">E-Voucher & Tiket
+              <i class="fa fa-angle-right"></i>
+            </a>
+            <a class="dropdown-item" href="#">Promo</a>
+            <a class="dropdown-item" href="#">Perawatan & Kecantikan</a>
+            <a class="dropdown-item" href="#">Kesehatan</a>
+            <a class="dropdown-item" href="#">Fashion Wanita</a>
+            <a class="dropdown-item" href="#">Fashion Pria</a>
+            <a class="dropdown-item" href="#">Handphone</a>
+            <a class="dropdown-item" href="#">Komputer</a>
+            <a class="dropdown-item" href="#">Elektronik</a>
+            <a class="dropdown-item" href="#">Kamera</a>
+            <a class="dropdown-item" href="#">Hobi & Koleksi</a>
+            <a class="dropdown-item" href="#">Olahraga</a>
+            <a class="dropdown-item" href="#">Sepeda</a>
+            <a class="dropdown-item" href="#">Fashion Anak</a>
+            <a class="dropdown-item" href="#">Perlengkapan Bayi</a>
+            <a class="dropdown-item" href="#">Rumah Tangga</a>
+            <a class="dropdown-item" href="#">Food</a>
+            <a class="dropdown-item" href="#">Mobil, Part dan Aksesoris</a>
+            <a class="dropdown-item" href="#">Motor</a>
+            <a class="dropdown-item" href="#">Industrial</a>
+            <a class="dropdown-item" href="#">Perlengkapan Kantor</a>
+            <a class="dropdown-item" href="#">Tiket & Voucher</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Lihat Selengkapnya</a>
+          </div>
+        </li>
+        <li>
+          <form class="form-inline my-2 my-lg-0 space">
+            <input class="form-control mr-sm-1" type="search" placeholder="Aku mau belanja..." aria-label="Search" style="width: 500px">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+              <i class="fa fa-search"></i> Search</button>
+          </form>
+        </li>
+      </ul>
+      <div class="dropdown show">
+        <a class="dropdown-toggle text-white nav-link" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Lihat Status Transaksi
+        </a>
+        <form class="dropdown-menu p-4">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Kode Pembeli">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Nomor Transaksi">
+          </div>
+          <button type="submit" class="btn btn-success">Cek Status</button>
+        </form>
+      </div>
+      <a class="nav-link btn btn-outline-light btn-sm space" href="#" data-toggle="modal" data-target="#exampleModalLong">
+        <i class="fa fa-shopping-cart" style="font-size: 20px"></i>
+        <span class="badge badge-light">4</span>
+      </a>
+      <a class="nav-link btn btn-outline-light btn-sm space" href="#">Login</a>
+      <a class="nav-link btn btn-outline-light btn-sm space" href="#">Daftar</a>
+    </div>
+  </nav>
+
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-info" id="exampleModalLongTitle">Your Shopping Cart</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-header">Daftar Pembelian</div>
+                  <div class="card-body">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Nomor Transaksi</th>
+                          <th scope="col">Pelapak</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>231931202381</td>
+                          <td>USER 0014</td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th>Catatan Untuk Pelapak</th>
+                          <th></th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>-</td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th>Detail Barang</th>
+                          <th>Jumlah</th>
+                          <th>Harga</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img src="https://nullcc.github.io/css/images/logo.jpg" width="150" alt="">
+                          </td>
+                          <td>100</td>
+                          <td>Rp.99.999</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img src="http://pluspng.com/img-png/github-octocat-png-the-mountietocat-896.png" width="150" alt="">
+                          </td>
+                          <td>100</td>
+                          <td>Rp.199.999</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <img src="https://octodex.github.com/images/kimonotocat.png" width="150" alt="">
+                          </td>
+                          <td>100</td>
+                          <td>Rp.199.999</td>
+                        </tr>
+                      </tbody>
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th></th>
+                          <th>Total Harga</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>Rp.999.999.999</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 80px">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="card-body">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#bukalapak-credit" role="tab" aria-controls="pills-home"
+                  aria-selected="true">Bukalapak Credits</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#bukalapak-pulsa" role="tab" aria-controls="pills-profile"
+                  aria-selected="false">Pulsa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#bukalapak-paket-data" role="tab" aria-controls="pills-contact"
+                  aria-selected="false">Paket Data</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#bukalapak-listrik-pln" role="tab" aria-controls="pills-contact"
+                  aria-selected="false">Listrik PLN</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#bukalapak-bpjs" role="tab" aria-controls="pills-contact"
+                  aria-selected="false">BPJS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#bukalapak-voucher-game" role="tab" aria-controls="pills-contact"
+                  aria-selected="false">Voucher Game</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#bukalapak-zakat-profesi" role="tab" aria-controls="pills-contact"
+                  aria-selected="false">Zakat Profesi</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="bukalapak-credit" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <form>
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Nominal</label>
+                          <select class="form-control" id="exampleFormControlSelect1">
+                            <option>50.000</option>
+                            <option>100.000</option>
+                            <option>250.000</option>
+                            <option>500.000</option>
+                            <option>1.000.000</option>
+                          </select>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <form>
+                        <div class="form-group">
+                          <label for="exampleFormControlSelect1">Metode Pembayaran</label>
+                          <select class="form-control" id="exampleFormControlSelect1">
+                            <option>Transfer</option>
+                            <option>BCA KlikPay (KlikBCA Individu)</option>
+                            <option>Mandiri E-Cash</option>
+                            <option>CIMBClicks/RekPonsel/QRGoMobile</option>
+                            <option>Indomaret</option>
+                            <option>Alfamart</option>
+                            <option>Post Indonesia</option>
+                          </select>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <label>Harga</label>
+                      <br>
+                      <strong>Rp.50.000</strong>
+                    </div>
+                    <div class="col-lg-3">
+                      <a href="#" class="btn btn-danger" style="margin-top: 15px">Beli Credits</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="bukalapak-pulsa" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <form>
+                        <div class="form-group">
+                          <label>Nomor Telepon</label>
+                          <input type="text" class="form-control" id="nomor_telepon" placeholder="Nomor telepon">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <form>
+                        <label>Nominal</label>
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="nominal" placeholder="Nominal">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <label>Harga</label>
+                      <br>
+                      <strong>Rp</strong>
+                    </div>
+                    <div class="col-lg-3">
+                      <a href="#" class="btn btn-danger disabled" style="margin-top: 15px">Beli Pulsa</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="bukalapak-paket-data" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <form>
+                        <div class="form-group">
+                          <label>Nomor Telepon</label>
+                          <input type="text" class="form-control" id="nomor_telepon" placeholder="Nomor telepon">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <form>
+                        <label>Paket</label>
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="nominal" placeholder="Paket">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <label>Harga</label>
+                      <br>
+                      <strong>Rp</strong>
+                    </div>
+                    <div class="col-lg-3">
+                      <a href="#" class="btn btn-danger disabled" style="margin-top: 15px">Beli Pulsa</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="bukalapak-listrik-pln" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="container">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">Token Listrik</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">Tagihan Listrik</label>
+                  </div>
+                  <br>
+                  <br>
+                  <div class="row">
+
+                    <div class="col-lg-3">
+                      <form>
+                        <div class="form-group">
+                          <label>Nomor meter</label>
+                          <input type="text" class="form-control" id="nomor_telepon" placeholder="Nomor meter">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <form>
+                        <label>Periode</label>
+                        <div class="form-group">
+                          <input type="text" class="form-control" id="nominal" placeholder="Periode" disabled>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <label>Harga</label>
+                      <br>
+                      <strong>Rp</strong>
+                    </div>
+                    <div class="col-lg-3">
+                      <a href="#" class="btn btn-danger disabled" style="margin-top: 15px">Beli Token Listrik</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="bukalapak-bpjs" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <form>
+                        <div class="form-group">
+                          <label>Nomor Kepesertaan</label>
+                          <input type="text" class="form-control" id="nomor_telepon" placeholder="Nomor kepesertaan">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <form>
+                        <label>Bayar Hingga</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Agustus 2018</option>
+                          <option>September 2018</option>
+                          <option>Oktober 2018</option>
+                          <option>November 2018</option>
+                          <option>Desember 2018</option>
+                        </select>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <label>Harga</label>
+                      <br>
+                      <strong>Rp</strong>
+                    </div>
+                    <div class="col-lg-3">
+                      <a href="#" class="btn btn-danger disabled" style="margin-top: 15px">Bayar BPJS Kesehatan</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="bukalapak-voucher-game" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <form>
+                        <div class="form-group">
+                          <label>Publisher</label>
+                          <select class="form-control" id="exampleFormControlSelect1">
+                            <option>Gemscool Cash</option>
+                            <option>Digi Game Card</option>
+                            <option>Garena Shells</option>
+                            <option>LINE STORE</option>
+                            <option>Travian</option>
+                          </select>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <form>
+                        <label>Nominal</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>20.000 (2.000 G-Cash)</option>
+                          <option>30.000 (3.000 G-Cash)</option>
+                          <option>50.000 (5.000 G-Cash)</option>
+                          <option>100.000 (10.000 G-Cash)</option>
+                          <option>200.000 (20.000 G-Cash)</option>
+                          <option>300.000 (30.000 G-Cash)</option>
+                        </select>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <label>Harga</label>
+                      <br>
+                      <strong>Rp. 10.000</strong>
+                    </div>
+                    <div class="col-lg-3">
+                      <a href="#" class="btn btn-danger disabled" style="margin-top: 15px">Beli Voucher</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="bukalapak-zakat-profesi" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <form>
+                        <div class="form-group">
+                          <label>Nominal Zakat</label>
+                          <input type="text" class="form-control" id="nomor_telepon" placeholder="Nomor telepon">
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-lg-3">
+                      <form>
+                        <label>Pilih Lembaga</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                          <option>Dompet Dhuafa</option>
+                          <option>NU Care-Lazisnu</option>
+                          <option>Baznas</option>
+                          <option>Aksi Cepat Tanggap</option>
+                          <option>Rumah Yatim</option>
+                          <option>Lazismu</option>
+
+                        </select>
+                      </form>
+                    </div>
+                    <div class="col-lg-2">
+                      <form>
+                        <label>Nama Kamu</label>
+                        <input type="text" class="form-control" placeholder="Nama kamu">
+                      </form>
+                    </div>
+                    <div class="col-lg-2">
+                      <label>Nominal Zakat</label>
+                      <br>
+                      <strong>Rp.</strong>
+                    </div>
+                    <div class="col-lg-2">
+                      <a href="#" class="btn btn-danger disabled" style="margin-top: 15px">Bayar Zakat</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <strong>Pencarian Populer</strong>
+        <a href="#">
+          <span class="badge badge-pill badge-secondary" style="margin-left: 15px">Kolam Renang Anak</span>
+        </a>
+        <a href="#">
+          <span class="badge badge-pill badge-secondary" style="margin-left: 15px">Ransel Rolltop</span>
+        </a>
+        <a href="#">
+          <span class="badge badge-pill badge-secondary" style="margin-left: 15px">Topi Fedora</span>
+        </a>
+        <a href="#">
+          <span class="badge badge-pill badge-secondary" style="margin-left: 15px">Whey Protein</span>
+        </a>
+        <a href="#">
+          <span class="badge badge-pill badge-secondary" style="margin-left: 15px">Gaming Mouse</span>
+        </a>
+        <a href="#">
+          <span class="badge badge-pill badge-secondary" style="margin-left: 15px">Perfect V Lifting Premium Mask</span>
+        </a>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="col-lg-6">
+            <br>
+            <div class="card">
+              <img src="https://s3.bukalapak.com/uploads/flash_banner/36803/s-1256-824/Banner_1.jpg.webp" class="card-img-top" alt="">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <br>
+            <img src="https://s0.bukalapak.com/uploads/flash_banner/08903/s-824-392/63048c04-032a-4284-8772-941fb63c96e1.jpg.webp" class="card-img-top"
+              alt="">
+            <br>
+            <br>
+            <div class="row">
+              <div class="col-lg-6">
+                <img src="https://s3.bukalapak.com/uploads/flash_banner/86903/s-392-392/Banner_4__kurir20.jpg.webp" class="card-img-top"
+                  alt="">
+              </div>
+              <div class="col-lg-6">
+                <img src="https://s3.bukalapak.com/uploads/flash_banner/30803/s-392-392/Banner_4.jpg.webp" alt="" class="card-img-top">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <img src="https://s2.bukalapak.com/uploads/flash_banner/26903/s-392-824/Banner_3__kurir-kemerdekaan.jpg.webp" width="167"
+              alt="">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <br>
+        <br>
+        <strong>Flash Deal</strong>
+        <a href="#">
+          <span class="badge badge-pill badge-warning" style="margin-left: 15px">Berakhir
+            <strong>00 : 00: 51
+              <i class="fa fa-bolt"></i>
+            </strong>
+          </span>
+        </a>
+        <div class="row">
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://nullcc.github.io/css/images/logo.jpg" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>Rediscat</small>
+                <br>
+                <small>
+                  <strike>Rp.8.500</strike>
+                  <br>
+                </small>
+                <small style="color: red">Rp.1000</small>
+                <br>
+                <small>158 Tersisa</small>
+                <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 85%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="http://pluspng.com/img-png/github-octocat-png-the-mountietocat-896.png" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>Mountietocat</small>
+                <br>
+                <small>
+                  <strike>Rp.12.000</strike>
+                  <br>
+                </small>
+                <small style="color: red">Rp.1000</small>
+                <br>
+                <small>96 Tersisa</small>
+                <div class="progress">
+                  <div class="progress-bar bg-warning" role="progressbar" style="width: 65%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://octodex.github.com/images/kimonotocat.png" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>Kimonotocat</small>
+                <br>
+                <small>
+                  <strike>Rp.15.000</strike>
+                  <br>
+                </small>
+                <small style="color: red">Rp.1000</small>
+                <br>
+                <small>104 Tersisa</small>
+                <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 95%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://lh3.googleusercontent.com/proxy/mLja0V4cIXJ0kPK7QtPUnWxQO02Ueyp4moasnPut8qRa16DnBQEtNbhVRXbscK2mQDiKYsDwDFVJX6YdwductL4KCA=s530-p"
+                class="card-img-top" alt="">
+              <div class="card-body">
+                <small>Octocat</small>
+                <br>
+                <small>
+                  <strike>Rp.8.000</strike>
+                  <br>
+                </small>
+                <small style="color: red">Rp.1000</small>
+                <br>
+                <small>167 Tersisa</small>
+                <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://octodex.github.com/images/megacat.jpg" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>Megacat</small>
+                <br>
+                <small>
+                  <strike>Rp.20.000</strike>
+                  <br>
+                </small>
+                <small style="color: red">Rp.1000</small>
+                <br>
+                <small>1115 Tersisa</small>
+                <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 55%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://octodex.github.com/images/founding-father.jpg" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>Father Octocat</small>
+                <br>
+                <small>
+                  <strike>Rp.9.500</strike>
+                  <br>
+                </small>
+                <small style="color: red">Rp.1000</small>
+                <br>
+                <small>187 Tersisa</small>
+                <div class="progress">
+                  <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <br>
+        <br>
+        <strong>Promo Hari Ini</strong>
+        <div class="row">
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s1.bukalapak.com/uploads/flash_banner/16013/s-392-392/392x392.jpg.webp" class="card-img-top" alt="">
+            </div>
+            <small>
+              <a href="#" class="text-dark">Ayo Serbu Pembelian Pertamamu</a>
+            </small>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s1.bukalapak.com/uploads/flash_banner/61013/s-392-392/392x392_hp.jpg.webp" class="card-img-top" alt="">
+            </div>
+            <small>
+              <a href="#" class="text-dark">Orang Pintar Pakai Hp Pintar</a>
+            </small>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s2.bukalapak.com/uploads/flash_banner/22013/s-392-392/392x392_fashion_brand.jpg.webp" class="card-img-top"
+                alt="">
+
+            </div>
+            <small>
+              <a href="#" class="text-dark">Bebaskan Gayamu dengan OOTD Terbaru</a>
+            </small>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s3.bukalapak.com/uploads/flash_banner/82013/s-392-392/392x392_kamera.jpg.webp" class="card-img-top" alt="">
+            </div>
+            <small>
+              <a href="#" class="text-dark">Promo Bundling Kamera Cek Aja!</a>
+            </small>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s1.bukalapak.com/uploads/flash_banner/13013/s-392-392/392x392_laptop.jpg.webp" class="card-img-top" alt="">
+            </div>
+            <small>
+              <a href="#" class="text-dark">Kerja Semangat dengan Laptop Mutu Dahsyat</a>
+            </small>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s2.bukalapak.com/uploads/flash_banner/73013/s-392-392/392x392_brand.jpg.webp" class="card-img-top" alt="">
+            </div>
+            <small>
+              <a href="#" class="text-dark">Merdeka Belanja Produk Brand Ternama</a>
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <br>
+        <br>
+        <strong>Sambut Idul Adha Bersama Bukalapak</strong>
+        <div class="row">
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s3.bukalapak.com/img/8453330003/s-194-194/Kambing_Standar.jpg.webp" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Kambing Standar</a>
+                  <br>
+                  <br> Rp.1.975.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>24 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s3.bukalapak.com/img/8800505582/s-194-194/Qurban_Progresif_Kambing.jpg.webp" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Qurban Progresif Kambing</a>
+                  <br>
+                  <br> Rp.1.700.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s0.bukalapak.com/img/5204554982/s-194-194/Qurban_Kambing_.jpg.webp" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Qurban Kambing</a>
+                  <br>
+                  <br> Rp.1.700.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s3.bukalapak.com/img/8490230003/s-194-194/Sapi_Tebar_Hewan_Kurban_Early_Bird.jpg.webp" class="card-img-top"
+                alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Sapi Tebar Hewan Kurban</a>
+                  <br>
+                  <br> Rp.13.700.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s3.bukalapak.com/img/3679393292/s-194-194/Qurban_Unta.jpg.webp" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Qurban Unta</a>
+                  <br>
+                  <br> Rp.24.740.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s3.bukalapak.com/img/8762383292/s-194-194/Qurban_Kambing_Gaza.jpg.webp" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Qurban Kambing Gaza</a>
+                  <br>
+                  <br> Rp.4.750.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <br>
+        <br>
+        <strong>Beli Elektronik Gak Rumit</strong>
+        <div class="row">
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s2.bukalapak.com/img/2944508951/s-194-194/2017_09_08T08_29_57_07_00.jpg.webp" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Promo paket lengkap home recording</a>
+                  <br>
+                  <br> Rp.1.975.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>24 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s2.bukalapak.com/img/7399971351/s-194-194/SOUND_CARD_EXTERNAL_XOX_KS_108_Phantom_Power_48V_Best_for_Vl.png.webp"
+                class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Sound Card External Xox</a>
+                  <br>
+                  <br> Rp.1.700.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s2.bukalapak.com/img/7590772961/s-194-194/__Promo___Headset_Bluetooth_Samsung_HM_1000.png.webp" class="card-img-top"
+                alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Headset Bluetooth</a>
+                  <br>
+                  <br> Rp.1.700.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s1.bukalapak.com/img/1992249211/s-194-194/Bluedio_Turbine_T2__Headphone_Bluetooth_41_Foldable_Headset_.jpg.webp"
+                class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Bluedio Turbine</a>
+                  <br>
+                  <br> Rp.13.700.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s0.bukalapak.com/img/5291296052/s-194-194/Speaker_Bluetooth_BEATS_S10.jpg.webp" class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Speaker Bluetooth</a>
+                  <br>
+                  <br> Rp.24.740.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <br>
+            <div class="card">
+              <img src="https://s2.bukalapak.com/img/7203286961/s-194-194/__Promo___Speaker_Bluetooth_Beats_Pill_Beatspill_By_DrDre.png.webp"
+                class="card-img-top" alt="">
+              <div class="card-body">
+                <small>
+                  <a href="#" class="text-dark">Speaker Bluetooth Beats</a>
+                  <br>
+                  <br> Rp.4.750.000
+                </small>
+                <br>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-star checked"></i>
+                <i class="fa fa-diamond"></i>
+                <small>395 Ulasan</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <footer class="page-footer font-small bg-danger pt-0">
+    <div class="footer-copyright py-3 text-center text-white">
+      <small>
+        © 2018 Copyright:
+        <a href="https://www.explorecode.tk/" class="text-white"> Ari Supriatna. All Rights Reserved </a>
+      </small>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -32,6 +32,11 @@
     margin-right: auto;
     display: block
 }
+/* 
+.carousel-inner {
+    padding-top: 10%;
+    height: 600px
+} */
 
 /* *:not(path):not(g) {
 	color:                    hsla(210, 100%, 100%, 0.9) !important;

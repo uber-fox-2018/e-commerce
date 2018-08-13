@@ -1,0 +1,42 @@
+.bg-black {
+    background-color: rgba(14, 14, 14,1.00);
+    width: 100%;
+}
+
+.card {
+    margin-bottom: 20px
+}
+
+.carousel-caption {
+    top: 600px
+}
+
+.bg-light-gray {
+    background: black;
+    color: wheat;
+    font-weight: 600;
+    text-align: center
+}
+
+.card {
+    color: black;
+}
+
+.carousel-caption {
+    top: 400px;
+}
+
+.center {
+    height: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block
+}
+
+/* *:not(path):not(g) {
+	color:                    hsla(210, 100%, 100%, 0.9) !important;
+	background:               hsla(210, 100%,  50%, 0.5) !important;
+	outline:    solid 0.25rem hsla(210, 100%, 100%, 0.5) !important;
+
+	box-shadow: none !important;    
+} */

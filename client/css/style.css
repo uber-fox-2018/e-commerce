@@ -18,7 +18,7 @@ body {
 }
 
 .navbar a:hover {
-    color: white;
+    color:gray;
 }
 
 .nav-link {

@@ -19,6 +19,10 @@ a {
     color: beige;
 }
 
+a:hover {
+    color: brown;
+}
+
 .navbar ul li button {
     background-color: black;
     color: beige;

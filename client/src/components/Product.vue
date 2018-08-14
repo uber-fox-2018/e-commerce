@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-3 col-xs-3" v-for="(product,index) in allProducts" v-bind:key=index>
+      <div class="col-md-3" v-for="(product,index) in allProducts" v-bind:key=index>
         <div class="card-deck">
           <div class="card" style="width: 18rem;">
-            <img class="card-img-top" v-bind:src="product.imgSource" alt="Card image cap">
+            <img class="card-img-top" v-bind:src="product.imgSource" alt="Card image cap" id="imgId">
             <div class="card-body">
               <h5 class="card-title">Rp. {{product.price}}</h5>
               <p class="card-text">{{product.name}}</p>
@@ -58,6 +58,7 @@ export default {
     align-items:space-between;
     justify-content:space-between;
     flex-wrap:wrap;
+    height: 420px;
   }
   .container{
     margin-top: 15px;

@@ -1,3 +1,14 @@
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  
+  background-color: #ffd4d7;
+}
+
+
 .main_h {
   position: fixed;
   top: 0px;
@@ -197,24 +208,20 @@
   z-index: 1;
 }
 
-#site-footer {
-  padding: 25px 0;
-  font-size: 85%;
-  background-image: url("https://i.imgur.com/N0Oipzq.jpg");
-  /* background-color: #2a2a2a; */
-  position: fixed;
-  z-index: -1;
-  left: 0;
-  right: 0;
-  bottom: 0;
+@media only screen and (max-width: 766px) {
+  #site-footer {
+    padding: 25px 0;
+    font-size: 85%;
+    background-image: url("https://i.imgur.com/N0Oipzq.jpg");
+    /* background-color: #2a2a2a; */
+    position: fixed;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
 
-html,
-body {
-  padding: 0;
-  margin: 0;
-  background-color: #ffd4d7;
-}
 #site-content {
   background-size: contain;
   background-position: center;
@@ -477,8 +484,10 @@ a {
 }
 
 .pretty-woman {
-  left: 900px;
-  top: 1695px;
+  /* left: 900px; */
+  /* top: 1695px; */
+  top: 8em;
+  right: 0.4em;
   position: absolute;
   margin-bottom: 0px;
 }

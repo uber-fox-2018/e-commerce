@@ -1,3 +1,11 @@
+#CartModal{
+	border: none;
+}
+
+.modal-backdrop {
+	z-index: 900;
+}
+
 .items .card-text .price{
 	color:#f44b42;
 }

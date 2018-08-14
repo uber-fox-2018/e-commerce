@@ -1,5 +1,4 @@
-// Sticky Header
-$(window).scroll(function() {
+$(window).scroll(function () {
 
     if ($(window).scrollTop() > 100) {
         $('.main_h').addClass('sticky');
@@ -8,8 +7,7 @@ $(window).scroll(function() {
     }
 });
 
-// Mobile Navigation
-$('.mobile-toggle').click(function() {
+$('.mobile-toggle').click(function () {
     if ($('.main_h').hasClass('open-nav')) {
         $('.main_h').removeClass('open-nav');
     } else {
@@ -17,15 +15,14 @@ $('.mobile-toggle').click(function() {
     }
 });
 
-$('.main_h li a').click(function() {
+$('.main_h li a').click(function () {
     if ($('.main_h').hasClass('open-nav')) {
         $('.navigation').removeClass('open-nav');
         $('.main_h').removeClass('open-nav');
     }
 });
 
-// navigation scroll lijepo radi materem
-$('nav a').click(function(event) {
+$('nav a').click(function (event) {
     var id = $(this).attr("href");
     var offset = 70;
     var target = $(id).offset().top - offset;
@@ -35,34 +32,146 @@ $('nav a').click(function(event) {
     event.preventDefault();
 });
 
-$(document).ready(function() {
-	
-	// INITIATE THE FOOTER
-  siteFooter();
-	// COULD BE SIMPLIFIED FOR THIS PEN BUT I WANT TO MAKE IT AS EASY TO PUT INTO YOUR SITE AS POSSIBLE
-	$(window).resize(function() {
-		siteFooter();
-	});
-	
-	function siteFooter() {
-		var siteContent = $('#site-content');
-		var siteContentHeight = siteContent.height();
-		var siteContentWidth = siteContent.width();
 
-		var siteFooter = $('#site-footer');
-		var siteFooterHeight = siteFooter.height();
-		var siteFooterWidth = siteFooter.width();
+const products = [
 
-		console.log('Content Height = ' + siteContentHeight + 'px');
-		console.log('Content Width = ' + siteContentWidth + 'px');
-		console.log('Footer Height = ' + siteFooterHeight + 'px');
-		console.log('Footer Width = ' + siteFooterWidth + 'px');
+    {
 
-		siteContent.css({
-			"margin-bottom" : siteFooterHeight + 50
-		});
-	};
-});
+        id: 1,
+        name: "Fruit Donut",
+        price: 21000,
+        qty: 3,
+
+        description: "donut with tasty fresh fruits.",
+        image: "https://i.imgur.com/gIlRCpS.jpg"
+    }, {
+
+        id: 2,
+        name: "Variety Cake",
+        price: 30000,
+        qty: 3,
+
+        description: "cake with variety of shapes.",
+        image: "https://i.imgur.com/u6QAWi1.jpg"
+    }, {
+
+        id: 3,
+        name: "Strawberry glaze donut",
+        price: 20000,
+        qty: 3,
+
+        description: "donut with tasty strawberry flavour.",
+        image: "https://i.imgur.com/ZRcc44Z.jpg"
+    }, {
+
+        id: 4,
+        name: "macaron",
+        price: 10000,
+        qty: 3,
+        description: "tasty and very sweet.",
+        image: "https://i.imgur.com/f5WH1zx.jpg"
+    }, {
+
+        id: 5,
+        name: "Fruit Donut",
+        price: 21000,
+        qty: 3,
+
+        description: "donut with tasty fresh fruits.",
+        image: "https://i.imgur.com/gIlRCpS.jpg"
+    }, {
+
+        id: 6,
+        name: "Variety Cake",
+        price: 30000,
+        qty: 3,
+
+        description: "cake with variety of shapes.",
+        image: "https://i.imgur.com/u6QAWi1.jpg"
+    }, {
+
+        id: 7,
+        name: "Strawberry glaze donut",
+        price: 20000,
+        qty: 3,
+
+        description: "donut with tasty strawberry flavour.",
+        image: "https://i.imgur.com/ZRcc44Z.jpg"
+    }, {
+
+        id: 8,
+        name: "macaron",
+        price: 10000,
+        qty: 3,
+
+        description: "tasty and very sweet.",
+        image: "https://i.imgur.com/f5WH1zx.jpg"
+    },
+
+];
 
 
+const app = new Vue({
+    el: '#app',
+
+    data: {
+        cartItems: [],
+        items: products,
+
+        featuredProducts: [
+            {
+                id: 1,
+                name: "Yogurt milk",
+                price: 21000,
+                description: "donut with tasty fresh fruits.",
+                image: "https://i.imgur.com/XCUKbgP.jpg"
+            }, {
+
+                id: 2,
+                name: "Oly Donut",
+                price: 30000,
+                description: "cake with variety of shapes.",
+                image: "https://i.imgur.com/86wDOex.jpg"
+            }]
+    },
+
+    methods: {
+        addToCart(itemToAdd) {
+            var found = false;
+            
+            this.cartItems.forEach(item => {
+                if (item.id === itemToAdd.id) {
+                    found = true;
+                    item.qty += itemToAdd.qty;
+                }
+            });
+
+            if (found === false) {
+                this.cartItems.push(itemToAdd);
+            }
+
+            itemToAdd.qty = 1;
+        }
+    }
+})
+
+
+Vue.component('shopping-cart', {
+    props: ['items'],
+    computed: {
+        Total: function () {
+            var total = 0;
+            this.items.forEach(item => {
+                total += (item.price * item.qty);
+            });
+            return total;
+        }
+    },
+
+    methods: {
+        removeItem(index) {
+            this.items.splice(index, 1)
+        }
+    }
+})
 

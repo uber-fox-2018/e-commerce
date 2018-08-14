@@ -45,7 +45,9 @@ new Vue({
                 img: "https://www.satubaju.com/img/editor/img_iscums/248/2113248_m.jpg"
             }
         ],
-        carts: []
+        carts: {
+            
+        }
     },
     methods: {
         addCart: function(id) {
@@ -57,5 +59,8 @@ new Vue({
             });
             this.products[idxItem].stock -= 1
         }
+    }, 
+    watch: function() {
+        
     }
 })

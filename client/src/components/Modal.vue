@@ -21,7 +21,7 @@
                     </thead>
                     <tbody>
                         <tr  v-for="(cart, index) in shopCart" v-bind:key="index">
-                        <td><img v-bind:src="cart.imgSource" id="img"></td>
+                        <td><img v-bind:src="cart.imgUrl" id="img"></td>
                         <td>{{cart.name}}</td>
                         <td>{{cart.qty}}</td>
                         <td>{{cart.price}}</td>
@@ -47,24 +47,24 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
 
 export default {
-    name: 'forModal',
-    computed: {
-        ...mapState([
-        'shopCart', 'totalQty', 'totalPrice'
-        ])
-    }
+  name: 'forModal',
+  computed: {
+    ...mapState([
+      'shopCart', 'totalQty', 'totalPrice'
+    ])
+  }
 }
 </script>
 
 <style scoped>
-    #img{
-        width:70px;
-    }
-    #btnCheckout{
-        background-color:green;
-        border: 1px solid green;
-    }
+  #img{
+    width:70px;
+  }
+  #btnCheckout{
+    background-color:green;
+    border: 1px solid green;
+  }
 </style>

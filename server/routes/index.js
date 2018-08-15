@@ -2,7 +2,7 @@
 const express = require('express'),
       router = express.Router(),
       images = require('../helpers/images')
-const {uploadProduct} = require('../controllers/productController')
+const {uploadProduct, getAllProduct} = require('../controllers/productController')
 
 router.get('/', (req, res, next) => {
   res.send({ message: 'Hi, Setia' })
@@ -18,8 +18,7 @@ router.post('/upload',
     })
   })
 
-// router.post('/register',)
-// router.post('/login')
 router.post('/uploadProduct', uploadProduct)
+router.get('/products', getAllProduct)
 
 module.exports = router

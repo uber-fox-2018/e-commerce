@@ -46,7 +46,8 @@ class UserController {
                     jwt.sign({ id: user._id, name: user.name }, process.env.secretKey, function(err, token) {
                         res.status(201).json({
                             name: user.name,
-                            token: token
+                            token: token,
+                            isAdmin: user.isAdmin
                         })
                     })
                 } else {

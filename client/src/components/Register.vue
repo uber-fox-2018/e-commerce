@@ -40,7 +40,7 @@ export default {
   #registerForm{
     width: 40%;
     margin-left: 30%;
-    margin-top: 50px;
+    margin-top: 100px;
     border: 1px transparent;
     background: linear-gradient(#FC5C7D, #6A82FB);
     height: 350px;

@@ -29,11 +29,18 @@ export default {
   },
   mounted () {
     let token = localStorage.getItem('token')
-    if(token){
+    if (token) {
       this.$store.state.seen = false
     } else {
       this.$store.state.seen = true
     }
+    this.getAllProduct()
+    // console.log(this.getAllProduct())
+  },
+  methods: {
+    ...mapActions([
+      'getAllProduct'
+    ])
   }
 }
 </script>

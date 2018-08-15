@@ -52,7 +52,7 @@
             </div>
           </form>
         </ul>
-        <button class="btn btn-outline-light mr-3 text-dark" type="button" data-toggle="modal" data-target="#modalCart"> <i class="fa fa-shopping-cart" v-if="isLoggedIn"></i> {{totalQuantity()}} </button>
+        <button class="btn btn-outline-light mr-3 text-dark" type="button" data-toggle="modal" data-target="#modalCart"> <i class="fa fa-shopping-cart"></i> {{totalQuantity()}} </button>
         <button class="btn btn-success mr-2" v-if="isLoggedin === false"> Register </button>
         <button class="btn btn-warning mr-2"> Account </button>
       </div>
@@ -85,7 +85,7 @@
                       <td class="text-center" rowspan="2"><img v-bind:src=cartItem.img width="150" height="150" v-bind:alt=cartItem.name><br>{{cartItem.name}}</td>
                       <td>{{cartItem.grade}} Grade</td>
                       <td class="text-center">{{cartItem.quantity}}</td>
-                      <td>{{cartItem.price}}</td>
+                      <td>{{convertPrice(cartItem.price)}}</td>
                       <td><a href="#"><button type="button" class="btn btn-danger">Remove</button></a></td>
                       <td><a href="#"><button type="button" class="btn btn-primary tr">Add More</button></a></td>
                     </tr>
@@ -127,11 +127,11 @@
                     <tr>
                       <td class="text-center" rowspan="2"><img v-bind:src=tempCartItem.img width="150" height="150" v-bind:alt=tempCartItem.name><br>{{tempCartItem.name}}</td>
                       <td>{{tempCartItem.grade}} Grade</td>
-                      <td>{{tempCartItem.price}}</td>
+                      <td>{{convertPrice(tempCartItem.price)}}</td>
                       <td>
                         <div class="form-group">
-                          <div class="col-5">
-                            <input class="form-control" type="number" max="1000" v-model="tempCartItem.quantity">
+                          <div class="col-8">
+                            <input class="form-control" type="number" min="1" :max=tempCartItem.stock v-model.number="tempCartItem.quantity">
                           </div>
                         </div>
                       </td>
@@ -143,15 +143,12 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">Add To Cart</button>
+            <button type="button" class="btn btn-primary" @click="addToCart(tempCartItem)" data-dismiss="modal">Add To Cart</button>
           </div>
         </div>
       </div>
     </div>
 
-
-
-  
     <div class="container">
       <br><br>
   
@@ -196,16 +193,17 @@
       <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <br>
-        <h3><strong>Perfect Grade</strong></h3>   
+        <h3><strong>Master Grade</strong></h3>   
         <br>
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mb-3 mt-3" v-for="item in items">
             <div class="card">
               <img v-bind:src=item.img height="250" class="card-img-top" v-bind:alt=item.name>
               <div class="card-body text-center">
-                <p><large><strong>{{item.name}}</strong></large></p>
-                <p><medium>Stock: {{item.stock}}</medium></p>
-                <button class="btn btn-success mr-2" data-toggle="modal" data-target="#modalTempCart"> <i class="fa fa-shopping-cart" v-on:click="addTempCart(item)"></i> Add To Cart </button>
+                <p><strong>{{item.name}}</strong></p>
+                <p>Stock: {{item.stock}}</p>
+                <p>Price: {{convertPrice(item.price)}}</p>
+                <button class="btn btn-success mr-2" data-toggle="modal" data-target="#modalTempCart" @click="addTempCart(item)"> <i class="fa fa-shopping-cart"></i> Add To Cart </button>
               </div>
             </div>
           </div>
@@ -213,17 +211,15 @@
       </div>
       </div>
   
-  </div>
+    </div>
 
   <br><br>
   <footer class="page-footer font-small bg-primary pt-0">
     <div class="footer-copyright py-3 text-center text-white">
-      <small>
-        © 2018 Copyright:
-        <a href="#" class="text-white"> D Gund-OL. </a>
-        <br>
-        All rights reserved.
-      </small>
+      © 2018 Copyright:
+      <a href="#" class="text-white"> D Gund-OL. </a>
+      <br>
+      All rights reserved.
     </div>
   </footer>
 
@@ -286,50 +282,47 @@
         }
       ],
       cartItems: [],
+      inputQuantity: 1,
       tempCartItem: {},
-      isLoggedIn: false || localStorage.getItem('token')
+      isLoggedIn: localStorage.getItem('token') || false
     },
     methods: {
       addToCart: function (item){
-        newItem = {
-          name: item.name,
-          img: item.img,
-          grade: item.grade,
-          quantity: 1,
-          price: item.price
-        }
 
-        console.log('masuk');
+        console.log(item);
 
         let isAlreadyIn = false;
         this.cartItems.forEach( cartItem => {
-          if(cartItem.name == newItem.name){
+          if(cartItem.name == item.name){
             isAlreadyIn = true;
-            cartItem.quantity += 1;
-            cartItem.price += newItem.price;
+            cartItem.quantity = Number(cartItem.quantity) + Number(item.quantity);
           }
         })
 
         if (!isAlreadyIn){
-          this.cartItems.push(newItem)
+          this.cartItems.push(item)
         }
       },
       addTempCart: function (item) {
-        console.log('masuk');
-        this.tempCartItem = item
+        item.quantity = 1;
+        this.tempCartItem = item;
       },
       totalQuantity: function () {
         return this.cartItems.reduce(function (acc,cur) {
-          return acc + cur.quantity
+          return Number(acc) + Number(cur.quantity)
         }, 0)      
       }
     },
     computed: {
-      convertPrice: function (price) {
-        return 
+      convertPrice: function () {
+        return function (price){
+          return ('Rp.' + Number(price).toLocaleString() + '.00') 
+        }
       }
     },
-    watch: {}
+    watch: {
+    
+    }
   })
   </script>
 

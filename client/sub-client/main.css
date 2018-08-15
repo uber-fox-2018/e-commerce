@@ -1,0 +1,33 @@
+.hero-body {
+  /* background-image: url("https://i.imgur.com/fVMZJAs.jpg"); */
+}
+
+.container {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  flex-wrap:wrap-reverse;
+}
+
+.card {
+  margin:15px;
+}
+
+.card-img-top {
+  height: 15rem;
+  object-fit: cover;
+}
+
+.container{
+  padding:20px;
+  max-width:600px;
+}
+
+.input-qty {
+  width: 60px;
+  float: right
+}
+
+.table-cart > tr > td {
+  vertical-align: middle !important;
+}

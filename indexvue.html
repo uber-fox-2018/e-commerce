@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Static e-commerce</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <nav>
+            <div class="nav-wrapper">
+                <div>
+                    <a href="#" data-target="slide-out" class="sidenav-trigger">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <a href="#" class="logo" style="float:left; font-size: 30px">LOGO</a>
+                </div>
+
+                <a class="dropdown-trigger" href="#!" data-target="dropdown1" v-on:mouseover="openDropdown()">Select
+                    <i class="material-icons right">arrow_drop_down</i>
+                </a>
+                <ul id="dropdown1" v-bind:class="{ 'dropdown-content': isContent, isDropOpen: isDropdownOpen }" v-on:mouseout="closeDropdown()">
+                    <div class="opt">
+                        <li>
+                            <a href="#!">Female</a>
+                        </li>
+                        <li>
+                            <a href="#!">Male</a>
+                        </li>
+                    </div>
+                </ul>
+                <form>
+                    <div class="input-field">
+                        <input id="search" type="search" required>
+                        <label class="label-icon" for="search">
+                            <i class="material-icons">search</i>
+                        </label>
+                    </div>
+                </form>
+                <ul id="nav-mobile" class="right on-med-and-down">
+                    <li class="icon-right">
+                        <a class="modal-trigger" href="#modalcart" v-on:click="openCart()">
+                            <i class="material-icons">shopping_cart</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="https://img.purch.com/h/1000/aHR0cDovL3d3dy5zcGFjZS5jb20vaW1hZ2VzL2kvMDAwLzAxMi84NTAvb3JpZ2luYWwvTWFuZ2FpYS1taWxreS13YXkuanBn">
+                    </div>
+                    <a href="#user">
+                        <img class="circle" src="https://i.pinimg.com/originals/c8/a0/c1/c8a0c1bbcde9bea244fb5c729ebb57ee.png">
+                    </a>
+                    <a href="#logout">
+                        <span class="white-text logout">Logout</span>
+                    </a>
+                    <a href="#name">
+                        <span class="white-text name">John Doe</span>
+                    </a>
+                    <a href="#email">
+                        <span class="white-text email">jdandturk@gmail.com</span>
+                    </a>
+                </div>
+            </li>
+            <li>
+                <a href="#!">
+                    <i class="material-icons">cloud</i>First Link With Icon</a>
+            </li>
+            <li>
+                <a href="#!">Second Link</a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li>
+                <a class="subheader">Subheader</a>
+            </li>
+            <li>
+                <a class="waves-effect" href="#!">Third Link With Waves</a>
+            </li>
+        </ul>
+        <div class="container">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aut dolor, vel nulla sint at quae suscipit quo
+                porro quisquam aliquam obcaecati illo sapiente qui dolores, adipisci veritatis maiores minus. Lorem ipsum
+                dolor sit, amet consectetur adipisicing elit. Odit error incidunt maiores numquam dicta nisi tempore. Iure,
+                maiores quia dolor asperiores fugit minus. Hic praesentium magnam vitae assumenda, quo eius?
+            </p>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4 l3" v-for="item in cards">
+                    <div class="card">
+                        <div class="card-image">
+                            <img v-bind:src="item.photo">
+                            <a class="btn-floating halfway-fab waves-effect modal-trigger #607d8b blue-grey" href="#modalbutton" v-on:click="openModal(item)">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <p>{{ item.description }}</p>
+                            <p>{{ putCurrency(item.price) }}</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="#" style="color: darkgrey;" v-on:click="addToCart(item)">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit quos est aperiam vel in sint explicabo, natus
+                ab deleniti a optio numquam unde nam minima, neque voluptatem quod fugiat hic. Lorem ipsum dolor sit amet
+                consectetur, adipisicing elit. Velit accusantium voluptas quidem aliquid ab dolorum inventore, et vero beatae
+                natus fugit cupiditate commodi nemo tenetur laudantium, quod dolore libero? Soluta.
+            </p>
+        </div>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l5 s4">
+                        <h5 class="white-text">Hi!</h5>
+                        <p class="grey-text text-lighten-4">How can we help you today?</p>
+                    </div>
+                    <div class="col l4 offset-l3 s6">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li>
+                                <a class="grey-text text-lighten-3" href="#!">Contact Us</a>
+                            </li>
+                            <li>
+                                <a class="grey-text text-lighten-3" href="#!">FAQ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2018 Copyright
+                    <a class="grey-text text-lighten-4 right" href="#!">
+                        <i class="material-icons">home</i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+        <!-- Modal Structure -->
+        <div id="modalbutton" class="modal">
+            <div class="modal-content">
+                <h4>Buy this item?</h4>
+                <div class="card">
+                    <div class="card-image">
+                        <img v-bind:src="itemInModal.photo">
+                    </div>
+                    <div class="card-content">
+                        <p>{{ itemInModal.description }}</p>
+                        <p>{{ putCurrency(itemInModal.price) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect #607d8b blue-grey btn-flat grey-text text-lighten-4" v-on:click="addToCart(itemInModal)">Ok</a>
+            </div>
+        </div>
+        <div id="modalcart" class="modal">
+            <div class="modal-content">
+                <h4>Buying</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Pic
+                            </th>
+                            <th>
+                                Items
+                            </th>
+                            <th>
+                                Qty
+                            </th>
+                            <th>
+                                Price (per item)
+                            </th>
+                            <th>
+                                Total
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in cart">
+                            <td>
+                                <img class="responsive-img" v-bind:src="item.photo">
+                            </td>
+                            <td>
+                                {{ item.description }}
+                            </td>
+                            <td>
+                                {{ item.qty }}
+                            </td>
+                            <td>
+                                {{ putCurrency(item.price) }}
+                            </td>
+                            <td>
+                                {{putCurrency(item.qty * item.price)}}
+                            </td>
+                            <td>
+                                <button type="submit" class="waves-effect waves-light btn" v-on:click="subtract(index)" v-if="item.qty>0">-</button>
+                                <button type="submit" class="waves-effect waves-light btn" v-on:click="add(index)">+</button>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="modal-footer">
+                    <p><strong>Total:</strong> {{putCurrency(total)}} &nbsp; &nbsp;
+                    <a href="#!" class="modal-close waves-effect #607d8b blue-grey btn-flat grey-text text-lighten-4">Checkout</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                cards: [
+                    { id: 1, photo: 'https://cottonon.com/dw/image/v2/BBDS_PRD/on/demandware.static/-/Sites-catalog-master-women/default/dwd76da9c3/2001752/2001752-15-2.jpg?sw=566&sh=849&sm=fit', description: 'Simple wear', price: 77 },
+                    { id: 2, photo: 'https://cottonon.com/on/demandware.static/-/Sites-catalog-master-women/default/dwa5549bbc/241182/241182-153-2.jpg', description: 'Jeans', price: 50 },
+                    { id: 3, photo: 'https://cottonon.com/on/demandware.static/-/Sites-catalog-master-women/default/dw4b428128/2003318/2003318-31-2.jpg', description: 'Baggy shirt', price: 35 },
+                    { id: 4, photo: 'https://cottonon.com/on/demandware.static/-/Sites-catalog-master-supre/default/dw2a98bfbe/8047687/8047687-17-2.jpg', description: 'Overalls', price: 55 },
+                ],
+                itemInModal: {},
+                cart: [],
+                'dropdown-content': 2,
+                isDropdownOpen: false,
+                isContent: true,
+                total: 0
+            },
+            methods: {
+                openModal: function (item) {
+                    this.itemInModal = { id: item.id, photo: item.photo, description: item.description, price: item.price }
+                    // this.itemInModal.photo = item.photo
+                    // this.itemInModal.description = item.description
+                    // this.itemInModal.price = item.price
+                },
+
+                openCart: function () {
+                },
+
+                addToCart: function (item) {
+                    let obj = item
+                    // alert(JSON.stringify(item))
+                    let exist = false
+                    this.cart.forEach(element => {
+                        if (element.id === item.id) {
+                            element.qty += 1
+                            this.total += obj.price
+                            exist = true
+                        }
+                    })
+
+                    if (exist == false) {
+                        obj.qty = 1
+                        this.cart.push(obj)
+                        this.total += obj.price
+                    } else {
+                        this.cart = this.cart.slice(0)
+                    }
+
+                    alert(`"${obj.description}" added to cart`);
+
+                },
+                openDropdown: function () {
+                    this.isDropdownOpen = true
+                },
+                closeDropdown: function () {
+                    this.isDropdownOpen = false
+                },
+                add: function (index) {
+                    this.cart[index].qty += 1;
+                    this.total += this.cart[index].price
+                    this.cart = this.cart.slice(0)
+                    // alert(this.cart[index].qty)
+                },
+                subtract: function (index) {
+                    this.cart[index].qty -= 1;
+                    this.total -= this.cart[index].price
+                    this.cart = this.cart.slice(0)
+                    // alert(this.cart[index].qty)
+                },
+
+
+            },
+            computed: {
+                putCurrency: function () {
+                    return function (price) {
+                        return '$' + price
+                    }
+
+                }
+            }
+        })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+
+        // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+        // var collapsibleElem = document.querySelector('.collapsible');
+        // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+
+        // Or with jQuery
+
+        $(document).ready(function () {
+            $('.sidenav').sidenav();
+            $('.modal').modal();
+            // $(".dropdown-trigger").dropdown();
+        });
+
+
+
+    </script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+</body>
+
+</html>

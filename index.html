@@ -101,6 +101,56 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" id="modalTempCart" tabindex="-1" role="dialog" aria-labelledby="modalTemp" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-info" id="modalTemp">Buy Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Model</th>
+                      <th>Grade</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center" rowspan="2"><img v-bind:src=tempCartItem.img width="150" height="150" v-bind:alt=tempCartItem.name><br>{{tempCartItem.name}}</td>
+                      <td>{{tempCartItem.grade}} Grade</td>
+                      <td>{{tempCartItem.price}}</td>
+                      <td>
+                        <div class="form-group">
+                          <div class="col-5">
+                            <input class="form-control" type="number" max="1000" v-model="tempCartItem.quantity">
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary">Add To Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
   
     <div class="container">
       <br><br>
@@ -155,7 +205,7 @@
               <div class="card-body text-center">
                 <p><large><strong>{{item.name}}</strong></large></p>
                 <p><medium>Stock: {{item.stock}}</medium></p>
-                <button class="btn btn-success mr-2" v-on:click="addToCart(item)"> Add To Cart </button>
+                <button class="btn btn-success mr-2" data-toggle="modal" data-target="#modalTempCart"> <i class="fa fa-shopping-cart" v-on:click="addTempCart(item)"></i> Add To Cart </button>
               </div>
             </div>
           </div>
@@ -236,6 +286,7 @@
         }
       ],
       cartItems: [],
+      tempCartItem: {},
       isLoggedIn: false || localStorage.getItem('token')
     },
     methods: {
@@ -247,6 +298,8 @@
           quantity: 1,
           price: item.price
         }
+
+        console.log('masuk');
 
         let isAlreadyIn = false;
         this.cartItems.forEach( cartItem => {
@@ -261,6 +314,10 @@
           this.cartItems.push(newItem)
         }
       },
+      addTempCart: function (item) {
+        console.log('masuk');
+        this.tempCartItem = item
+      },
       totalQuantity: function () {
         return this.cartItems.reduce(function (acc,cur) {
           return acc + cur.quantity
@@ -268,7 +325,9 @@
       }
     },
     computed: {
-      
+      convertPrice: function (price) {
+        return 
+      }
     },
     watch: {}
   })

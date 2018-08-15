@@ -32,10 +32,19 @@
 </head>
 
 <body>
+  <script src="./js/food-list-card.js"></script>
+  <script src="./js/foods-management.js"></script>
   <div id="app">
 
     <nav class="navbar navbar-expand-sm navbar-expand-lg navbar-expand-md navbar-expand-xl navbar-dark bg-dark fixed-top row"
       style="opacity: 0.8;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class=" collapse navbar-collapse" id="navbarSupportedContent">
+
+      </div>
       <div class="container col-5 col-md-4 col-sm-5 col-lg-4 col-xl-3">
         <img src="http://www.joinecom.com/wp-content/uploads/2015/04/cropped-join-logo21.png" style="height: 50%; width: 50%;" alt="logo">
         <ul class="navbar-nav">
@@ -199,7 +208,9 @@
                       <td>{{ convertMoney(totalPrice(cart.price, cart.qty)) }}</td>
                       <td>{{ cart.qty }}</td>
                       <td>{{ cart.notes }}</td>
-                      <button v-on:click="removeItem(index)"><i class="fas fa-times-circle">remove</i></button>
+                      <button v-on:click="removeItem(index)">
+                        <i class="fas fa-times-circle">remove</i>
+                      </button>
                     </tbody>
                   </table>
                   <!-- <textarea class="form-control" id="password-text"></textarea> -->
@@ -246,7 +257,7 @@
                   <td>{{ convertMoney(totalPrice(itemBuy.price)) }}</td>
                   <td>
                     <i class="fas fa-minus-circle"></i>
-                    <input v-model="buyQty" type="number" name="qty" style="text-align: center" placeholder="qty">
+                    <input v-model="buyQty" type="number" name="qty" style="text-align: center" placeholder="qty" min="0">
                     <i class="fas fa-plus-circle"></i>
                   </td>
                 </tbody>
@@ -340,10 +351,11 @@
     </div>
 
 
-    <h2 class="mt-2 mx-5" style="color: grey">Foods</h2>
-    <hr class="bg-dark mt-2 mx-5" id="foods">
+    <!-- <h2 class="mt-2 mx-5" style="color: grey">Foods</h2>
+    <hr class="bg-dark mt-2 mx-5" id="foods"> -->
     <div id="containerFoods">
-      <div id="container-cards" class="row">
+      <foods-management></foods-management>
+      <!-- <div id="container-cards" class="row">
         <div v-for="food in foods" id="container-foods-cards" class="mt-2 mx-5 col-md-3">
           <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
             <div class="card-header col-md-12 mx-auto">
@@ -352,17 +364,30 @@
             <div class="card-body text-dark col-md-12">
               <img class="card-image-center mx-auto" v-bind:src="food.img" alt="" style="height: 200px; width: 250px;">
               <p class="card-text">Price: {{ convertMoney(food.price) }}</p>
-              <p class="card-text">Qty Left: {{ food.qty }}</p>
+              <div v-if="food.qty === 0">
+                <p class="card-text">Qty Left: Empty Stock</p>
+              </div>
+              <div v-else>
+                <p class="card-text">Qty Left: {{ food.qty }}</p>
+              </div>
               <p class="card-text"></p>{{food.description}}
               <br>
-              <button v-on:click="buyItem(food)" id="food.id" value="food.id" class="btn btn-outline-primary my-2 my-sm-0" type="button"
-                data-toggle="modal" data-target="#modalBuyItems">
-                Buy
-              </button>
+              <div v-if="food.qty">
+                <button v-on:click="buyItem(food)" id="food.id" value="food.id" class="btn btn-outline-primary my-2 my-sm-0" type="button"
+                  data-toggle="modal" data-target="#modalBuyItems">
+                  Buy
+                </button>
+              </div>
+              <div v-else>
+                <button v-on:click="buyItem(food)" id="food.id" value="food.id" class="btn btn-outline-primary my-2 my-sm-0 disabled" type="button"
+                  data-toggle="modal">
+                  Buy
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <h2 class="mt-2 mx-5" style="color: grey">Drinks</h2>
     <hr class="bg-dark mt-2 mx-5" id="drinks">
@@ -389,6 +414,7 @@
       </div>
     </div>
   </div>
+  <!-- <script src="./js/root.js"></script> -->
   <script src="./js/vue.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -396,6 +422,9 @@
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+  <script>
+    // import foodsmanagement from './js/foods-management.js'
+  </script>
 </body>
 
 </html>

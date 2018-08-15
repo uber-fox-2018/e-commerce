@@ -45,9 +45,20 @@ new Vue({
                 img: "https://www.satubaju.com/img/editor/img_iscums/248/2113248_m.jpg"
             }
         ],
-        carts: {
-            
-        }
+        carts: [],
+        totalPrice: 0,
+        myTrolly: localStorage.getItem('carts')
+    },
+    watch: {
+        carts : function() {
+            console.log(this.carts)
+            if ( localStorage.getItem('carts') ) {
+                localStorage.removeItem('carts')
+                localStorage.setItem('carts', JSON.stringify(this.carts))
+            } else{
+                localStorage.setItem('carts', JSON.stringify(this.carts))
+            }
+        }   
     },
     methods: {
         addCart: function(id) {
@@ -57,10 +68,35 @@ new Vue({
                     idxItem = idx
                 }
             });
+            // decrement stock
             this.products[idxItem].stock -= 1
+
+            // object new trolly
+            let objTroly = {
+                id: this.products[idxItem].id,
+                name: this.products[idxItem].name,
+                total: 1,
+                price: this.products[idxItem].price
+            }
+
+            // total price             
+            this.totalPrice += this.products[idxItem].price
+
+            // add cart
+            let ada = false
+            this.carts.forEach( e => {
+                if(e.id == this.products[idxItem].id) {
+                    ada = true
+                    e.total += 1
+                }
+            } )
+
+            if(!ada) {
+                this.carts.push(objTroly)
+            } else {
+                this.carts = this.carts.slice(0)
+            }
+            
         }
-    }, 
-    watch: function() {
-        
     }
 })

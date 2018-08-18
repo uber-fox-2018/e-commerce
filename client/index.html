@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -16,10 +17,9 @@
     <div id="main">
         <navbar></navbar>
         <modal></modal>
-        <list-item v-bind:items="items" v-on:item-edit="getDataEdit"></list-item>
+        <list-item v-bind:items="items" v-on:item-edit="getDataEdit" v-on:item-cart="getItem"></list-item>
         <modal-edit v-bind:edit="edit"></modal-edit>
-     
-     
+        <modal-cart v-bind:cart="cart"></modal-cart>
      
     </div>
  
@@ -27,29 +27,38 @@
     <script src="./component/navbar.js"></script>
     <script src="./component/listitem.js"></script>
     <script src="./component/modal.js"></script>
-    <script src="./component/modalEdit.js"></script>
+    <script src="./component/modalEdit.js"></script>    
+    <script src="./component/modalCart.js"></script>
     <script>
             var app = new Vue({
                 el: '#main',
                 data : {
                     items : [],
-                    edit : null
+                    edit : null,
+                    cart : [],
+                    tes : 'asd'
                 },
                 methods :{
                     allItem(){
                         axios.get('http://localhost:3000/item/listitem')
                         .then(data=>{
-                            // console.log(data)
                             this.items = data.data
                         })
                     },
                     getDataEdit(data){
-                        // console.log(data.name)
                         this.edit = data
+                    },
+                    getItem(index){
+                        let item = this.items[index]
+                        this.cart.push({
+                            name : item.name,
+                            price : item.price
+                        })
                     }
                 },
                 mounted (){
                     this.allItem()
+                    this.getItem()
                 }
             })
     </script>

@@ -15,12 +15,17 @@ Vue.component('list-item',{
                 </center>
                     <div class="container">  
                         <div class="row" style="margin-top:10px">
-                            <div class="col-md-6">
+                        <div class="col-md-4">
+                        <a href="#" class="btn btn-outline-dark" v-on:click="addToCart(index)"><i class="fas fa-plus-circle"></i></a>
+                        </div>
+                            <div class="col-md-4">
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalEdit" v-on:click="editItem(item)">Edit</a>
                             </div>
-                            <div class="col-md-6">
+                            
+                            <div class="col-md-4">
                             <a href="#" class="btn btn-danger" v-on:click="deleteItem(item._id)">Delete</a>
                             </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -33,11 +38,9 @@ Vue.component('list-item',{
     props :['items'],
     methods :{
         editItem(data){
-            // console.log(data)
             this.$emit('item-edit',data)
         },
         deleteItem(id){
-            console.log(id);
             axios.delete(`http://localhost:3000/item/delete/${id}`)
             .then(data=>{
                 window.location ="http://localhost:8080"
@@ -46,6 +49,9 @@ Vue.component('list-item',{
                 console.log(err);
                 
             })
+        },
+        addToCart(index){
+            this.$emit('item-cart',index)
         }
     }
 })

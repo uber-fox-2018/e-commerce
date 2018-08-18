@@ -33,6 +33,7 @@ Vue.component('navbar',{
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
+      <a class="nav-link active" href="#" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart fa-2x"></i></a>
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>

@@ -2,11 +2,8 @@
 const express = require('express'),
       router = express.Router(),
       images = require('../helpers/images')
-const {uploadProduct, getAllProduct} = require('../controllers/productController')
+const {uploadProduct, getAllProduct, deleteProduct, editProduct} = require('../controllers/productController')
 
-router.get('/', (req, res, next) => {
-  res.send({ message: 'Hi, Setia' })
-})
 router.post('/upload',
   images.multer.single('image'), 
   images.sendUploadToGCS,
@@ -19,6 +16,9 @@ router.post('/upload',
   })
 
 router.post('/uploadProduct', uploadProduct)
-router.get('/products', getAllProduct)
+router.get('/', getAllProduct)
+router.delete('/delete/:id', deleteProduct)
+router.put('/edit/:id', editProduct)
+
 
 module.exports = router

@@ -63,16 +63,17 @@ export default new Vuex.Store({
     uploadToGcp (context, payload) {
       let formData = new FormData()
       formData.append('image', this.state.url)
-      axios.post('http://localhost:3000/upload', formData)
+      axios.post('http://localhost:3000/products/upload', formData)
         .then(result => {
-          axios.post('http://localhost:3000/uploadProduct', {
+          axios.post('http://localhost:3000/products/uploadProduct', {
             name: payload.name,
             category: payload.category,
             price: payload.price,
             imgUrl: result.data.link
           })
             .then(newProduct => {
-              console.log('Successfully add new product')
+              alert('Successfully add new product')
+              router.push('/upload')
             })
             .catch(err => {
               console.log(err)
@@ -130,6 +131,30 @@ export default new Vuex.Store({
       this.state.seen = true
       localStorage.clear()
       router.push('/')
+    },
+    deleteProduct (context, payload) {
+      axios.delete(`http://localhost:3000/products/delete/${payload}`)
+        .then(delProduct => {
+          alert('Deleted!')
+          router.push('/upload')
+        })
+        .catch(err => {
+          alert(err.message)
+        })
+    },
+    edit (context, payload) {
+      axios.put(`http://localhost:3000/products/edit/${payload.id}`, {
+        name: payload.name,
+        price: payload.price,
+        category: payload.newCategory,
+        imgUrl: payload.imgUrl
+      })
+        .then(updatePro => {
+          alert('Edited!')
+        })
+        .catch(err => {
+          alert(err.message)
+        })
     }
   }
 })

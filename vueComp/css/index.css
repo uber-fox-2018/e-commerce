@@ -1,0 +1,67 @@
+#header {
+    background: grey;
+}
+
+h1,
+#cart,
+.title,
+.search,
+.button-nav {
+    margin: 0%;
+    line-height: 50px;
+}
+
+h1#brand {
+    margin-left: 3%;
+    margin-top: 1%;
+}
+
+.nav-item:hover {
+    background-color:grey;
+    color: white;
+}
+
+.nav-item {
+    font-weight: bold
+}
+
+.items {
+    background: grey;
+    margin: 0%
+}
+
+#tableid {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#tableid td,
+#tableid th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tableid tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#tableid tr:hover {
+    background-color: #ddd;
+}
+
+#tableid th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.message-warning{
+    color: red
+}
+
+.footer-text{
+    margin: 15px
+}

@@ -128,9 +128,9 @@ let app = new Vue({
       return price
     },
     // ================================= MOVE TO COMPONENT ===============================
-    convertMoney: function (price) {
-      return `Rp. ${price.toLocaleString()}`
-    },
+    // convertMoney: function (price) {
+    //   return `Rp. ${price.toLocaleString()}`
+    // },
     removeItem: function (idx) {
       this.carts.splice(idx, 1)
     },

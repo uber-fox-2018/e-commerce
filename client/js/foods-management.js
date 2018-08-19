@@ -3,7 +3,7 @@ Vue.component('foods-management', {
     <div>
       <h2 class="mt-2 mx-5" style="color: grey">Foods</h2>
       <hr class="bg-dark mt-2 mx-5" id="foods">
-      <food-list-card :attributes="attributes"  :foods="data"> </food-list-card>
+      <food-list-card :foods="data"> </food-list-card>
     </div>
     `,
   components: {
@@ -39,13 +39,7 @@ Vue.component('foods-management', {
           qty: 13,
           img: 'http://www.damniloveindonesia.com/image/catalog/explore_indonesia/Artikel/Taste/bubur/bubur_opening.jpg'
         }
-      ],
-      attributes: {
-        carts: [],
-        itemBuy: '',
-        buyQty: 0,
-        notes: '',
-      }
+      ]
     }
   },
   methods: {

@@ -18,26 +18,50 @@ Vue.component('food-list-card', {
             <p class="card-text"></p>{{ food.description }}
             <br>
             <div v-if="food.qty">
-              <button v-on:click="buyItem(food)" id="food.id" value="food.id" class="btn btn-outline-primary my-2 my-sm-0" type="button"
-                data-toggle="modal" data-target="#modalBuyItems">
+              <button v-on:click="buyItem(food)" class="btn btn-outline-primary my-2 my-sm-0" type="button"
+                data-toggle="modal" data-target="#modalBuyItems" @click="openModal(food)">
                 Buy
               </button>
             </div>
             <div v-else>
-              <button v-on:click="buyItem(food)" id="food.id" value="food.id" class="btn btn-outline-primary my-2 my-sm-0 disabled" type="button"
+              <button v-on:click="buyItem(food)" class="btn btn-outline-primary my-2 my-sm-0 disabled" type="button"
                 data-toggle="modal">
                 Buy
               </button>
             </div>
           </div>
         </div>
-      </div>
+        </div>
+       <!-- <div class="modal fade" id="modalBuyItems" tabindex="-1" role="dialog" aria-labelledby="modalBuyItemsLabel" aria-hidden="true">
+          <modal-items :modalItem="modalState"></modal-items> -->
+        </div>
     </div>
   `,
-  props: ['foods', 'attributes'],
+  data: function() {
+    return {
+      modalState: '',
+      itemBuy: '',
+    }
+  },
+  props: ['foods'],
   methods: {
     convertMoney: function (price) {
       return `Rp. ${price.toLocaleString()}`
+    },
+    openModal: function(food) {
+      this.modalState = food
+    },
+    buyItem: function (item) {
+      this.notes = ''
+      this.buyQty = 0
+      let addItem = {
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        img: item.img,
+        category: item.category
+      }
+      this.itemBuy = addItem
     },
   }
 })

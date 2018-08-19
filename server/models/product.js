@@ -17,8 +17,8 @@ const productSchema = new Schema ({
     type : Number,
     required : true
   },
-  stock : {
-    type : Number
+  category : {
+    type : Schema.Types.ObjectId
   }
 }, {
   timestamps : true

@@ -13,7 +13,7 @@ const orderSchema = new Schema({
     ref : "Product"
   }],
   status: {
-    type : string,
+    type : String,
     required : true,
     default : "open"
   }

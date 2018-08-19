@@ -40,11 +40,11 @@ class OrderController {
               })
           }
         })
-        .catch (err) {
+        .catch (err => {
           res.status(500)
             .json({message : "error find order list"})
-        }
-    } catch (err) {
+        })
+    } catch (err)  {
       res.status(500)
         .json({ message: "token wrong" })
     }
@@ -76,10 +76,10 @@ class OrderController {
                .json({message : "order not found"})
           }
         })
-        .catch (err) {
+        .catch (err => {
            res.json(500)
             .json ({message : "error find order"})
-        }
+        })
     } catch (err) {
       res.status(500)
         .json({ message: "token wrong" })
@@ -109,10 +109,10 @@ class OrderController {
                .json({message : "order not found"})
           }
         })
-        .catch (err) {
+        .catch (err => {
            res.json(500)
             .json ({message : "error find order"})
-        }
+        })
   }
 
   static showPendingOrders (req,res) {
@@ -128,10 +128,10 @@ class OrderController {
           res.status(200)
           .json({message : "successfully get pending orders", data : orders})
         })
-        .catch (err) {
+        .catch (err => {
            res.json(500)
             .json ({message : "error find order"})
-        }
+        })
     } catch (err) {
       res.status(500)
         .json({ message: "token wrong" })
@@ -151,10 +151,10 @@ class OrderController {
           res.status(200)
           .json({message : "successfully get complete orders", data : orders})
         })
-        .catch (err) {
+        .catch (err => {
            res.json(500)
             .json ({message : "error find order"})
-        }
+        })
     } catch (err) {
       res.status(500)
         .json({ message: "token wrong" })

@@ -5,6 +5,6 @@ const { userAuth } = require('../middlewares/auth')
 
 router.post('/', userAuth, Category.addCategory)
 router.delete('/:id', userAuth, Category.removeCategory)
-router.get('/', userAuth, Category.showCategory)
+router.get('/', Category.showCategory)
 
 module.exports = router;

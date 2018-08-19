@@ -2,7 +2,7 @@
 const express = require('express'),
       router = express.Router(),
       images = require('../helpers/images')
-const {uploadProduct, getAllProduct, deleteProduct, editProduct} = require('../controllers/productController')
+const {uploadProduct, getAllProduct, deleteProduct, editProduct, getByCategory, getBySearch} = require('../controllers/productController')
 
 router.post('/upload',
   images.multer.single('image'), 
@@ -19,6 +19,7 @@ router.post('/uploadProduct', uploadProduct)
 router.get('/', getAllProduct)
 router.delete('/delete/:id', deleteProduct)
 router.put('/edit/:id', editProduct)
-
+router.get('/category', getByCategory)
+router.get('/search', getBySearch)
 
 module.exports = router

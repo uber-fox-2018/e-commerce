@@ -1,7 +1,26 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row" v-if="show">
       <div class="col-md-3" v-for="(product,index) in allProducts" v-bind:key=index>
+        <div class="card-deck">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" v-bind:src="product.imgUrl" alt="Card image cap" id="imgId">
+            <div class="card-body">
+              <h5 class="card-title">Rp. {{product.price}}</h5>
+              <p class="card-text">{{product.name}}</p>
+              <div style="float: right;">
+                <i class="fas fa-minus-square" @click="decrease(product)"></i>
+                <i style="margin: 10px;">{{product.qty}}</i>
+                <i class="fas fa-plus-square mr-2" @click="increase(product)"></i>
+                <i class="fas fa-shopping-cart" @click="addCart(product)"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" v-else>
+      <div class="col-md-3" v-for="(product,index) in productsCategory" v-bind:key=index>
         <div class="card-deck">
           <div class="card" style="width: 18rem;">
             <img class="card-img-top" v-bind:src="product.imgUrl" alt="Card image cap" id="imgId">
@@ -28,7 +47,7 @@ export default {
   name: 'product',
   computed: {
     ...mapState([
-      'allProducts'
+      'allProducts', 'show', 'productsCategory'
     ])
   },
   methods: {

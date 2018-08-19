@@ -47,6 +47,30 @@ class ProductController {
       res.status(400).json(err.message)
     })
   }
+
+  static getByCategory(req, res) {
+    Product.find({category: req.query.q})
+    .then(products => {
+      res.status(201).json(products)
+    })
+    .catch(err => {
+      res.status(400).json(err.message)
+    })
+  }
+
+  static getBySearch(req, res) {
+    Product.find({
+      $or: [{name: new RegExp(req.query.q, 'i')},
+            {category: new RegExp(req.query.q, 'i')},
+            ]
+    })
+    .then(products => {
+      res.status(201).json(products)
+    })
+    .catch(err => {
+      res.status(400).json(err.message)
+    })
+  }
 }
 
 module.exports = ProductController

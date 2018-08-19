@@ -39,7 +39,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btnCheckout">Checkout</button>
+                <button type="button" class="btn btn-primary" id="btnCheckout" @click="checkout">Checkout</button>
             </div>
             </div>
         </div>
@@ -47,13 +47,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'forModal',
   computed: {
     ...mapState([
       'shopCart', 'totalQty', 'totalPrice'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'checkout'
     ])
   }
 }

@@ -12,7 +12,9 @@ export default new Vuex.Store({
     totalQty: 0,
     totalPrice: 0,
     seen: true,
-    allProducts: []
+    allProducts: [],
+    productsCategory: '',
+    show: true
   },
   mutations: {
     forSeen (state, payload) {
@@ -24,6 +26,7 @@ export default new Vuex.Store({
       axios.get('http://localhost:3000/products')
         .then(products => {
           this.state.allProducts = products.data
+          this.state.productsCategory = ''
         })
         .catch(err => {
           console.log(err)
@@ -155,6 +158,31 @@ export default new Vuex.Store({
         .catch(err => {
           alert(err.message)
         })
+    },
+    filterByCategory (context, payload) {
+      axios.get(`http://localhost:3000/products/category?q=${payload}`)
+        .then(products => {
+          this.state.productsCategory = products.data
+          this.state.show = false
+        })
+        .catch(err => {
+          alert(err.message)
+        })
+    },
+    search (context, payload) {
+      console.log('---', payload)
+      axios.get(`http://localhost:3000/products/search?q=${payload}`)
+        .then(products => {
+          this.state.productsCategory = ''
+          this.state.productsCategory = products.data
+          this.state.show = false
+        })
+        .catch(err => {
+          alert(err.message)
+        })
+    },
+    checkout (context, payload) {
+      router.push('/checkout')
     }
   }
 })

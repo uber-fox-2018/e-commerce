@@ -14,15 +14,15 @@
                 Category
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Party</a>
-                <a class="dropdown-item" href="#">Formal</a>
-                <a class="dropdown-item" href="#">Occasion</a>
+                <a class="dropdown-item" href="#" @click="filterByCategory('Party')">Party</a>
+                <a class="dropdown-item" href="#" @click="filterByCategory('Formal')">Formal</a>
+                <a class="dropdown-item" href="#" @click="filterByCategory('Occasion')">Occasion</a>
               </div>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" v-model="searchBy" v-on:keyup.enter="search(`${searchBy}`)" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" @click="search(`${searchBy}`)">Search</button>
             <div v-if="seen">
               <button class="btn my-2 my-sm-0" type="submit" @click="toLoginForm">Login</button>
               <button class="btn my-2 my-sm-0 mr-2" type="submit" @click="toRegisterForm">Register</button>
@@ -40,6 +40,11 @@
 import {mapState, mapActions} from 'vuex'
 export default {
   name: 'forNavbar',
+  data () {
+    return {
+      searchBy: ''
+    }
+  },
   computed: {
     ...mapState([
       'shopCart'
@@ -55,7 +60,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'toLoginForm', 'toRegisterForm', 'logout'
+      'toLoginForm', 'toRegisterForm', 'logout', 'filterByCategory', 'search'
     ])
   }
 }

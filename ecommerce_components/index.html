@@ -25,6 +25,7 @@
   <link rel="icon" href="./images/logo/paluguada.png">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
   <div id="app">
     <cart-component></cart-component>
@@ -32,7 +33,7 @@
     <top-carousel-component></top-carousel-component>
     <mid-carousel-component></mid-carousel-component>
     <footer-component></footer-component>
-    
+
   </div>
 </body>
 
@@ -48,51 +49,8 @@
 <script src="./js/index.js"></script>
 
 <script>
-  var app = new Vue({
+  new Vue({
     el: '#app',
-    data: {
-      isLogin: localStorage.getItem('token') || false.isLogin,
-
-    },
-    methods: {
-      addProduct: function () {
-        this.products.push(this.newProduct)
-      },
-
-      login: function () {
-        this.isLogin = true
-      },
-
-      logout: function () {
-        this.isLogin = false
-      },
-
-      subTotal : function(item){
-          return item.price * item.qty
-      },
-
-
-      addItem : function(index){
-       console.log(this.cart)
-      },
-
-      removeItem : function(index){
-        this.cart.splice(index, 1)
-      }
-
-    },
-
-
-    computed: {
-      totalPrice: function () {
-        var total = this.cart.reduce(function(akumulator, product) {
-                return akumulator + (product.price * product.qty);
-                }, 0);
-       return total
-      }
-      
-    }
-
   })
 </script>
 

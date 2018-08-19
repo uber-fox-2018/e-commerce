@@ -4,6 +4,10 @@
 /* Animation.css*/
 @import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css);
 
+figure.card.card-product{
+    max-width: 349.98px;
+    max-height: 431.48px;
+}
 .navbar-brand {
     font-family: Merienda, cursive;
 }

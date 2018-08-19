@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Merienda');
+/* font Awesome http://fontawesome.io*/
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+/* Animation.css*/
+@import url(https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css);
+
+figure.card.card-product{
+    max-width: 349.98px;
+    max-height: 431.48px;
+}
+.navbar-brand {
+    font-family: Merienda, cursive;
+}
+
+.navbar-default {
+    background-color: rgb(204, 224, 255);
+    
+}
+
+.img-wrap img{
+    width:300px; /* you can use % */
+    height: 300px;
+}
+
+/* MODAL */
+.product_view .modal-dialog{
+    max-width: 800px; 
+    width: 100%;
+
+}
+
+.pre-cost{
+    text-decoration: line-through; 
+    color: #a5a5a5;
+}
+
+.space-ten{
+    padding: 10px 0;
+}
+
+.img-responsive {
+    width: 100%;
+    height: auto;
+}
+
+/* CART MODALS STARTS */
+div.modal-content {
+    width: 800px;
+    height: auto;
+}
+.param {
+    margin-bottom: 7px;
+    line-height: 1.4;
+}
+.param-inline dt {
+    display: inline-block;
+}
+.param dt {
+    margin: 0;
+    margin-right: 7px;
+    font-weight: 600;
+}
+.param-inline dd {
+    vertical-align: baseline;
+    display: inline-block;
+}
+
+.param dd {
+    margin: 0;
+    vertical-align: baseline;
+} 
+
+.shopping-cart-wrap .price {
+    color: #007bff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 5px;
+    display: block;
+}
+var {
+    font-style: normal;
+}
+
+.media img {
+    margin-right: 1rem;
+}
+.img-sm {
+    width: 90px;
+    max-height: 75px;
+    object-fit: cover;
+}
+
+figcaption.media-body {
+    width: 150px; 
+    
+}
+
+/* CART MODALS ENDS */
+

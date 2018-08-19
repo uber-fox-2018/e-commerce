@@ -122,16 +122,11 @@ Vue.component("nav-component", {
     `,
 
 	data() {
-		return {
-			data: [
-				{
-				
-				}
-			]
-		};
-	},
+		return{
 
+    }
+	},
 	methods: {
-	
+		
 	}
 });

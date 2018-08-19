@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "name": "Aceh Gayo Atu Lintang 200g Kopi Arabica",
+        "price": 65000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/5b5946dee58cf067225379.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Aceh Gayo Honey Process 200g Kopi Arabica",
+        "price": 80000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/5b59502f3d537382535853.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Brazil Fazenda El Progresso 200g Kopi Arabica",
+        "price": 105000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/56b1b6baece95.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Mandheling Honey Process 500g Kopi Arabica",
+        "price": 180000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/57ca4334047fc.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Java Sukawangi Honey Process 500g Kopi Arabica",
+        "price": 215000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/5b6a9892b116d071939359.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Drip Coffee 10g Arabica Aceh Gayo Atu Lintang (4 Sachet)",
+        "price": 45000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/5969a0d9665c2467013262.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Drip Coffee 10g Arabica Bali Kintamani (4 Sachet)",
+        "price": 42000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/5971d00d35e53421906804.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Green Bean Kopi Arabica Aceh Gayo Atu Lintang - 1 Kg",
+        "price": 145000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/56499aafaa22e.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Green Bean Kopi Arabica Toraja Sapan - 1 Kg",
+        "price": 165000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/56499863a30f9.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Green Bean Kopi Arabica Mandheling Honey Process - 1 Kg",
+        "price": 200000,
+        "img_url": "https://s-ecom.ottenstatic.com/original/58106e1cc4661.jpg"
+    }
+]

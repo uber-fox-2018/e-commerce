@@ -1,0 +1,158 @@
+header {
+  padding: 154px 0 100px;
+}
+
+@media (min-width: 992px) {
+  header {
+    padding: 156 0 100px;
+  }
+  nav a {
+    font-size: 16px;
+  }
+  .modal-dialog {
+    max-width: 800px;
+  }
+}
+
+@media (max-width: 600px) {
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+    /* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: relative;
+		/* Top/left values mimic padding */
+		padding-right: 10px;
+    white-space: nowrap;
+    font-weight: 600;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Remove"; }
+	td:nth-of-type(2):before { content: "No."; }
+	td:nth-of-type(3):before { content: "Image"; }
+	td:nth-of-type(4):before { content: "Product"; }
+	td:nth-of-type(5):before { content: "Quantity"; }
+	td:nth-of-type(6):before { content: "Subtotal"; }
+}
+
+section {
+  padding: 25px 0;
+}
+
+.card-deck {
+  justify-content: row
+}
+
+.card {
+  min-width: 200px;
+  max-width: 255px;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+}
+
+.info-list li {
+  margin: 1.3em;
+}
+
+.info-list li:before {
+  display: inline-block;
+  margin-left: -1.3em;
+  width: 1.3em;
+  margin-right: 5px;
+}
+
+.info-list-connect li:before {
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff;
+}
+
+footer {
+ padding: 12px 0; 
+}
+
+.connect-item-facebook:before {
+  content: "\f39e"; /* FontAwesome Unicode */
+  font-family: "Font Awesome 5 Brands";
+  background-color: #3b5998;
+}
+
+.connect-item-instagram:before {
+  content: "\f16d"; /* FontAwesome Unicode */
+  font-family: "Font Awesome 5 Brands";
+  background-color: #e4405f;
+}
+
+.info-list-contact li:before {
+  font-size: 23px;
+}
+
+.connect-item-line:before {
+  content: "\f3c0"; /* FontAwesome Unicode */
+  font-family: "Font Awesome 5 Brands";
+  background-color: #00c300;
+}
+
+.contact-item-address:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f3c5";
+}
+
+.contact-item-phone:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f095";
+}
+
+.contact-item-email:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f0e0";
+}
+
+/* 
+#header {
+  display: block;
+  position: relative;
+}
+
+#header::after {
+  background: url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6b9a4a76f7ed6634baffd807966f0ca8&auto=format&fit=crop&w=956&q=80);
+  content: "";
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+} */
+

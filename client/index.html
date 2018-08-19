@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Javana</title>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" id="top-nav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">JAVASIP</a>
+                <div class="d-flex flex-row flex-wrap">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    Category
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a v-for="category in categories" class="dropdown-item" href="#">{{category}}</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="javascript:void()" data-toggle="modal" data-target="#cart-modal">
+                                <i class="fa fa-lg" v-bind:class="[ hasItems ? 'fa-cart-arrow-down':'fa-shopping-cart' ]"></i>
+                                CART
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#about">
+                                <i class="fa fa-sign-in-alt fa-lg"></i>
+                                SIGN IN
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="bg-primary text-white">
+            <div class="container text-center">
+                <h1 class="header-title">Javasip Coffee</h1>
+                <h2>Online Shop</h2>
+            </div>
+        </header>
+        </nav>
+        <section>
+            <div class="container">
+                <div class="card-deck">
+                    <div class="card mb-3" v-for="product in products">
+                        <img class="card-img-top" v-bind:src="product.img_url" v.bind:alt="product.name">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ toIdr(product.price) }}</p>
+                            <p>
+                                <button class="btn btn-success" data-toggle="modal" data-target="#detail-modal" v-on:click="selectItem(product)">
+                                    <i class="fa fa-dollar-sign"></i>
+                                    Buy
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bg-light">
+            <div class="container">
+                <div class="d-flex flex-row justify-content-around">
+                    <div>
+                        <h5>Connect with us</h5>
+                        <ul class="info-list info-list-connect">
+                            <li class="connect-item-facebook">Java Sip Coffee</li>
+                            <li class="connect-item-instagram">javasipcoffee</li>
+                            <li class="connect-item-line">@javasipcoffee</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5>Contact us</h5>
+                        <ul class="info-list info-list-contact">
+                            <li class="contact-item-address">Kebayoran Baru, Kota Jakarta Selatan, Jakarta 12110</li>
+                            <li class="contact-item-phone">+628134129876</li>
+                            <li class="contact-item-email">javasipcoffee@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="bg-dark text-white">
+            <div class="container">
+                <div class="d-flex justify-content-around align-center">
+                    <span> Java Sip Coffee &copy; 2018</span>
+                </div>
+            </div>
+        </footer>
+
+        <div class="modal fade" id="cart-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Shopping Cart</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <th></th>
+                                <th>No.</th>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Qty</th>
+                                <th>Subtotal</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item, index) in cart.items">
+                                    <td>
+                                        <button class="btn btn-link" v-on:click="removeFromCart(index)">
+                                            <i class="fa fa-minus-circle text-danger"></i>
+                                        </button>
+                                    </td>
+                                    <td>{{ index+1 }}</td>
+                                    <td><img v-bind:src="item.img_url" alt="item.name" style="max-width:50px;max-height:50px;"></td>
+                                    <td>{{ item.name }}</td>
+                                    <td><input type="number" min="1" max="100" v-model="item.qty"></td>
+                                    <td>{{ toIdr(subtotalPrice(item)) }}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="5" class="text-right">Total price</th>
+                                    <th>{{ toIdr(totalPrice) }}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+                        <button type="button" class="btn btn-primary">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="detail-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title font-weight-bold">{{selectedItem.name}}</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="d-flex flex-row flex-wrap border-bottom m-2">
+                            <div class="m-2">
+                                <img v-bind:src="selectedItem.img_url" style="max-width: 275px; max-height: 275px; border:1px solid #ccc">
+                            </div>
+                            <div class="m-2">
+                                <p>Origin</p>
+                                <ul>
+                                    <li>Region : West Java "Sukawangi" Bogor</li>
+                                    <li>Altitude : 1650m</li>
+                                    <li>Varietas : Sigarautang, Linies</li>
+                                    <li>Processing Method : Honey Process</li>
+                                    <li>Roasting Profile : Light Roast</li>
+                                    <li>Nett weight : 500g</li>
+                                </ul>
+                            </div>
+                            <div class="m-2">
+                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia, iste ut. Recusandae
+                                    possimus iure eveniet quo quidem. Est aut cum ea hic dolor repellat eveniet laboriosam
+                                    voluptatum, atque cupiditate. Quas.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-end align-items-center">
+                            <div class="col-auto m-2">
+                                <button role="button" class="btn btn-default">
+                                    <i class="far fa-heart"></i>
+                                    Add to favorite
+                                </button>
+                            </div>
+                            <div class="col-auto m-2">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">Qty</div>
+                                    </div>
+                                    <input type="number" min="1" max="100" class="form-control" v-model.number="selectedItem.qty">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">{{toIdr(subtotalPrice(selectedItem))}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-success" data-dismiss="modal" v-on:click="addToCart()">
+                            <i class="fa fa-cart-plus"></i>
+                            Add to cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./js/jquery.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                categories: ['Single Origin ', 'Drip', 'Green Bean'],
+                products: [],
+                selectedItem: {},
+                cart: {
+                    items: []
+                },
+            },
+            methods: {
+                addToCart: function () {
+                    if (this.cart.items.map(item => item.id).includes(this.selectedItem.id)) {
+                        let currentItem = this.cart.items.find(item => item.id === this.selectedItem.id)
+                        currentItem.qty = this._validateQty(currentItem.qty + this.selectedItem.qty)
+                    } else {
+                        this.selectedItem.qty = this._validateQty(this.selectedItem.qty)
+                        this.cart.items.push(this.selectedItem)
+                    }
+                },
+                removeFromCart: function (index) {
+                    this.cart.items.splice(index, 1)
+                },
+                selectItem: function (item) {
+                    this.selectedItem = Object.assign({ qty: 1 }, item)
+                },
+                _validateQty: function (qty) {
+                    console.log('qty>>', qty)
+                    if (qty < 1) { return 1 }
+                    else if (qty > 100) { return 100 }
+                    else { return Math.floor(qty) }
+                }
+            },
+            computed: {
+                subtotalPrice: function () {
+                    return item => item.qty * item.price
+                },
+                totalPrice: function () {
+                    return this.cart.items.reduce((acc, item) => acc + (item.price * item.qty), 0)
+                },
+                hasItems: function () {
+                    return this.cart.items.length > 0 ? true : false
+                },
+                toIdr: function () {
+                    return price => `IDR ${price.toLocaleString('id-ID', 'currency')}`
+                }
+            },
+            mounted: function () {
+                var self = this;
+                setTimeout(() => {
+                    $.get('./products.json')
+                        .done(data => self.products = data)
+                        .fail(error => alert('Oops! something went wrong'))
+                }, 1000)
+            }
+        })
+    </script>
+</body>
+
+</html>

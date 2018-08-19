@@ -30,7 +30,7 @@ class UserController {
         User.findOne({ email: resFB.data.email })
           .then(function(dataUser) {
             if (dataUser) {
-              let token = jwt.sign({ id: dataUser._id, name: dataUser.name, email: dataUser.email }, process.env.JWT_KEY)
+              let token = jwt.sign({ id: dataUser._id, name: dataUser.name, email: dataUser.email , role : dataUser.role}, process.env.JWT_KEY)
               res.status(200)
                 .json({
                   message: "successfully login/register",
@@ -43,7 +43,7 @@ class UserController {
                   password: createFBPassword(resFB.data.email)
                 })
                 .then(function(dataCreated) {
-                  let token = jwt.sign({ id: dataCreated._id, name: dataCreated.name, email: dataCreated.email }, process.env.JWT_KEY)
+                  let token = jwt.sign({ id: dataCreated._id, name: dataCreated.name, email: dataCreated.email , role : dataCreated.role}, process.env.JWT_KEY)
                   res.status(200)
                     .json({
                       message: "successfully login/register",
@@ -129,7 +129,7 @@ class UserController {
         if (dataUser) {
           let password = bcrypt.compareSync(req.body.password, dataUser.password)
           if (password) {
-            let token = jwt.sign({ id: dataUser._id, name: dataUser.name, email: dataUser.email }, process.env.JWT_KEY)
+            let token = jwt.sign({ id: dataUser._id, name: dataUser.name, email: dataUser.email , role : dataUser.role }, process.env.JWT_KEY)
             res.status(200)
               .json({
                 message: "User successfully login",

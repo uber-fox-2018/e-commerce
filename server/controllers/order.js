@@ -5,7 +5,7 @@ require('dotenv').config()
 class OrderController {
   static addtToOrder (req,res) {
     try {
-      let decoded = jwt.verify(req.headers.token, process.env.JWT_TOKEN)
+      let decoded = jwt.verify(req.headers.token, process.env.JWT_KEY)
       //first, system will check if user already has open order or not, if yes then product will be added to that order
       //if not, system will create new order and add the product in new order
       Order.findOne({
@@ -15,6 +15,9 @@ class OrderController {
         .then (order => {
           if (order) {
             Order.update({
+              userId : decoded.id
+            },
+              {
               $push: {productList : req.body.productId}
             })
              .then (updatedOrder => {
@@ -23,11 +26,11 @@ class OrderController {
              })
              .catch (err => {
                res.status(500)
-                .json({message : "failed add product to order list"})
+                .json({message : "failed update product to order list", err: err})
              })
           } else {
             Order.create ({
-              usedId : decoded.id,
+              userId : decoded.id,
               productList : req.body.productId
             })
               .then (createdOrder => {
@@ -36,7 +39,7 @@ class OrderController {
               })
               .catch (err => {
                 res.status(500)
-                  .json({message : "failed add product to order list"})
+                  .json({message : "failed add product to order list" , err: err})
               })
           }
         })
@@ -46,13 +49,51 @@ class OrderController {
         })
     } catch (err)  {
       res.status(500)
-        .json({ message: "token wrong" })
+        .json({ message: "token wrong" , err : err})
     }
+  }
+
+  static removeProduct (req,res) {
+    try {
+      let decoded = jwt.verify(req.headers.token, process.env.JWT_KEY)
+      Order.update({
+        userId : decoded.id
+      },
+        {
+        $pull: {productList : req.body.productId}
+      })
+      .then (updatedOrder => {
+        res.status(200)
+          .json({message : "successfully remove product to order list", data : updatedOrder})
+      })
+      .catch (err => {
+        res.status(500)
+          .json({message : "failed remove product to order list", err: err})
+      })
+    }
+    catch (err)  {
+      res.status(500)
+        .json({ message: "token wrong" , err : err})
+    }
+  }
+
+  static deleteOrder (req,res) {
+    Order.remove({
+      _id : req.params.id
+    })
+      .then (order => {
+        res.status(200)
+          .json({message : "success delete order"})
+      })
+      .catch (err => {
+        res.status(500)
+          .json({message : "failed delete order"})
+      })
   }
 
   static checkOutOrder (req,res) {
     try {
-      let decoded = jwt.verify(req.headers.token, process.env.JWT_TOKEN)
+      let decoded = jwt.verify(req.headers.token, process.env.JWT_KEY)
       Order.findOne({
         userId : decoded.id,
         _id : req.body.orderId,
@@ -115,9 +156,32 @@ class OrderController {
         })
   }
 
+  static showOpenOrders (req,res) {
+    try {
+      let decoded = jwt.verify(req.headers.token, process.env.JWT_KEY)
+      Order.find({
+        userId : decoded.id,
+        status : "open"
+      })
+        .populate('userId')
+        .populate('productList')
+        .then (orders => {
+          res.status(200)
+          .json({message : "successfully get open orders", data : orders})
+        })
+        .catch (err => {
+           res.json(500)
+            .json ({message : "error find order"})
+        })
+    } catch (err) {
+      res.status(500)
+        .json({ message: "token wrong" })
+    }
+  }
+
   static showPendingOrders (req,res) {
     try {
-      let decoded = jwt.verify(req.headers.token, process.env.JWT_TOKEN)
+      let decoded = jwt.verify(req.headers.token, process.env.JWT_KEY)
       Order.find({
         userId : decoded.id,
         status : "checkout"
@@ -140,7 +204,7 @@ class OrderController {
 
   static showCompleteOrders (req,res) {
     try {
-      let decoded = jwt.verify(req.headers.token, process.env.JWT_TOKEN)
+      let decoded = jwt.verify(req.headers.token, process.env.JWT_KEY)
       Order.find({
         userId : decoded.id,
         status : "completed"

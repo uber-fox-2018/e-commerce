@@ -9,7 +9,10 @@ require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const ordersRouter = require('./routes/order')
+const ordersRouter = require('./routes/order');
+const productsRouter = require ('./routes/product');
+const categoryRouter = require('./routes/category');
+
 const app = express();
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
@@ -32,7 +35,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/orders', ordersRouter)
+app.use('/orders', ordersRouter);
+app.use('/products', productsRouter);
+app.use('/category', categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

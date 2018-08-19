@@ -1,7 +1,10 @@
 const express = require ('express')
 const router = express.Router()
-const Category = require('../models/category')
+const Category = require('../controllers/category')
 const { userAuth } = require('../middlewares/auth')
 
 router.post('/', userAuth, Category.addCategory)
-router.delete('/', userAuth, Category.removeCategory)
+router.delete('/:id', userAuth, Category.removeCategory)
+router.get('/', userAuth, Category.showCategory)
+
+module.exports = router;

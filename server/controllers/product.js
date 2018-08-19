@@ -1,12 +1,17 @@
 const Product = require ('../models/product')
 
+function convertName (input) {
+  return input.split("+").join(" ")
+}
+
+
 class productController {
   static addProduct (req,res) {
     Product.create ({
       name : req.body.name,
       description : req.body.description,
-      imgUrl : req.file.cloudStoragePublicUrl,
-      price : price,
+      imgURL : req.file.cloudStoragePublicUrl,
+      price : req.body.price,
       category : req.body.category
     })
       .then (createdProduct => {
@@ -59,10 +64,10 @@ class productController {
   }
 
   static searchAllProduct (req,res) {
+    let name = convertName(req.query.name)
     Product.find ({
-      name : new RegExp(req.query.name, 'i'),
-      description : new RegExp(req.query.name, 'i')
-    })
+      name : new RegExp(name, 'i')
+    }).populate('category')
       .then(function(products) {
         res.status(200)
           .json({ message: "get products succeed" , data: products})
@@ -75,11 +80,11 @@ class productController {
   }
 
   static searchByCategory (req,res) {
+    let name = convertName(req.query.name)
     Product.find ({
-      name : new RegExp(req.query.name, 'i'),
-      description : new RegExp(req.query.name, 'i'),
+      name : new RegExp(name, 'i'),
       category : req.query.category
-    })
+    }).populate('category')
       .then(function(products) {
         res.status(200)
           .json({ message: "get products succeed" , data: products})
@@ -94,6 +99,7 @@ class productController {
 
   static getAllProduct (req,res) {
     Product.find ()
+      .populate('category')
       .then(function(products) {
         res.status(200)
           .json({ message: "get products succeed" , data: products})
@@ -107,8 +113,8 @@ class productController {
 
   static getByCategory (req,res) {
     Product.find ({
-      category : req.body.category
-    })
+      category : req.query.category
+    }).populate('category')
       .then(function(products) {
         res.status(200)
           .json({ message: "get products succeed" , data: products})
@@ -123,7 +129,7 @@ class productController {
   static filterByPrice (req,res) {
     Product.find ({
       price : {$gt: req.query.min, $lt: req.query.max}
-    })
+    }).populate('category')
       .then(function(products) {
         res.status(200)
           .json({ message: "get products succeed" , data: products})

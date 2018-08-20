@@ -1,14 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const{ signUp, signIn,fbsignIn } = require("../controller/homePage");
+const isLogin = require("../helpers/isLogin");
+const auth = require("../helpers/auth");
 
-// router.get('/',(req,res)=>{
-//     res.json('nice')
-// })
+const {
+  listItems,
+  createItem,
+  deleteItem,
+  editItem
+} = require("../controllers/home");
 
-// router.get('/',homePage)
-router.post("/signUp", signUp);
-router.post("/signIn", signIn);
-// router.post('/fbSignIn',fbsignIn)
-
+router
+  .get("/listItems", listItems)
+  .post("/createItem", isLogin, auth, createItem)
+  .delete("/deleteItem/:id", isLogin, auth, deleteItem)
+  .put("/editItem/:id", isLogin, auth, editItem);
 module.exports = router;

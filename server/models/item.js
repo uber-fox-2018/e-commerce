@@ -21,7 +21,7 @@ const itemSchema = new Schema(
     },
     price: {
       type: Number,
-      default: 999999999999
+      default: 0
     },
     image: {
       type: String
@@ -32,6 +32,6 @@ const itemSchema = new Schema(
   }
 );
 
-var Item = mongoose.model("Item", adminSchema);
+var Item = mongoose.model("Item", itemSchema);
 
 module.exports = Item;

@@ -12,7 +12,6 @@ let app = new Vue({
       tag: '#foods'
     },
     ],
-    // ================================= MOVE TO COMPONENT ===============================
     foods: [
       {
         id: 1,
@@ -73,9 +72,24 @@ let app = new Vue({
     itemBuy: '',
     buyQty: 0,
     notes: '',
+    email: '',
+    password: ''
   },
 
   methods: {
+    signinUser: function() {
+      axios.post('http://localhost:3000/signin', {
+        email: this.email,
+        password: this.password
+      })
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    },
+
     buyItem: function (item) {
       this.notes = ''
       this.buyQty = 0
@@ -110,7 +124,6 @@ let app = new Vue({
       })
       return price
     },
-    // ================================= MOVE TO COMPONENT ===============================
     convertMoney: function (price) {
       return `Rp. ${price.toLocaleString()}`
     },

@@ -16,6 +16,9 @@ const orderSchema = new Schema({
     type : String,
     required : true,
     default : "open"
+  },
+  address : {
+    type : String
   }
 }, {
   timestamps: true

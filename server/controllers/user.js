@@ -34,6 +34,7 @@ class UserController {
               res.status(200)
                 .json({
                   message: "successfully login/register",
+                  role : dataUser.role,
                   token: token
                 })
             } else {
@@ -47,6 +48,7 @@ class UserController {
                   res.status(200)
                     .json({
                       message: "successfully login/register",
+                      role : dataCreated.role,
                       token: token
                     })
                 }).catch(function(err) {
@@ -133,6 +135,7 @@ class UserController {
             res.status(200)
               .json({
                 message: "User successfully login",
+                role : dataUser.role,
                 token: token
               })
           } else {

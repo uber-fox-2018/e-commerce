@@ -102,7 +102,8 @@ class OrderController {
         .then (order => {
           if (order) {
             Order.update({
-              status : "checkout"
+              status : "checkout",
+              address : req.body.address
             })
             .then (updatedOrder => {
               res.status(200)

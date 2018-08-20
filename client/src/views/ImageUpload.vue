@@ -14,11 +14,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr  v-for="(cart, index) in allProducts" v-bind:key="index">
+          <tr v-for="(cart, index) in allProducts" v-bind:key="index">
             <td><img v-bind:src="cart.imgUrl" id="img" style="width:50px;"></td>
             <td>{{cart.name}}</td>
             <td>{{cart.price}}</td>
             <td>{{cart.category}}</td>
+            <!-- {{cart._id}} -->
             <td><a href="#" style="color:black"><i class="far fa-edit" data-toggle="modal" data-target="#exampleModal"></i></a> || <a href="#" style="color:black"><i class="far fa-trash-alt" @click="deleteProduct(cart._id)"></i></a></td>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -45,6 +46,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- {{cart._id}} -->
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnsave" @click="edit({id: cart._id, name: cart.name, price: cart.price, category: newCategory, imgUrl: cart.imgUrl})">Save changes</button>
                   </div>
                 </div>

@@ -35,8 +35,8 @@ Vue.component('for-navbar', {
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           <div v-if="seen">
-            <button class="btn my-2 my-sm-0" type="submit">Login</button>
-            <button class="btn my-2 my-sm-0" type="submit">Register</button>
+            <button class="btn my-2 my-sm-0" type="submit"> <a href="login.html">Login</a></button>
+            <button class="btn my-2 my-sm-0" type="submit"><a href="register.html">Register</a></button>
           </div>
           <div v-else>
           <button class="btn my-2 my-sm-0" type="submit" @click="logout">Logout</button>

@@ -15,32 +15,38 @@
       <!-- Navigation -->
      <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-sm-4" href="/">E-Commerce</a>
+          <a v-if= '!isAdmin' class="navbar-brand mr-sm-4" href="/">E-Commerce</a>
+          <a v-if= 'isAdmin' class="navbar-brand mr-sm-4" href="/">E-Commerce Admin</a>
           <form class="form-inline d-none d-md-block">
-            <select class="form-control mr-sm-1" style="width : 145px" id="sel1">
+            <select v-model="searchCategory" class="form-control mr-sm-1" style="width : 145px" id="sel1">
               <option>All Categories</option>
-              <option>Man Clothes</option>
-              <option>Woman Clothes</option>
-              <option>Shoes</option>
+              <option v-for="category in listCategory" :value="category._id">{{category.name}}</option>
             </select>
             <input class="form-control mr-sm-1" type="search" placeholder="Search product" aria-label="Search">
             <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Search Product"><i class="material-icons">search</i></button>
           </form>
           <form class="form-inline ml-auto">
-            <button v-if="isLogin" type="button" class="btn btn-danger mx-1" data-toggle="tooltip" data-placement="bottom" title="View Carts"><i class="material-icons">shopping_cart</i><span class="badge badge-light">{{totalCarts}}</span></button>
-            <button v-if='isLogin && role=="user"' type="button" class="btn btn-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Logout from website">Transactions</button>
-            <button v-if='isLogin && role=="admin"' type="button" class="btn btn-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Logout from website">Admin page</button>
+            <button v-if='isLogin && !isAdmin' type="button" class="btn btn-danger mx-1" data-toggle="modal" data-target="#cartModal"><i class="material-icons">shopping_cart</i><span class="badge badge-light">{{totalCarts}}</span></button>
+            <!-- <button v-if='isLogin && !isAdmin' type="button" class="btn btn-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Logout from website">Transactions</button> -->
             <button v-if="isLogin" @click="logout" type="button" class="btn btn-danger mx-1" data-toggle="tooltip" data-placement="bottom" title="Logout from website">Logout</button>
             <button v-if="!isLogin" type="button" class="btn btn-light mx-1" data-toggle="modal" data-target="#loginModal">Login</button>
             <button v-if="!isLogin" type="button" class="btn btn-danger mx-1" data-toggle="modal"data-target="#registerModal">Register</button>
           </form>
-         
         </div>
       </nav>
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
             <div>
+              <div v-if="isAdmin">
+                <p class="my-2 ">Admin Menu</p>
+                <div class="list-group">
+                  <a href="" class="list-group-item" data-toggle="modal" data-target="#addProductModal">Add Product</a>
+                  <a href="" class="list-group-item" data-toggle="modal" data-target="#addCategoryModal">Add Category</a>
+                  <!-- <a href="" class="list-group-item">Show Open Orders</a>
+                  <a href="" class="list-group-item">Show Completed Orders</a> -->
+                </div>
+              </div>
               <p class="my-2 ">Find more detail</p>
               <div class="list-group">
                 <a href="#" class="list-group-item">All Categories</a>
@@ -48,44 +54,51 @@
                 <a href="#" class="list-group-item">Woman clothes</a>
                 <a href="#" class="list-group-item">Shoes</a>
               </div>
-              <p class="my-2">Filter</p>
-              <div class="list-group">
-                <div class="list-group-item">
-                  <p>price range</p>
-                  <div class="form-group row">
-                    <label for="minPrice" class="col-sm-2 col-form-label">min</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="minPrice" placeholder="min price">
+              <div v-if='!isAdmin'>
+                <p class="my-2">Filter</p>
+                <div class="list-group">
+                  <div class="list-group-item">
+                    <p>price range</p>
+                    <div class="form-group row">
+                      <label for="minPrice" class="col-sm-2 col-form-label">min</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="minPrice" placeholder="min price">
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="maxPrice" class="col-sm-2 col-form-label">max</label>
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="maxPrice" placeholder="max price">
+                    <div class="form-group row">
+                      <label for="maxPrice" class="col-sm-2 col-form-label">max</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="maxPrice" placeholder="max price">
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
+            
             </div>
             
           </div>
-
+          
+          <!-- products card -->
           <div class="col-lg-9">
+            <h5 class="mt-2">{{showProductName}}</h5>
             <div class="row mt-4">
-              <div class="col-lg-4 col-md-6 mb-4">
+              <div v-for="product in showProductList" class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                   <div style="width : 100%; height : 200px">
-                    <img class="card-img-top" src="https://d2wk7qpm4ouq76.cloudfront.net/images/2018/05/28/CTELW2-0090-1jpg-2fca7ce3-2f9e-4c6f-ba59-b5f33068f104.jpg" style="width:100% ;height:100%; object-fit: contain;">
+                    <img class="card-img-top" :src="product.imgURL" style="width:100% ;height:100%; object-fit: contain;">
                   </div>
                   <div class="card-body">
                     <p class="card-title">
-                      <p>ALL DAY JAQUARD SHORT SLEEVE SHIRT</p>
+                      <p>{{product.name}}</p>
                     </p>
-                    <h6>Rp.100.000</h6>
-                    <p class="card-text">Stamped with weekend vibes, the short sleeve takes on a print designed to celebrate days off.</p>
+                    <h6>Rp.{{product.price}}</h6>
+                    <!-- <p class="card-text">{{product.description}}</p> -->
                   </div>
                   <div class="card-footer text-center">
-                    <button type="button" class="btn btn-danger">See Detail</button>
+                    <button type="button" @click='detailProduct(product)' data-toggle="modal" data-target="#detailProductModal" class="btn btn-danger">See Detail</button>
+                    <button v-if="isAdmin" @click='editProduct(product)' data-toggle="modal" data-target="#editProductModal" type="button" class="btn btn-danger">Edit</button>
+                    <button v-if="isAdmin" @click='deleteProduct(product)' type="button" class="btn btn-danger">Delete</button>
                   </div>
                 </div>
               </div>
@@ -131,7 +144,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Register</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -160,6 +173,192 @@
         </div>
       </div>
 
+      <!-- Add Product Modal -->
+      <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="addProductName">Product Name</label>
+                  <input v-model="addNameProduct" type="text" class="form-control" id="addProductName" placeholder="Enter product name">
+                </div>
+                <div class="form-group">
+                  <label for="addProductDesc">Description</label>
+                  <textarea v-model="addDescProduct" type="text" class="form-control" id="addProductDesc" placeholder="Enter product description"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="addProductPrice">Price</label>
+                  <input v-model="addPriceProduct" type="text" class="form-control" id="addProductPrice" placeholder="Enter product price">
+                </div>
+                <div class="form-group">
+                  <label for="addProductCategory">Category</label>
+                  <select v-model="addCategoryProduct" class="custom-select">
+                    <option v-for="category in listCategory" :value="category._id">{{category.name}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="addProductImg">Image</label><br>
+                  <input type="file" @change="fetchImage" id="addProductImg" accept="image/*">
+                </div>
+                
+                <small class="text-danger">{{checkAddProduct}}</small>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button @click="addProduct" type="button" class="btn btn-danger" data-dismiss="modal">Add Product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Category Modal -->
+      <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="categoryAdd">Category Name</label>
+                  <input v-model="addCategoryName" type="text" class="form-control" id="categoryAdd" placeholder="Enter Category Name">
+                </div>
+                <small class="text-danger">{{checkAddCategory}}</small>
+              </form>
+            </div>
+            <div class="modal-footer">
+                <button @click="addCagetory" type="button" class="btn btn-danger" data-dismiss="modal">Add Category</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Product Modal -->
+      <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="editProductName">Product Name</label>
+                  <input v-model="editNameProduct" type="text" class="form-control" id="editProductName">
+                </div>
+                <div class="form-group">
+                  <label for="editProductDesc">Description</label>
+                  <textarea v-model="editDescProduct" type="text" class="form-control" id="editProductDesc"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="editProductPrice">Price</label>
+                  <input v-model="editPriceProduct" type="text" class="form-control" id="editProductPrice" >
+                </div>
+                <div class="form-group">
+                  <label for="editProductCategory">Category</label>
+                  <select v-model="editCategoryProduct" class="custom-select">
+                    <option v-for="category in listCategory" :value="category._id">{{category.name}}</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button @click="saveEditProduct" type="button" class="btn btn-danger" data-dismiss="modal">Edit Product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail Product Modal -->
+      <div class="modal fade" id="detailProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail Product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div style="width : 100%; height : auto">
+                        <img class="card-img-top" :src="productDetail.imgURL" style="width:100% ;height:100%; object-fit: contain;">
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <h5>{{productDetail.name}}</h5>
+                      <h6>Product Description</h6>
+                      <p>{{productDetail.description}}</p>
+                      <h6>Category</h6>
+                      <p v-if="productDetail.category">{{productDetail.category.name}}</p>
+                      <h6>Price</h6>
+                      <p>Rp.{{productDetail.price}}</p>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+              <div class="modal-footer">
+                <button v-if="!isAdmin && isLogin" @click="addToChart(productDetail._id)" type="button" class="btn btn-danger" data-dismiss="modal">Add To Chart</button>
+                <p v-if="!isLogin">Please login to buy the product</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cart Modal -->
+        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Order detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <table class="table table-condensed">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(index, list) in cartLists.productList">
+                        <td>{{index+1}}</td>
+                        <td>{{list.name}}</td>
+                        <td>1</td>
+                        <td>{{list.price}}</td>
+                    </tbody>
+                  </table>
+                </div> 
+              </div>
+              <div class="modal-footer">
+                <p>Total Price :    ${{totalCartPrice}}</p>
+                <button v-if="!isAdmin && isLogin" @click="checkoutOrder(cartLists._id)" type="button" class="btn btn-danger" data-dismiss="modal">Checkout Order</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
       <!-- Footer -->
       <footer class="mt-3 py-3 bg-danger">
@@ -171,6 +370,7 @@
     <script src="./js/lib/axios.min.js"></script>
     <script src="./js/lib/sweetalert.min.js"></script>
     <script src="./js/lib/axios-nprogress.js"></script>
+    <script src="./js/nprogress-load.js"></script>
     <script src="./js/lib/vue.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -182,25 +382,54 @@
       el: '#app',
       data: function () {
         return {
+          //general
+          showProductName : "All Categories",
+          showProductList : [],
+          listCategory : [],
+          //registration
           nameReg: "",
           emailReg : "",
           passwordReg: "",
+          //login
           emailLogin : "",
           passwordLogin : "",
-          user : "",
           isLogin : false,
-          role : "user",
-          totalCarts : 0
-        } 
+          isAdmin : false,
+          //addProduct
+          addNameProduct : "",
+          addDescProduct : "",
+          addPriceProduct : "",
+          addCategoryProduct : "",
+          addImageProduct : "",
+          //addCategory
+          addCategoryName : "",
+          //searchCategory
+          searchCategory : "All Categories",
+          //editProduct
+          editIdProduct : "",
+          editNameProduct : "",
+          editDescProduct : "",
+          editPriceProduct : "",
+          editCategoryProduct : "",
+          //detailProduct
+          productDetail : {},
+          //cart
+          cartLists : {},
+          totalCarts : 0,
+          totalCartPrice : 0
+
+        }
       },
       created : function () {
-        let role = localStorage.getItem('userRole')
-        if (role) {
-          this.userRole = role
-        }
+        this.getInitData()
         let token = localStorage.getItem('ecomm-token')
-        if (token !== null) {
+        if (token) {
           this.isLogin = true
+          this.getOpenOrder()
+          let role = localStorage.getItem('userRole')
+          if (role == "admin") {
+            this.isAdmin = true
+          }
         }
       },
       computed : {
@@ -217,9 +446,27 @@
           } else {
             return ''
           }
+        },
+        checkAddProduct() {
+          if (this.addNameProduct == "" || this.addDescProduct == "" || this.addPriceProduct == "" ) {
+            return 'please fill all field'
+          } else {
+            return ''
+          }
+        },
+        checkAddCategory() {
+          if (this.addCategoryName == "") {
+            return 'please fill all field'
+          } else {
+            return ''
+          }
         }
       },
       methods: {
+        getInitData () {
+          this.getCategory()
+          this.getAllProduct()
+        },
         login () {
           let loginUser = {
             email: this.emailLogin,
@@ -238,7 +485,11 @@
                 })
                   .then(value => {
                     this.isLogin = true
-                    this.role = response.data.role
+                    if (response.data.role == "admin") {
+                      this.isAdmin = true
+                    }
+                    this.getInitData()
+                    this.getOpenOrder()
                     this.emailLogin = ""
                     this.passwordLogin = ""  
                   })
@@ -280,7 +531,11 @@
                         localStorage.setItem('ecomm-token',response.data.token)
                         localStorage.setItem('userRole', response.data.role)
                         this.isLogin = true
-                        this.role = response.data.role
+                        if (response.data.role == "admin") {
+                          this.isAdmin = true
+                        }
+                        this.getInitData()
+                        this.getOpenOrder()
                         this.emailLogin = ""
                         this.passwordLogin = ""  
                       })
@@ -310,7 +565,7 @@
               email: this.emailReg,
               password: this.passwordReg
             }
-            axios.post('https://todoserver.sumarsanaadi.com/users/register', newUser)
+            axios.post('http://ecomserver.sumarsanaadi.com/users/register', newUser)
               .then(response => {
                 if (response.status == 200) {
                   swal({
@@ -342,10 +597,206 @@
           },
           logout () {
             localStorage.removeItem('ecomm-token')
+            localStorage.removeItem('userRole')
             this.isLogin = false
-            this.role = "user"
+            this.isAdmin = false
             window.location = "/"
-          }
+          },
+          fetchImage(event) {
+            this.addImageProduct = event.target.files[0]
+          },
+          addProduct () {
+            let self = this;
+            let formData = new FormData()
+            formData.append('image', this.addImageProduct)
+            formData.append('name', this.addNameProduct)
+            formData.append('description', this.addDescProduct)
+            formData.append('price', this.addPriceProduct)
+            formData.append('category', this.addCategoryProduct)
+            axios
+              .post("http://ecomserver.sumarsanaadi.com/products/", formData, {
+                headers: { token: localStorage.getItem('ecomm-token') }
+              })
+              .then(response => {
+                swal({
+                  title: "Add Product Success !",
+                  text: `${response.data.message}`,
+                  icon: "success",
+                })
+                  .then(value => {
+                    // window.location = "/"
+                    this.getAllProduct()
+                  })
+              })
+              .catch(err => {
+                swal({
+                  title: "Add Product Failed !",
+                  text: "Something wrong happen",
+                  icon: "warning",
+                })
+              });
+          },
+          addCagetory () {
+            axios
+              .post("http://ecomserver.sumarsanaadi.com/category/", {
+                name : this.addCategoryName
+              }, {
+                headers: { token: localStorage.getItem('ecomm-token') }
+              })
+              .then(response => {
+                swal({
+                  title: "Add Category Success !",
+                  text: `${response.data.message}`,
+                  icon: "success",
+                })
+                  .then(value => {
+                    // window.location = "/"
+                    this.getCategory()
+                    this.addCategoryName = ""
+                  })
+              })
+              .catch(err => {
+                swal({
+                  title: "Add Category Failed !",
+                  text: "Something wrong happen",
+                  icon: "warning",
+                })
+              });
+          },
+          getCategory () {
+            axios.get('https://ecomserver.sumarsanaadi.com/category/',{
+              headers: { token: localStorage.getItem('ecomm-token') }
+            })
+            .then (categories => {
+              // console.log(categories.data.data)
+              this.listCategory = categories.data.data
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          },
+          getAllProduct () {
+            axios.get('http://ecomserver.sumarsanaadi.com/products/getall')
+              .then (products => {
+                this.showProductList = products.data.data
+                this.showProductName = "All Categories"
+              })
+          },
+          deleteProduct (product) {
+            swal({
+              title: "Are you sure delete this product?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) { 
+                axios.delete(`http://ecomserver.sumarsanaadi.com/products/${product._id}`,
+                {
+                  headers: {
+                    token: localStorage.getItem('ecomm-token')
+                  }
+                })
+                .then(response => {
+                  swal({
+                    title: "Task Deleted !",
+                    icon: "success",
+                  })
+                    .then((value) => {
+                      this.getAllProduct()
+                    })
+                })
+                .catch(err => {
+                  swal({
+                    title: "Failed Delete task !",
+                    text: "Something wrong happen",
+                    icon: "warning",
+                  })
+                })
+              }
+            })
+          },
+          editProduct (product) {
+            this.editIdProduct = product._id
+            this.editNameProduct = product.name
+            this.editDescProduct = product.description
+            this.editCategoryProduct = product.category._id
+            this.editPriceProduct = product.price
+          },
+          saveEditProduct () {
+            axios.put(`http://ecomserver.sumarsanaadi.com/products/${this.editIdProduct}`, {
+              name: this.editNameProduct,
+              description : this.editDescProduct,
+              price : this.editPriceProduct,
+              category : this.editCategoryProduct
+            }, {
+              headers: {
+                token: localStorage.getItem('ecomm-token')
+              }
+            })
+            .then(response => {
+              swal({
+                title: "Task updated !",
+                icon: "success",
+              })
+                .then((value) => {
+                  this.getAllProduct()
+                })
+              })
+              .catch(err => {
+                swal({
+                  title: "Failed Update task !",
+                  text: "Something wrong happen",
+                  icon: "warning",
+                })
+              })
+          },
+          detailProduct (product) {
+            this.productDetail = product
+          },
+          addToChart (productId) {
+            axios.post('http://ecomserver.sumarsanaadi.com/orders/', {
+              productId : productId
+            }, {
+              headers : {
+                token : localStorage.getItem("ecomm-token")
+              }
+            })
+              .then (createdOrder => {
+                swal({
+                  title: "added to chart!",
+                  icon: "success",
+                })
+                  .then((value) => {
+                    this.getOpenOrder()
+                  })
+                })
+                .catch(err => {
+                  swal({
+                    title: "Failed add to chart!",
+                    text: "Something wrong happen",
+                    icon: "warning",
+                  })
+                })
+          },
+          getOpenOrder () {
+            axios.get('https://ecomserver.sumarsanaadi.com/orders/open', {
+              headers : {
+                token : localStorage.getItem("ecomm-token")
+              }
+            })
+              .then (openOrders => {
+                let totalPrice = 0 
+                this.cartLists = openOrders.data.data[0]
+                console.log(this.cartLists);
+                
+                this.totalCarts = openOrders.data.data[0].productList.length
+                openOrders.data.data[0].productList.forEach (product => {
+                  totalPrice += product.price
+                })
+                this.totalCartPrice = totalPrice
+              })
+          },
         }
       })
     </script>

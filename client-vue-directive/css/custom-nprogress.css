@@ -1,10 +1,10 @@
 #nprogress .bar {
   background: greenyellow !important;
-  height: 5px !important;
+  height: 2px !important;
 }
 
 #nprogress .peg {
-  box-shadow: 0 0 5px greenyellow, 0 0 3px greenyellow !important;
+  box-shadow: 0 0 2px greenyellow, 0 0 1px greenyellow !important;
 }
 
 #nprogress .spinner-icon {

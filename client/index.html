@@ -10,6 +10,10 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- swal -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
     <!-- Debug CSS -->
     <style>
         body {
@@ -21,25 +25,6 @@
 
 <body>
     <div id="app">
-        <div class="container-fluid bg-dark header-top d-none d-md-block">
-            <div class="container">
-                <div class="row text-light pt-2 pb-2">
-                    <div class="col-md-5">
-                        <i class="fa fa-envelope-o"> y.andresudi@gmail.com</i>
-                    </div>
-                    <div class="col-md-3">
-
-                    </div>
-                    <div class="col-md-2">
-                        <i class="fa fa-user-o" aria-hidden="true"> Account</i>
-                    </div>
-                    <div class="col-md-2">
-                        <i class="fa fa-cart-plus" aria-hidden="true"> My Cart</i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="container-fluid bg-black">
             <nav class="container navbar navbar-expand-lg navbar-dark bg-black">
                 <a class="navbar-brand" href="#">Chronos Music Store</a>
@@ -68,8 +53,8 @@
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
-                        <button class="btn btn-info my-2 my-sm-0" type="submit">Register</button>
-                        <button class="btn btn-info my-2 my-sm-0" type="submit">Login</button>
+                        <button v-if="isLogin == false" class="btn btn-info my-2 my-sm-0" type="button" data-toggle="modal" data-target="#loginModal">Login</button>
+                        <button v-if="isLogin == true" class="btn btn-info my-2 my-sm-0" type="button" @click="logout">Logout</button>
                     </form>
                 </div>
             </nav>
@@ -168,7 +153,7 @@
                     <div class="col-md-4 m-right">
                         <div class="text-center">
                             <h2>Free Shipping</h2>
-                            <p>Purchase more than 5 pcs</p>
+                            <p>Purchase more than 5 items</p>
                         </div>
                     </div>
                     <div class="col-md-4 m-right">
@@ -186,10 +171,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div clas="cart">
-            <span class='cart-size'></span>
-        </div> -->
 
         <div id="cdvinyl" class="container-fluid bg-light-gray">
             <div class="container pt-5">
@@ -216,7 +197,7 @@
                                 <strong>{{ album.type }}</strong>
                             </h6>
                             <h6>{{ formatMoney(album.price) }}</h6>
-                            <button class="btn btn-success" value="{{ album.id }}">
+                            <button class="btn btn-success" value="album.id" v-if="isLogin == true">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
                         </div>
                     </div>
@@ -245,7 +226,7 @@
                                 <strong>{{ merch.name }}</strong>
                             </h6>
                             <h6>{{ formatMoney(merch.price) }}</h6>
-                            <button class="btn btn-success">
+                            <button class="btn btn-success" v-if="isLogin == true">
                                 <i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
                         </div>
                     </div>
@@ -253,6 +234,48 @@
             </div>
         </div>
 
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="container">
+                        <div class="modal-body">
+                            <div class="">
+                                <div class="card card-signin my-5">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">Login</h5>
+                                        <form class="form-signin">
+                                            <div class="form-label-group">
+                                                <input v-model="email" type="email" class="form-control" placeholder="Email address" required>
+                                                <hr>
+                                            </div>
+                                            <div class="form-label-group">
+                                                <input v-model="password" type="password" class="form-control" placeholder="Password" required>
+                                                <hr>
+                                                <div class="custom-control custom-checkbox mb-3">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                    <label class="custom-control-label" for="customCheck1">Remember password</label>
+                                                </div>
+                                                <button class="btn btn-lg btn-primary btn-block text-uppercase" @click="login" type="button">Sign in</button>
+                                                <hr class="my-4">
+                                                <p style="text-align: center">Don't Have an Account?
+                                                    <a href="./register.html" style="color: brown;">Register here</a>
+                                                </p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <footer>
             <!-- Footer -->
             <footer class="page-footer font-small mdb-color pt-4">
@@ -281,42 +304,17 @@
                         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold" style="color: white">Products</h6>
                             <p>
-                                <a href="#!">MDBootstrap</a>
+                                <a href="#!">CD & Vinyl</a>
                             </p>
                             <p>
-                                <a href="#!">MDWordPress</a>
-                            </p>
-                            <p>
-                                <a href="#!">BrandFlow</a>
-                            </p>
-                            <p>
-                                <a href="#!">Bootstrap Angular</a>
+                                <a href="#!">Merchandise</a>
                             </p>
                         </div>
                         <!-- Grid column -->
 
                         <hr class="w-100 clearfix d-md-none">
-
-                        <!-- Grid column -->
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-                            <h6 class="text-uppercase mb-4 font-weight-bold" style="color: white">Useful links</h6>
-                            <p>
-                                <a href="#!">Your Account</a>
-                            </p>
-                            <p>
-                                <a href="#!">Become an Affiliate</a>
-                            </p>
-                            <p>
-                                <a href="#!">Shipping Rates</a>
-                            </p>
-                            <p>
-                                <a href="#!">Help</a>
-                            </p>
-                        </div>
-
                         <!-- Grid column -->
                         <hr class="w-100 clearfix d-md-none">
-
                         <!-- Grid column -->
                         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
                             <h6 class="text-uppercase mb-4 font-weight-bold" style="color: white">Contact</h6>
@@ -328,12 +326,9 @@
                                 <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
                         </div>
                         <!-- Grid column -->
-
                     </div>
                     <!-- Footer links -->
-
                     <hr>
-
                     <!-- Grid row -->
                     <div class="row d-flex align-items-center">
                         <!-- Grid column -->
@@ -350,7 +345,9 @@
             </footer>
             <!-- Footer -->
         </footer>
-        </div>
+    
+    </div>
+
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -422,39 +419,105 @@
                         id: 1,
                         name: 'Pink Floyd T-Shirt 1',
                         image: '/image/merch/pinkfloyd.jpg',
+                        type: 'merch',
                         price: 100000
                     }, {
                         id: 2,
                         name: 'Pink Floyd T-Shirt 2',
                         image: '/image/merch/pinkfloyd2.jpg',
+                        type: 'merch',
                         price: 100000
                     }, {
                         id: 3,
                         name: 'King Gizzard Hoodie',
                         image: '/image/merch/kinghoodie.png',
+                        type: 'merch',
                         price: 300000
                     }, {
                         id: 4,
                         name: 'Sleep Trucker Hat',
                         image: '/image/merch/sleep-hat.jpg',
+                        type: 'merch',
                         price: 50000
                     }, {
                         id: 5,
                         name: 'CC Action Figure',
                         image: '/image/merch/cheechchong.jpg',
+                        type: 'merch',
                         price: 700000
                     }, {
                         id: 6,
                         name: 'Radiohead LEGO',
                         image: '/image/merch/radiohead.jpg',
+                        type: 'merch',
                         price: 600000
-                    }]
+                    }],
+                    isLogin: false,
+                    cart: [],
+                    email: '',
+                    password: ''
+                },
+                created() {
+                    if (localStorage.getItem('token')) {
+                        this.isLogin = true
+                    } else {
+                        this.isLogin = false
+                    }
                 },
                 computed: {
                     formatMoney: function () {
                         return function (price) {
                             return `Rp. ${price.toLocaleString()},-`
                         }
+                    }
+                },
+                methods: {
+                    addToCart(item) {
+                        this.cart.push(item)
+                    },
+
+                    login(){
+                        event.preventDefault()
+                        const data = {
+                            email: this.email,
+                            password: this.password
+                        }
+
+                        axios.post('http://localhost:3000/user/login', {
+                            email: this.email,
+                            password: this.password
+                        })
+                        .then((response) => {
+                            console.log(response)
+                            localStorage.setItem('token', response.data.token)
+                            swal({
+                                title: response.data.message,
+                                icon: "success",
+                                button: "next",
+                            }).then(() => {
+                                window.location.reload()
+                            })
+                        })
+                        .catch((err) => {
+                            swal(err.message)
+                        })
+                    },
+
+                    logout () {
+
+                        swal({
+                            title: "Are you sure want to logout?",
+                            icon: "warning",
+                            buttons: true,
+                            dangerMode: true,
+                        })
+                        .then((willLogout) => {
+                        if (willLogout) {
+                            localStorage.clear()
+                            window.location.reload()
+                        }
+                        });
+
                     }
                 }
             })

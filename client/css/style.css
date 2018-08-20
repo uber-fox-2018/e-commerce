@@ -3,6 +3,12 @@
     width: 100%;
 }
 
+#navbarSupportContent {
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
 .card {
     margin-bottom: 20px
 }

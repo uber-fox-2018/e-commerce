@@ -1,5 +1,26 @@
 Vue.component('list-item',{
     template :`
+
+
+    <div style="margin-top:20px">
+
+    <div id="nav-categories" class="offset-md-2">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a  @click="allItem" class="nav-link active black--text" href="#">All</a>
+        </li>
+        <li class="nav-item">
+          <a @click="getCategory('figures')" class="nav-link  black--text" href="#">Figures</a>
+        </li>
+        <li class="nav-item">
+          <a @click="getCategory('gundam')" class="nav-link  black--text" href="#">Gundam</a>
+        </li>
+        <li class="nav-item">
+          <a @click="getCategory('zoid')" class="nav-link  black--text" href="#">Zoid</a>
+        </li>
+      </ul>
+    </div>
+
     <div class="container" style="margin-top:30px">
     <div class="row">
         <div class="col-md-4" v-for="(item,index) in items" :key=index>
@@ -34,6 +55,7 @@ Vue.component('list-item',{
         </div>
     </div>
 </div>
+</div>
     `,
     props :['items'],
     methods :{
@@ -52,6 +74,19 @@ Vue.component('list-item',{
         },
         addToCart(index){
             this.$emit('item-cart',index)
-        }
+        },
+        getCategory(category){
+            axios.get(`http://localhost:3000/item/filter/${category}`)
+            .then(data=>{
+              console.log(data)
+              this.items = data.data
+            })
+        },
+        allItem(){
+            axios.get('http://localhost:3000/item/listitem')
+            .then(data=>{
+                this.items = data.data
+            })
+        },
     }
 })

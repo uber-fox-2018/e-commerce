@@ -9,6 +9,7 @@ router.get('/listitem',ItemController.getItem)
 router.get('/filter/:category',ItemController.sortItem)
 router.post('/edit/:id',ItemController.editItem)
 router.delete('/delete/:id',ItemController.deleteItem)
+router.get('/searchItem',ItemController.search)
 
 
 module.exports = router

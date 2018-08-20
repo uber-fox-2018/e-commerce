@@ -20,7 +20,7 @@ class Controller{
                     password : hash
                 })
                 .then(function(dataUser){
-                    var token = jwt.sign({id:dataUser._id,name:dataUser.name,email:dataUser.email},process.env.secretKey)
+                    var token = jwt.sign({id:dataUser._id,name:dataUser.name,email:dataUser.email},'easy')
                     res.status(200).json({
                         dataUser,token
                     })

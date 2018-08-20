@@ -61,6 +61,20 @@ class ItemController {
         })
     }
 
+    static search(req,res){
+        Item.find({
+            $or :[{name : new RegExp(req.query.q,'i')},{
+                category : new RegExp(req.query.q,'i')
+            }]
+        })
+        .then(data=>{
+            res.status(201).json(data)
+        })
+        .catch(err=>{
+            res.status(400).json(err)
+        })
+    }
+
 }
 
 module.exports = ItemController

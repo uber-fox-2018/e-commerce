@@ -1,10 +1,12 @@
 Vue.component('navbar',{
     data:function(){
-
+      return{
+        searchBy :''
+      }
     },
     template : `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="#">Toys & Hobbies</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -22,23 +24,24 @@ Vue.component('navbar',{
           Dropdown
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#registModal">Register</a>
+          </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
+    
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <a class="nav-link active" href="#" data-toggle="modal" data-target="#modalCart"><i class="fas fa-shopping-cart fa-2x"></i></a>
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-model="searchBy">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-on:click="search(searchBy)">Search</button>
     </form>
   </div>
 </nav>
-
-    `
+    `,
+    methods :{
+      search(input){
+        this.$emit('search',input)
+        console.log(input)
+      }
+    }
 })

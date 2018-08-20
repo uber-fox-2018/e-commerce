@@ -7,7 +7,7 @@ var logger = require('morgan');
 require('dotenv').config()
 var mongoose = require('mongoose');
 
-mongoose.connect(`mongodb://${process.env.userdb}:${process.env.passdb}@ds121382.mlab.com:21382/new-ecommerce`,{ useNewUrlParser: true })
+mongoose.connect(`mongodb://mario:mario123@ds121382.mlab.com:21382/new-ecommerce`,{ useNewUrlParser: true })
 
 
 var indexRouter = require('./routes/index');

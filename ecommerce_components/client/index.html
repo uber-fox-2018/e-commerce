@@ -23,15 +23,16 @@
   <link href="./css/uikit.css" rel="stylesheet" type="text/css" />
   <link href="./css/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
   <link rel="icon" href="./images/logo/paluguada.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
   <div id="app">
-    <cart-component></cart-component>
+    <cart-component :cart="cart"></cart-component>
     <nav-component></nav-component>
     <top-carousel-component></top-carousel-component>
-    <mid-carousel-component></mid-carousel-component>
+    <mid-carousel-component @add-cart="addCart"></mid-carousel-component>
     <footer-component></footer-component>
 
   </div>
@@ -51,6 +52,21 @@
 <script>
   new Vue({
     el: '#app',
+
+    data () {
+      return {
+        isLogin: false,
+        cart: [],
+      }
+    },
+
+    methods: {
+      addCart (data) {
+        console.log(data, 'dari index.html')
+        this.cart = data;
+      },
+      
+    }
   })
 </script>
 

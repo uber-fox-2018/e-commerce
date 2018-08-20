@@ -73,9 +73,10 @@ Vue.component("cart-component", {
     `,
 	data() {
 		return {
-			cart: []
+		
 		};
-	},
+  },
+  props: ['cart'],
 	methods: {
 		subTotal: function(item) {
 			return item.price * item.qty;
@@ -92,5 +93,9 @@ Vue.component("cart-component", {
 			}, 0);
 			return total;
 		}
-	}
+  },
+
+  updated() {
+    console.log(this.cart)
+  }
 });

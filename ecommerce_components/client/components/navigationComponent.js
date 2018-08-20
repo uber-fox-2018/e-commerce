@@ -36,7 +36,7 @@ Vue.component("nav-component", {
           </li>
         </ul>
 
-        <div class="col-lg-12-24 col-sm-8">
+        <div class="col-lg-9-24 col-sm-8">
           <form action="#" class="py-1">
             <div class="input-group w-100">
               <select class="custom-select" name="category_name">
@@ -45,9 +45,9 @@ Vue.component("nav-component", {
                 <option value="">Only best</option>
                 <option value="">Latest</option>
               </select>
-              <input type="text" class="form-control" style="width:50%;" placeholder="Search" >
+              <input v-model="searchedItem" type="text" class="form-control" style="width:50%;" placeholder="Search" >
               <div class="input-group-append">
-                <button class="btn btn-warning" type="submit">
+                <button @click="search" class="btn btn-warning" type="submit">
                   <i class="fa fa-search"></i> Search
                 </button>
               </div>
@@ -57,7 +57,7 @@ Vue.component("nav-component", {
         </div>
         <!-- col.// -->
 
-        <div class="col-auto">
+        <div v-show="!auth" class="col-auto">
           <div class="widget-header dropdown">
             <a href="#" data-toggle="dropdown" data-offset="20,10">
               <div class="icontext">
@@ -74,23 +74,61 @@ Vue.component("nav-component", {
               <form class="px-4 py-3">
                 <div class="form-group">
                   <label>Email address</label>
-                  <input type="email" class="form-control" placeholder="email@example.com">
+                  <input v-model="email" type="email" class="form-control" placeholder="email@example.com">
                 </div>
                 <div class="form-group">
                   <label>Password</label>
-                  <input type="password" class="form-control" placeholder="Password">
+                  <input v-model="password" type="password" class="form-control" placeholder="Password">
                 </div>
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" @click="login" class="btn btn-primary">Sign in</button>
               </form>
-              <hr class="dropdown-divider">
-              <a class="dropdown-item" href="#">Have account? Sign up</a>
-              <a class="dropdown-item" href="#">Forgot password?</a>
+              
             </div>
             <!--  dropdown-menu .// -->
           </div>
           <!-- widget-header .// -->
         </div>
         <!-- col.// -->
+
+        <div v-show="auth" class="text-wrap text-dark">
+        <a href="#" style="color:black; text-decoration: none;" @click="isLogout"> Logout </a>
+       
+        </div>
+        <div v-show="!auth" class="col-auto">
+          <div class="widget-header dropdown">
+            <a href="#" data-toggle="dropdown" data-offset="20,10">
+              <div class="icontext">
+                <div class="icon-wrap">
+                  <i class="text-warning icon-sm fa fa-user"></i>
+                </div>
+                <div class="text-wrap text-dark">
+                  Sign up
+                  <i class="fa fa-caret-down"></i>
+                </div>
+              </div>
+            </a>
+            <div class="dropdown-menu">
+              <form class="px-4 py-3">
+              <div class="form-group">
+              <label>Name</label>
+              <input v-model="name" type="text" class="form-control" placeholder="maria">
+            </div>
+                <div class="form-group">
+                  <label>Email address</label>
+                  <input v-model="email" type="email" class="form-control" placeholder="email@example.com">
+                </div>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input v-model="password" type="password" class="form-control" placeholder="Password">
+                </div>
+                <button type="submit" @click="signup" class="btn btn-primary">Sign up</button>
+              </form>
+              
+            </div>
+            <!--  dropdown-menu .// -->
+          </div>
+          <!-- widget-header .// -->
+        </div>
 
         <div class="col-auto">
           <a href="#" class="widget-header">
@@ -122,11 +160,87 @@ Vue.component("nav-component", {
     `,
 
 	data() {
-		return{
-
-    }
+		return {
+      name:"",
+			email: "",
+			password: "",
+      auth: true,
+      searchedItem:"",
+      foundItems:[]
+		};
 	},
 	methods: {
-		
-	}
+    isLogout(){
+      localStorage.removeItem('token')
+      this.auth = false
+    }
+      ,
+    signup(){
+      axios({
+        method: "POST",
+        url: "http://localhost:3000/api/users/signup",
+        data:{
+          name: this.name,
+          email: this.email,
+          password: this.password
+        }
+      })
+      .then(res => {
+        console.log(res)
+            this.auth = true;
+            this.token = res.data.token;
+            let token = this.token;
+            localStorage.setItem("token", token);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    },
+		login() {
+			axios({
+				method: "POST",
+				url: "http://localhost:3000/api/users/signin",
+				data: {
+					email: this.email,
+					password: this.password
+				}
+			})
+				.then(res => {
+					this.auth = true;
+					let token = res.data.token;
+					localStorage.setItem("token", token);
+				
+				})
+				.catch(err => {
+          console.log("ini dari errror", err)
+				
+				});
+    },
+    search(){
+     axios({
+        method: "GET",
+        url: "http://localhost:3000/api/items",
+        params:{
+          by: 'name',
+          value : this.searchedItem
+        },
+        headers:{
+          token : localStorage.getItem('token')
+        }
+     })
+     .then(res=>{
+       this.foundItems.push(res.data.items) //an array
+       console.log(this.foundItems)
+
+     })
+     .catch(err=>{
+       console.log(err)
+     })
+    }
+  },
+  watch : {
+    auth(){
+      console.log(this.auth)
+    }
+  }
 });

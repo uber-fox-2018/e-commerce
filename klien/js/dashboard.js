@@ -91,13 +91,6 @@ var app = new Vue({
             console.log(this.carts)
         },
 
-        
-
-        // checkout: function(){
-        //     swal("succes", "You clicked the button!", "success");
-             
-
-        // },
 
     }
 

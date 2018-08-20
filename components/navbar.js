@@ -37,6 +37,7 @@ Vue.component('navigationbar', {
                         </a>
                     </li>
                 </ul>
+                <a class="waves-effect waves-light btn" v-on:click>Logout</a>
             </div>
         </nav>
     `,
@@ -53,6 +54,10 @@ Vue.component('navigationbar', {
         closeDropdown: function () {
             this.isDropdownOpen = false
         },
+
+        logout: function () {
+            localStorage.removeItem('token')
+        }
     }
 })
 

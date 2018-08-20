@@ -1,0 +1,18 @@
+body {
+  padding-top: 54px;
+  background-color: #F5F5F5;
+}
+html {
+  font-size: 13px;
+}
+.list-group a {
+  color: black;
+}
+h6 {
+  color : #DB0047;
+}
+@media (min-width: 768px) {
+  body {
+    padding-top: 60px;
+  }
+}

@@ -2,16 +2,17 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="stylesheet" type="text/css" href="./css/axios-nprogress.css" />
+    <link rel="stylesheet" type="text/css" href="./css/custom-nprogress.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>My E-Commerce</title>
   </head>
   <body>
-     <!-- Navigation -->
+    <div id="app">
+      <!-- Navigation -->
      <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
         <div class="container">
           <a class="navbar-brand mr-sm-4" href="/">E-Commerce</a>
@@ -20,89 +21,71 @@
               <option>All Categories</option>
               <option>Man Clothes</option>
               <option>Woman Clothes</option>
-              <option>Surf Boards</option>
               <option>Shoes</option>
             </select>
             <input class="form-control mr-sm-1" type="search" placeholder="Search product" aria-label="Search">
-            <button type="submit" class="btn btn-danger data-toggle="tooltip" data-placement="bottom" title="Search Product""><i class="material-icons">search</i></button>
+            <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Search Product"><i class="material-icons">search</i></button>
           </form>
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <button type="button" class="btn btn-danger data-toggle="tooltip" data-placement="bottom" title="View Carts""><i class="material-icons">shopping_cart</i><span class="badge badge-light">4</span></button>
-                <button type="button" class="btn btn-danger d-lg-none"><i class="material-icons">account_circle</i></button>
-            </li>
-            <li class="nav-item d-none d-lg-block ml-lg-2 ml-sm-0">
-                <button type="button" class="btn btn-light data-toggle="tooltip" data-placement="bottom" title="Login to website"">Login</button>
-            </li>
-            <li class="nav-item d-none d-lg-block ml-lg-2 ml-sm-0">
-                <button type="button" class="btn btn-danger data-toggle="tooltip" data-placement="bottom" title="Register an account"">Register</button>
-            </li>
-          </ul>
+          <form class="form-inline ml-auto">
+            <button v-if="isLogin" type="button" class="btn btn-danger mx-1" data-toggle="tooltip" data-placement="bottom" title="View Carts"><i class="material-icons">shopping_cart</i><span class="badge badge-light">{{totalCarts}}</span></button>
+            <button v-if='isLogin && role=="user"' type="button" class="btn btn-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Logout from website">Transactions</button>
+            <button v-if='isLogin && role=="admin"' type="button" class="btn btn-light mx-1" data-toggle="tooltip" data-placement="bottom" title="Logout from website">Admin page</button>
+            <button v-if="isLogin" type="button" class="btn btn-danger mx-1" data-toggle="tooltip" data-placement="bottom" title="Logout from website">Logout</button>
+            <button v-if="!isLogin" type="button" class="btn btn-light mx-1" data-toggle="modal" data-target="#loginModal">Login</button>
+            <button v-if="!isLogin" type="button" class="btn btn-danger mx-1" data-toggle="modal"data-target="#registerModal">Register</button>
+          </form>
+         
         </div>
       </nav>
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
-            <p class="my-2">Find more detail</p>
-            <div class="list-group">
-              <a href="#" class="list-group-item">Man clothes</a>
-              <a href="#" class="list-group-item">Woman clothes</a>
-              <a href="#" class="list-group-item">Surf boards</a>
-              <a href="#" class="list-group-item">Shoes</a>
-            </div>
-            <p class="my-2">Filter</p>
-            <div class="list-group">
-              <div class="list-group-item">
-                <p>sdad</p>
-                <p>sadsad</p>
+            <div>
+              <p class="my-2 ">Find more detail</p>
+              <div class="list-group">
+                <a href="#" class="list-group-item">All Categories</a>
+                <a href="#" class="list-group-item">Man clothes</a>
+                <a href="#" class="list-group-item">Woman clothes</a>
+                <a href="#" class="list-group-item">Shoes</a>
+              </div>
+              <p class="my-2">Filter</p>
+              <div class="list-group">
+                <div class="list-group-item">
+                  <p>price range</p>
+                  <div class="form-group row">
+                    <label for="minPrice" class="col-sm-2 col-form-label">min</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="minPrice" placeholder="min price">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="maxPrice" class="col-sm-2 col-form-label">max</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="maxPrice" placeholder="max price">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+            
           </div>
-          <!-- /.col-lg-3 -->
+
           <div class="col-lg-9">
             <div class="row mt-4">
               <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                  <a href="#"><img class="card-img-top" src="https://us.billabong.com/media/filter/m/img/m503qbsf_ctl_1.jpg" alt=""></a>
+                  <div style="width : 100%; height : 200px">
+                    <img class="card-img-top" src="https://demo.presscustomizr.com/wp-content/uploads/2008/04/city-1200x500.jpg" style="width:100% ;height:100%; object-fit: contain;">
+                  </div>
                   <div class="card-body">
                     <p class="card-title">
-                      <a href="#">ALL DAY JAQUARD SHORT SLEEVE SHIRT</a>
+                      <p>ALL DAY JAQUARD SHORT SLEEVE SHIRT</p>
                     </p>
                     <h6>Rp.100.000</h6>
                     <p class="card-text">Stamped with weekend vibes, the short sleeve takes on a print designed to celebrate days off.</p>
                   </div>
                   <div class="card-footer text-center">
-                    <button type="button" class="btn btn-danger">Add to Chart</button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                  <a  href="#"><img class="card-img-top" src="https://us.billabong.com/media/filter/m/img/m508qbsm_dps_1.jpg" alt=""></a>
-                  <div class="card-body">
-                    <p class="card-title">
-                      <a href="#">SUNDAYS MINI SHORT SLEEVE SHIRT</a>
-                    </p>
-                    <h6>Rp.100.000</h6>
-                    <p class="card-text">Stamped with weekend vibes, the short sleeve takes on a print designed to celebrate days off..</p>
-                  </div>
-                  <div class="card-footer text-center">
-                    <button type="button" class="btn btn-danger">Add to Chart</button>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                  <a href="#"><img class="card-img-top" src="https://us.billabong.com/media/filter/m/img/m508qbsm_sth.jpg" alt=""></a>
-                  <div class="card-body">
-                    <p class="card-title">
-                      <a href="#">DIE CUT POLO SHIRT</a>
-                    </p>
-                    <h6>Rp.100.000</h6>
-                    <p class="card-text">Stamped with weekend vibes, the short sleeve takes on a print designed to celebrate days off.</p>
-                  </div>
-                  <div class="card-footer text-center">
-                    <button type="button" class="btn btn-danger">Add to Chart</button>
+                    <button type="button" class="btn btn-danger">See Detail</button>
                   </div>
                 </div>
               </div>
@@ -110,36 +93,255 @@
           </div>
         </div>
       </div>
+
+      <!-- Login Modal -->
+      <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="loginEmail">Email address</label>
+                  <input v-model="emailLogin" type="email" class="form-control" id="loginEmail" placeholder="Enter email">
+                  
+                </div>
+                <div class="form-group">
+                  <label for="loginPassword">Password</label>
+                  <input v-model="passwordLogin" type="password" class="form-control" id="loginPassword" placeholder="Password">
+                </div>
+                <small class="text-danger">{{checkInputLogin}}</small>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button @click="login" type="button" class="btn btn-danger" data-dismiss="modal">Login</button>
+              <button @click="loginFB" type="button" class="btn btn-danger" data-dismiss="modal">Login Facebook</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Register Modal -->
+      <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="regName">Name</label>
+                  <input v-model="nameReg" type="text" class="form-control" id="regName" placeholder="Enter Name">
+                  </div>
+                <div class="form-group">
+                  <label for="regEmail">Email address</label>
+                  <input v-model="emailReg" type="email" class="form-control" id="regEmail" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="regPassword">Password</label>
+                  <input v-model="passwordReg" type="password" class="form-control" id="regPassword" placeholder="Password">
+                </div>
+                <small class="text-danger">{{checkInputReg}}</small>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button @click="register" type="button" class="btn btn-danger" data-dismiss="modal">Register</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- Footer -->
-      <footer class="py-3 bg-danger">
+      <footer class="mt-3 py-3 bg-danger">
         <div class="container">
           <p class="m-0 text-center text-white">Copyright sumarsanaAdi&copy;2018 </p>
         </div>
       </footer>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    </div>
+    <script src="./js/lib/axios.min.js"></script>
+    <script src="./js/lib/sweetalert.min.js"></script>
+    <script src="./js/lib/axios-nprogress.js"></script>
+    <script src="./js/lib/vue.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase.js"></script>
+    <script src="./js/firebaserc.js"></script>
+    <script>
+      new Vue({
+      el: '#app',
+      data: function () {
+        return {
+          nameReg: "",
+          emailReg : "",
+          passwordReg: "",
+          emailLogin : "",
+          passwordLogin : "",
+          user : "",
+          isLogin : false,
+          role : "user",
+          totalCarts : 0
+        } 
+      },
+      created : function () {
+        let role = localStorage.getItem('userRole')
+        if (role) {
+          this.userRole = role
+        }
+        let token = localStorage.getItem('ecomm-token')
+        if (token !== null) {
+          this.isLogin = true
+        }
+      },
+      computed : {
+        checkInputLogin() {
+          if (this.emailLogin == "" || this.passwordLogin == "") {
+            return 'please fill all field'
+          } else {
+            return ''
+          }
+        },
+        checkInputReg() {
+          if (this.nameReg == "" || this.emailReg == "" || this.passwordReg == "") {
+            return 'please fill all field'
+          } else {
+            return ''
+          }
+        }
+      },
+      methods: {
+        login () {
+          let loginUser = {
+            email: this.emailLogin,
+            password: this.passwordLogin
+          }
+          let self = this
+          axios.post('http://ecomserver.sumarsanaadi.com/users/login', loginUser)
+            .then(response => {
+              if (response.status == 200) {
+                localStorage.setItem('ecomm-token',response.data.token)
+                localStorage.setItem('userRole', response.data.role)
+                swal({
+                  title: "login Success !",
+                  text: `${response.data.message}`,
+                  icon: "success",
+                })
+                  .then(value => {
+                    this.isLogin = true
+                    this.role = response.data.role
+                    this.emailLogin = ""
+                    this.passwordLogin = ""  
+                  })
+              } else {
+                swal({
+                  title: "Login Failed !",
+                  text: `${response.data.message}`,
+                  icon: "warning",
+                })
+                this.emailLogin = ""
+                this.passwordLogin = ""  
+              }
+            })
+            .catch(function (err) {
+              swal({
+                  title: "Login Failed !",
+                  text: "Something wrong happen",
+                  icon: "warning",
+                })
+              this.email = ""
+              this.password = ""  
+            })
+        },
+        loginFB () {
+          let provider = new firebase.auth.FacebookAuthProvider()
+          let self = this;
+          firebase.auth().signInWithPopup(provider)
+            .then(result => {
+              let loginUser = { token: result.credential.accessToken }
+              axios.post('http://ecomserver.sumarsanaadi.com/users/loginfb', loginUser)
+                .then(response => {
+                  if (response.status == 200) {
+                    swal({
+                      title: "login Success !",
+                      text: `${response.data.message}`,
+                      icon: "success",
+                    })
+                      .then(function (value) {
+                        localStorage.setItem('ecomm-token',response.data.token)
+                        localStorage.setItem('userRole', response.data.role)
+                        this.isLogin = true
+                        this.role = response.data.role
+                        this.emailLogin = ""
+                        this.passwordLogin = ""  
+                      })
+                  } else {
+                    swal({
+                      title: "Login Failed !",
+                      text: `${response.data.message}`,
+                      icon: "warning",
+                    })
+                  }
+                })
+                .catch(function (err) {
+                  swal({
+                      title: "Login Failed !",
+                      text: "Something wrong happen",
+                      icon: "warning",
+                    })
+                })
+            }).catch(function (error) {
+              let errorMessage = error.message
+              swal(JSON.stringify(errorMessage))
+            })
+          },
+          register () {
+            let newUser = {
+              name: this.nameReg,
+              email: this.emailReg,
+              password: this.passwordReg
+            }
+            axios.post('https://todoserver.sumarsanaadi.com/users/register', newUser)
+              .then(response => {
+                if (response.status == 200) {
+                  swal({
+                    title: "Register Success !",
+                    text: `${response.data.message}`,
+                    icon: "success",
+                  })
+                    .then(value => {
+                      
+                    })
+                } else {
+                  swal({
+                    title: "Register Failed !",
+                    text: `${response.data.message}`,
+                    icon: "warning",
+                  })
+                }
+              })
+              .catch(function (err) {
+                swal({
+                    title: "Register Failed !",
+                    text: "Something wrong happen",
+                    icon: "warning",
+                  })
+              })
+            this.nameReg = ""
+            this.emailReg = ""
+            this.passwordReg = ""
+          }
+        }
+      })
+    </script>
   </body>
-  <style>
-    body {
-     padding-top: 54px;
-     background-color: #F5F5F5;
-    }
-    html {
-      font-size: 13px;
-    }
-    a {
-      color: black;
-    }
-    h6 {
-      color : #DB0047;
-    }
-    @media (min-width: 768px) {
-      body {
-        padding-top: 60px;
-      }
-    }
-  </style>
 </html>

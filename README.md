@@ -3,6 +3,11 @@
 Front end technology uses Vue as a front end fremework, Bootstrap as css framework, Axios for http request, Nprogress for progress bar during request, and firebase for facebook login
 
 client endpoint : http://myecommerce.sumarsanaadi.com/
+
+admin acc :
+email : adi_admin2@mail.com
+password : @d1234
+
 note : client not yet finished, will finish it today
 
 # BACKEND SERVER

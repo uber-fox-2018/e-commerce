@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>e-commerce</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
@@ -14,6 +14,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body>
@@ -24,7 +26,7 @@
             <nav class="navbar is-transparent">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="https://bulma.io">
-                        <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+                        <h3>Le Bonheur</h3>
                     </a>
                     <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
                         <span></span>
@@ -32,43 +34,16 @@
                         <span></span>
                     </div>
                 </div>
-
                 <div id="navbarExampleTransparentExample" class="navbar-menu">
                     <div class="navbar-start">
                         <a class="navbar-item" href="https://bulma.io/">
                             Home
                         </a>
-                        <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link" href="/documentation/overview/start/">
-                                Docs
-                            </a>
-                            <div class="navbar-dropdown is-boxed">
-                                <a class="navbar-item" href="/documentation/overview/start/">
-                                    Overview
-                                </a>
-                                <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
-                                    Modifiers
-                                </a>
-                                <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
-                                    Columns
-                                </a>
-                                <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
-                                    Layout
-                                </a>
-                                <a class="navbar-item" href="https://bulma.io/documentation/form/general/">
-                                    Form
-                                </a>
-                                <hr class="navbar-divider">
-                                <a class="navbar-item" href="https://bulma.io/documentation/elements/box/">
-                                    Elements
-                                </a>
-                                <a class="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
-                                    Components
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                        <a class="navbar-item" href="https://bulma.io/">
 
+                            <a class="navbar-item" @click="logout" style="margin-left: 5px">Logout</a>
+                        </a>
+                    </div>
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div class="field is-grouped">
@@ -78,11 +53,8 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </nav>
-
-
-
-
 
             <div class="hero-body">
                 <div class="container has-text-centered">
@@ -105,11 +77,12 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <shopping-cart inline-template v-bind:items="cartItems">
+                        <shopping-cart inline-template :items="cartItems">
                             <div>
                                 <table class="table table-cart">
                                     <tr v-for="(item, index) in items">
                                         <td>{{item.title}}</td>
+
                                         <td style="width:120px">QTY:
                                             <input v-model="item.qty" class="form-control input-qty" type="number">
                                         </td>
@@ -140,25 +113,68 @@
             </div>
         </div>
 
-
-
-
-
-
-
         <div class="container">
-            <div class="card" style="width:240px;" v-for="(product,index) in items" :key="product.id">
-                <img class="card-img-top" v-bind:src="product.image" alt="Placeholder image" alt="Card image" style="width:100%">
-                <div class="card-body" style="height:30%">
-                    <h4 class="card-title">John Doe</h4>
-                    <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                    <button @click="addToCart(product)" class="btn btn-sm btn-primary">Add to Cart</button>
-                </div>
-            </div>
-            <br>
+
+            <item-list-admin @tambahbarang="addToCart"></item-list-admin>
 
         </div>
-        <!-- <footer class="footer">
+
+
+
+        <footer class="footer">
+            <div class="content has-text-centered">
+                <p>
+
+                </p>
+            </div>
+        </footer>
+        <crud-admin></crud-admin>
+    </div>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <!-- Any other Bulma elements you want -->
+            <table>
+                <tr>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row my-4">
+                                <div class="col-lg-4 col-md-6 mb-4" v-for="(item, index) in listItem">
+                                    <div class="card h-100">
+                                        <a href="#">
+                                            <img class="card-img-top" :src="item.image" alt="">
+                                        </a>
+                                        <div class="card-body">
+                                            <h4 class="card-title">
+                                                <p>{{ item.title }}</p>
+                                            </h4>
+                                            <p>{{ item.price }}</p>
+                                            <p class="card-text">Stock:{{ item.quantity }}</p>
+                                            <button @click="tambahItem(item)" class="btn btn-sm btn-primary">Add to Cart</button>
+                                            <button @click="deleteItem(index)" class="btn btn-sm btn-secondary">delete</button>
+                                        </div>
+                                        <div class="card-footer">
+                                            <span class="badge badge-primary tag">
+                                                {{item.category}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                </tr>
+            </table>
+            <input type="text" class="input" />
+        </div>
+        <button class="modal-close"></button>
+    </div>
+
+
+
+
+    <footer class="footer">
         <div class="content has-text-centered">
             <p>
                 <strong>Bulma</strong> by
@@ -168,9 +184,12 @@
             </p>
         </div>
     </footer>
-    </div> -->
-        </div>
-        <script src="main.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="./components/navbar.js"></script>
+
+    <script src="main.js"></script>
 
 
 </body>

@@ -1,4 +1,9 @@
 Vue.component('for-navbar', {
+  data () {
+    return{
+      searchBy: ''
+    }
+  },
   props: ['count', 'seen'],
   methods: {
     filterCategory(value){
@@ -6,6 +11,9 @@ Vue.component('for-navbar', {
     },
     logout(){
       this.$emit('logout')
+    },
+    search(input){
+      this.$emit('search', input)
     }
   },
   template: `
@@ -32,8 +40,8 @@ Vue.component('for-navbar', {
         </li>
       </ul>
         <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <input class="form-control mr-sm-2" type="search" v-model="searchBy" v-on:keyup.enter="search(searchBy)" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" @click="search(searchBy)" type="submit">Search</button>
           <div v-if="seen">
             <button class="btn my-2 my-sm-0" type="submit"> <a href="login.html">Login</a></button>
             <button class="btn my-2 my-sm-0" type="submit"><a href="register.html">Register</a></button>

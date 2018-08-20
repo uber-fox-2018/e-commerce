@@ -2,13 +2,14 @@ var vm = new Vue({
   el: '#app',
   data: {
     allProducts: '',
-    productCategory: [],
+    productcategory: [],
     cart: [],
     seen: true,
     count: 0,
     totalPrice: 0,
     url: '',
-    productEdit: ''
+    productEdit: '',
+    showcat: true
   },
   mounted () {
     this.getAllProduct()
@@ -22,17 +23,20 @@ var vm = new Vue({
       axios.get('http://localhost:3000/products')
       .then(products => {
         this.allProducts = products.data
+        this.showcat = true
       })
       .catch(err => {
         console.log(err.message)
       })
     },
     filterCategory(value){
+      this.productcategory = []
       this.allProducts.forEach(element => {
         if(element.category === value){
-          this.productCategory.push(element)
+          this.productcategory.push(element)
         }
-      });
+      })
+      this.showcat = false
     },
     addCart(product){
       let status = false
@@ -138,8 +142,17 @@ var vm = new Vue({
       })
     },
     forEdit(input){
-      console.log(input)
       this.productEdit = input
+    },
+    search (input) {
+      axios.get(`http://localhost:3000/products/search?q=${input}`)
+      .then(products => {
+        this.productcategory = products.data
+        this.showcat = false
+      })
+      .catch(err => {
+        alert(err.message)
+      })
     }
   }
 })

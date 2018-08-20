@@ -1,27 +1,32 @@
-var vm = new Vue({
+let vm = new Vue({
   el: '#app',
-  data: {
-    allProducts: '',
-    productcategory: [],
-    // cart: [],
-    seen: true,
-    count: 0,
-    totalPrice: 0,
-    url: '',
-    productEdit: '',
-    showcat: true,
-    name: '',
-    email: '',
-    password: '',
-    totalQty: '',
-    shopCart: []
+  data (){
+    return {
+      searchBy: '',
+      seen: true,
+      count: 0,
+      email: '',
+      password: '',
+      productName: '',
+      price: '',
+      url: '',
+      category: '',
+      allProducts: '',
+      productcategory: '',
+      showcat: true,
+      productedit: '',
+      newCategory: '',
+      cart: [],
+      totalPrice: 0,
+      name: ''
+    }
   },
-  mounted () {
-    this.getAllProduct()
+  mounted(){
     let token = localStorage.getItem('token')
     if(token){
       this.seen = false
     }
+    this.getAllProduct()
   },
   methods: {
     getAllProduct(){
@@ -43,42 +48,24 @@ var vm = new Vue({
       })
       this.showcat = false
     },
-    addCart(product){
-      console.log(product)
-      this.totalQty += product.qty
-      this.totalPrice += product.price * product.qty
-      var status = false
-      if (this.shopCart.length !== 0) {
-        this.shopCart.forEach(element => {
-          if (product.name === element.name) {
-            element.qty += 1
-            status = true
-          }
-        })
-        if (!status) {
-          this.shopCart.push(product)
-        }
-      } else {
-        this.shopCart.push(product)
-        this.count++
-      }
-    },
-    decrease(product){
-      if(product.qty > 1){
-        product.qty--
-      }
-    },
-    increase(product){
-      product.qty++
+    search (input) {
+      axios.get(`http://localhost:3000/products/search?q=${input}`)
+      .then(products => {
+        this.productcategory = products.data
+        this.showcat = false
+      })
+      .catch(err => {
+        alert(err.message)
+      })
     },
     logout(){
       localStorage.clear()
-      window.location="index.html"
+      this.seen = true
     },
-    login(input){
+    login(){
       axios.post('http://localhost:3000/users/login', {
-        email: input.email,
-        password: input.password
+        email: this.email,
+        password: this.password
       })
       .then(userLogin => {
         if(userLogin.data.isAdmin === true){
@@ -97,23 +84,23 @@ var vm = new Vue({
         console.log(err.message)
       })
     },
-    getImage (file) {
+    getImage(file){
       this.url = file.target.files[0]
     },
-    uploadToGcp(input){
+    uploadToGcp(){
       let formData = new FormData()
       formData.append('image', this.url)
       axios.post('http://localhost:3000/products/upload', formData)
       .then(result => {
         axios.post('http://localhost:3000/products/uploadProduct', {
-          name: input.name,
-          category: input.category,
-          price: input.price,
+          name: this.productName,
+          category: this.category,
+          price: this.price,
           imgUrl: result.data.link
         })
           .then(newProduct => {
             alert('Successfully add new product')
-            window.location='index.html'
+            window.location='upload.html'
           })
           .catch(err => {
             console.log(err)
@@ -123,15 +110,8 @@ var vm = new Vue({
         console.log(err)
       })
     },
-    deleteProduct(input){
-      axios.delete(`http://localhost:3000/products/delete/${input}`)
-      .then(delProduct => {
-        alert('Deleted!')
-        window.location='upload.html'
-      })
-      .catch(err => {
-        alert(err.message)
-      })
+    forEdit(input){
+      this.productedit = input
     },
     edit(input){
       axios.put(`http://localhost:3000/products/edit/${input.id}`, {
@@ -147,8 +127,15 @@ var vm = new Vue({
         alert(err.message)
       })
     },
-    forEdit(input){
-      this.productEdit = input
+    deleteProduct(input){
+      axios.delete(`http://localhost:3000/products/delete/${input}`)
+      .then(delProduct => {
+        alert('Deleted!')
+        window.location='upload.html'
+      })
+      .catch(err => {
+        alert(err.message)
+      })
     },
     search (input) {
       axios.get(`http://localhost:3000/products/search?q=${input}`)
@@ -159,6 +146,42 @@ var vm = new Vue({
       .catch(err => {
         alert(err.message)
       })
+    },
+    logout(){
+      localStorage.clear()
+      window.location="index.html"
+    },
+    decrease(product){
+      if(product.qty > 1){
+        product.qty--
+      }
+    },
+    increase(product){
+      product.qty++
+    },
+    addCart(product){
+      let status = false
+      if (this.cart.length !== 0) {
+        this.cart.forEach(element => {
+          if (product.name === element.name) {
+            element.qty += 1
+            status = true
+            this.totalPrice = element.qty * element.price
+          }
+        })
+        if (!status) {
+          this.cart.push(product)
+          this.count++
+        }
+      } else {
+        this.cart.push(product)
+        this.count++
+      }
+    },
+    checkout(){
+      alert('Thank you for shopping with PinjemDonk!')
+      this.count = 0
+      window.location='index.html'
     },
     register () {
       axios.post('http://localhost:3000/users/register', {
@@ -174,11 +197,6 @@ var vm = new Vue({
       .catch(err => {
         console.log(err.message)
       })
-    },
-    checkout(){
-      alert('Thank you for shopping with PinjemDonk!')
-      this.count = 0
-      window.location='index.html'
     }
   }
 })

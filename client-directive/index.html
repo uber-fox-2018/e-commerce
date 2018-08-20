@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">  
+  <title>PinjemDonk</title>
+</head>
+<body>
+  <div id="app">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">PinjemDonk</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Category
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#" @click="filterCategory('Formal')">Formal</a>
+              <a class="dropdown-item" href="#" @click="filterCategory('Party')">Party</a>
+              <a class="dropdown-item" href="#" @click="filterCategory('Occasion')">Occasion</a>
+              </div>
+          </li>
+        </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" v-model="searchBy" v-on:keyup.enter="search(searchBy)" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" @click.prevent="search(searchBy)" type="submit">Search</button>
+            <div v-if="seen">
+              <button class="btn my-2 my-sm-0" type="submit"> <a href="login.html">Login</a></button>
+              <button class="btn my-2 my-sm-0" type="submit"><a href="register.html">Register</a></button>
+            </div>
+            <div v-else>
+            <button class="btn my-2 my-sm-0" type="submit" @click="logout">Logout</button>
+            </div>
+            <i class="fas fa-shopping-cart" data-toggle="modal" data-target="#myModal"></i>
+            {{count}}
+
+            <!-- Modal -->
+
+            <div class="modal" id="myModal">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title">Your Shooping Cart</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        <table border="0px" id="tabel_pembelian"><br>
+                          <tr>
+                            <th text-align="center">Image</th>
+                            <th align="center">Name</th>
+                            <th align="center">Price</th>
+                            <th align="center">Quantity</th>
+                            <th align="center">Total</th>
+                          </tr>
+                          <tr v-for="x in cart">
+                            <td><img v-bind:src="x.imgUrl" class="img" style="width:50%"></td>
+                            <td>{{x.name}}</td>
+                            <td>{{x.price}}</td>
+                            <td>{{x.qty}}</td>
+                            <td>{{totalPrice}}</td>
+                          </tr>
+                        </table>
+                        <h4 id="total"> Total: Rp  </h4>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" @click="checkout" data-dismiss="modal">Checkout</button>
+                        </div> 
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+
+          </form>
+      </div>
+    </nav>
+
+    <!-- product -->
+    <div>
+      <div class="row" style="width:80%;margin-left:10%" v-if="showcat">
+        <div class="col-md-3" v-for="(product, index) in allProducts">
+          <div class="card-deck">
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" v-bind:src="product.imgUrl" alt="Card image cap" id="imgId">
+              <div class="card-body">
+                <h5 class="card-title">Rp. {{product.price}}</h5>
+                <p class="card-text">{{product.name}}</p>
+                <div style="float: right;">
+                  <i class="fas fa-minus-square" @click="decrease(product)"></i>
+                  <i style="margin: 10px;">{{product.qty}}</i>
+                  <i class="fas fa-plus-square mr-2" @click="increase(product)"></i>
+                  <i class="fas fa-shopping-cart" @click="addCart(product)"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row" style="width:80%;margin-left:10%" v-else>
+        <div class="col-md-3" v-for="(product, index) in productcategory">
+          <div class="card-deck">
+            <div class="card" style="width: 18rem;">
+              <img class="card-img-top" v-bind:src="product.imgUrl" alt="Card image cap" id="imgId">
+              <div class="card-body">
+                <h5 class="card-title">Rp. {{product.price}}</h5>
+                <p class="card-text">{{product.name}}</p>
+                <div style="float: right;">
+                  <i class="fas fa-minus-square" @click="decrease(product)"></i>
+                  <i style="margin: 10px;">{{product.qty}}</i>
+                  <i class="fas fa-plus-square mr-2" @click="increase(product)"></i>
+                  <i class="fas fa-shopping-cart" @click="addCart(product)"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

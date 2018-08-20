@@ -8,11 +8,8 @@ class UserController {
     static register(req, res){
         let {email, name} = req.body
         var hash = bcrypt.hashSync(req.body.password, salt);
-        console.log(req.body);
         User.findOne({email: email})
         .then(user => {
-            console.log(user);
-            
             if(user === null){
                 User.create({
                     name, email, password: hash

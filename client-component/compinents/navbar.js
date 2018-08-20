@@ -41,7 +41,7 @@ Vue.component('for-navbar', {
       </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" v-model="searchBy" v-on:keyup.enter="search(searchBy)" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" @click="search(searchBy)" type="submit">Search</button>
+          <button class="btn btn-outline-success my-2 my-sm-0" @click.prevent="search(searchBy)" type="submit">Search</button>
           <div v-if="seen">
             <button class="btn my-2 my-sm-0" type="submit"> <a href="login.html">Login</a></button>
             <button class="btn my-2 my-sm-0" type="submit"><a href="register.html">Register</a></button>

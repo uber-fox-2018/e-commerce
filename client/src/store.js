@@ -76,8 +76,8 @@ export default new Vuex.Store({
             imgUrl: result.data.link
           })
             .then(newProduct => {
-              alert('Successfully add new product')
               router.push('/upload')
+              alert('Successfully add new product')
             })
             .catch(err => {
               console.log(err)
@@ -139,8 +139,8 @@ export default new Vuex.Store({
     deleteProduct (context, payload) {
       axios.delete(`http://localhost:3000/products/delete/${payload}`)
         .then(delProduct => {
-          alert('Deleted!')
           router.push('/upload')
+          alert('Deleted!')
         })
         .catch(err => {
           alert(err.message)
@@ -154,6 +154,7 @@ export default new Vuex.Store({
         imgUrl: payload.imgUrl
       })
         .then(updatePro => {
+          router.push('/upload')
           alert('Edited!')
         })
         .catch(err => {

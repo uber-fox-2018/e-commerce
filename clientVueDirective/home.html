@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+    crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="./js/food-list-card.js"></script>
+  <script src="./js/foods-management.js"></script>
+  <div id="app">
+
+    <nav class="navbar navbar-expand-sm navbar-expand-lg navbar-expand-md navbar-expand-xl navbar-dark bg-dark fixed-top row"
+      style="opacity: 0.8;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class=" collapse navbar-collapse" id="navbarSupportedContent">
+
+      </div>
+      <div class="container col-5 col-md-4 col-sm-5 col-lg-4 col-xl-3">
+        <img src="http://www.joinecom.com/wp-content/uploads/2015/04/cropped-join-logo21.png" style="height: 50%; width: 50%;" alt="logo">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link hover" href="#">Home
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">Category</a>
+            <div class="dropdown-menu" style="height: 200px;width: 210px" aria-labelledby="dropdown01">
+              <div id="menuCategories" v-for="category in categories">
+                <div class="row">
+                  <a class="dropdown-item" v-bind:href="category.tag">
+                    <p v-html="category.icon" class="col-md-5 col-5 col-sm-5"></p>
+                    <p class="col-md-5 col-5 col-sm-5">{{category.name}}</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="container-menu col-5 col-md-5 col-4 col-sm-5 col-lg-5 col-xl-5 " style="padding-right: 0px; margin-left: 50px">
+        <form class="form-inline mt-2 mt-md-0">
+          <input class="form-control mr-sm-2" style="width: 80%" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+      <div class="container-shop col-2 col-md-4 col-4 col-sm-2 col-lg-4 col-xl-4 pl-5" style="padding-left: 0px;">
+        <div class="container-notif">
+          <ul class="navbar-nav">
+            <a class="nav-link hover" href="#" style="padding-right: 30px" data-toggle="modal" data-target="#modalCart">
+              <i class="fas fa-shopping-cart"></i>{{ carts.length }} Cart
+            </a>
+            <!-- <a class="nav-link hover" href="#" style="padding-right: 30px">
+              <i class="far fa-money-bill-alt"></i> Checkout
+            </a> -->
+            <a class="nav-link hover" href="#" style="padding-right: 30px" data-toggle="modal" data-target="#exampleModalLong">
+              <i class="fas fa-question"></i> Help
+            </a>
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="button" style="margin-right: 5px" data-toggle="modal" data-target="#modalLogin">
+              Signin
+            </button>
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="button" data-toggle="modal" data-target="#modalSignup">
+              Signup
+            </button>
+          </ul>
+        </div>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+      </button>
+    </nav>
+
+    <!-- MODAL SIGN IN -->
+    <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLoginLabel">Sign In</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label class="col-form-label">Email:</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="password-text" class="col-form-label">Password:</label>
+                <input type="password" class="form-control">
+                <!-- <textarea class="form-control" id="password-text"></textarea> -->
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL SIGN IN -->
+
+    <!-- MODAL SIGN UP -->
+    <div class="modal fade" id="modalSignup" tabindex="-1" role="dialog" aria-labelledby="modalSignupLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalSignupLabel">Register</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Fullname:</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Email:</label>
+                <input type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Phone Number:</label>
+                <input type="text" class="form-control" id="phone-number">
+              </div>
+              <div class="form-group">
+                <label for="password-text" class="col-form-label">Password:</label>
+                <input type="password" class="form-control">
+                <!-- <textarea class="form-control" id="password-text"></textarea> -->
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL SIGN UP -->
+
+    <!-- MODAL CART -->
+    <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="modalCartLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCartLabel">List Items</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div v-if="carts.length > 0">
+            <div v-for="(cart, index) in carts" :key="index" class="modal-body">
+              <div class="row">
+                <div class="form-group col-md-3">
+                  <img class="mx-auto" style="height: 100px; width: 100px" v-bind:src="cart.img">
+                </div>
+                <div class="form-group col-md-9">
+                  <!-- <label for="password-text" class="col-form-label">Description:</label> -->
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Notes</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <td>{{ cart.id }}</td>
+                      <td>{{ cart.name }}</td>
+                      <td>{{ convertMoney(totalPrice(cart.price, cart.qty)) }}</td>
+                      <td>{{ cart.qty }}</td>
+                      <td>{{ cart.notes }}</td>
+                      <button v-on:click="removeItem(index)">
+                        <i class="fas fa-times-circle">remove</i>
+                      </button>
+                    </tbody>
+                  </table>
+                  <!-- <textarea class="form-control" id="password-text"></textarea> -->
+                </div>
+              </div>
+            </div>
+            <hr>
+            <p>Total Price: {{ convertMoney(totalPriceOnCart(carts))}}</p>
+          </div>
+          <h1 v-else class="mx-auto" style="color: gray">Nothing Item In Your Cart</h1>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" v-on:click="substractStock(carts)" class="btn btn-primary" data-dismiss="modal">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL CART -->
+
+    <!-- MODAL BUY ITEMS -->
+    <div class="modal fade" id="modalBuyItems" tabindex="-1" role="dialog" aria-labelledby="modalBuyItemsLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Buy Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <td>{{ itemBuy.id }}</td>
+                  <td>{{ itemBuy.name }}</td>
+                  <td>{{ convertMoney(totalPrice(itemBuy.price)) }}</td>
+                  <td>
+                    <i class="fas fa-minus-circle"></i>
+                    <input v-model="buyQty" type="number" name="qty" style="text-align: center" placeholder="qty" min="0">
+                    <i class="fas fa-plus-circle"></i>
+                  </td>
+                </tbody>
+              </table>
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Notes:</label>
+              <textarea v-model="notes" class="form-control" id="description-text"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" @click="addItemToCart()" data-dismiss="modal">Buy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL BUY ITEMS -->
+    <!-- MODAL HELP -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Help
+              <i class="fas fa-info-circle"></i>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, vitae corrupti delectus nihil est quod asperiores
+              dolor magni voluptate doloribus? Inventore quibusdam at quaerat dolore assumenda modi sed illum esse?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODAL HELP -->
+
+    <div id="advantisement-content" style="margin-top: 60px">
+      <div id="carouselExampleIndicators" class="carousel slide container-fluid" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" style="height: 500px;" src="https://www.lopesan.com/img/hotels/2728/Habitacion-abora-continental-by-lopesan-hotels.jpg"
+              alt="First slide">
+            <div class="carousel-caption d-none d-md-block" style="color: aqua">
+              <h5>Lore</h5>
+              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Culpa possimus commodi soluta quis voluptatem repudiandae
+                quas, totam deserunt suscipit non? Commodi voluptatibus accusamus reprehenderit excepturi repellat nobis
+                impedit laboriosam consequuntur.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" style="height: 500px;" src="https://assets.phenompeople.com/CareerConnectResources/WHFOGLOBAL/en_global/desktop/assets/images/Hero-banner-image.jpg"
+              alt="Second slide">
+            <div class="carousel-caption d-none d-md-block" style="color: aqua">
+              <h5>Lore</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum eos placeat officia aliquid dolor excepturi
+                reiciendis possimus praesentium nihil ex itaque nam cumque, eligendi, delectus debitis odio! Libero, voluptatibus
+                fugit.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg" style="height: 500px;"
+              alt="Third slide">
+            <div class="carousel-caption d-none d-md-block" style="color: aqua">
+              <h5>Lore</h5>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi porro iste eveniet provident magnam qui ex,
+                at ut tenetur excepturi minima dolorem incidunt, quia suscipit esse rem nam atque! Nobis.</p>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+
+
+    <h2 class="mt-2 mx-5" style="color: grey">Foods</h2>
+    <hr class="bg-dark mt-2 mx-5" id="foods">
+    <div id="containerFoods">
+      <div id="container-cards" class="row">
+        <div v-for="food in foods" id="container-foods-cards" class="mt-2 mx-5 col-md-3">
+          <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+            <div class="card-header col-md-12 mx-auto">
+              <h4>{{ food.name }}</h4>
+            </div>
+            <div class="card-body text-dark col-md-12">
+              <img class="card-image-center mx-auto" v-bind:src="food.img" alt="" style="height: 200px; width: 250px;">
+              <p class="card-text">Price: {{ convertMoney(food.price) }}</p>
+              <div v-if="food.qty === 0">
+                <p class="card-text">Qty Left: Empty Stock</p>
+              </div>
+              <div v-else>
+                <p class="card-text">Qty Left: {{ food.qty }}</p>
+              </div>
+              <p class="card-text"></p>{{food.description}}
+              <br>
+              <div v-if="food.qty">
+                <button v-on:click="buyItem(food)" id="food.id" value="food.id" class="btn btn-outline-primary my-2 my-sm-0" type="button"
+                  data-toggle="modal" data-target="#modalBuyItems">
+                  Buy
+                </button>
+              </div>
+              <div v-else>
+                <button v-on:click="buyItem(food)" id="food.id" value="food.id" class="btn btn-outline-primary my-2 my-sm-0 disabled" type="button"
+                  data-toggle="modal">
+                  Buy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2 class="mt-2 mx-5" style="color: grey">Drinks</h2>
+    <hr class="bg-dark mt-2 mx-5" id="drinks">
+    <div id="containerDrink">
+      <div id="container-cards" class="row">
+        <div v-for="drink in drinks" id="container-drinks-cards" class="mt-2 mx-5 col-md-3">
+          <div class="card border-dark mb-3 row center mx-3" style="max-width: 18rem;">
+            <div class="card-header col-md-12 mx-auto">
+              <h4>{{ drink.name }}</h4>
+            </div>
+            <div class="card-body text-dark col-md-12">
+              <img class="card-image-center mx-auto" v-bind:src="drink.img" alt="" style="height: 200px; width: 250px;">
+              <p class="card-text">Price: {{ convertMoney(drink.price) }}</p>
+              <p class="card-text">Qty Left: {{ drink.qty }}</p>
+              <p class="card-text"></p>{{drink.description}}
+              <br>
+              <button v-on:click="buyItem(drink)" id="drink.id" value="drink.id" class="btn btn-outline-primary my-2 my-sm-0" type="button"
+                data-toggle="modal" data-target="#modalBuyItems">
+                Buy
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/vue.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script>
+    // import foodsmanagement from './js/foods-management.js'
+  </script>
+</body>
+
+</html>

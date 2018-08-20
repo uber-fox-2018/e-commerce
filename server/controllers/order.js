@@ -15,7 +15,8 @@ class OrderController {
         .then (order => {
           if (order) {
             Order.update({
-              userId : decoded.id
+              userId : decoded.id,
+              status : "open"
             },
               {
               $push: {productList : req.body.productId}
@@ -57,7 +58,8 @@ class OrderController {
     try {
       let decoded = jwt.verify(req.headers.token, process.env.JWT_KEY)
       Order.update({
-        userId : decoded.id
+        userId : decoded.id,
+        status : "open"
       },
         {
         $pull: {productList : req.body.productId}
@@ -102,10 +104,14 @@ class OrderController {
         .then (order => {
           if (order) {
             Order.update({
+              _id : req.body.orderId
+            },
+            {
               status : "checkout",
-              address : req.body.address
+              // address : req.body.address
             })
             .then (updatedOrder => {
+              console.log(updatedOrder)
               res.status(200)
                .json({message : "successfully check out order", data : updatedOrder})
             })
@@ -136,6 +142,8 @@ class OrderController {
         .then (order => {
           if (order) {
             Order.update({
+              _id : req.body.orderId
+            },{
               status : "completed"
             })
             .then (updatedOrder => {

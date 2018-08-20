@@ -47,13 +47,6 @@
                   <a href="" class="list-group-item">Show Completed Orders</a> -->
                 </div>
               </div>
-              <p class="my-2 ">Find more detail</p>
-              <div class="list-group">
-                <a href="#" class="list-group-item">All Categories</a>
-                <a href="#" class="list-group-item">Man clothes</a>
-                <a href="#" class="list-group-item">Woman clothes</a>
-                <a href="#" class="list-group-item">Shoes</a>
-              </div>
               <div v-if='!isAdmin'>
                 <p class="my-2">Filter</p>
                 <div class="list-group">
@@ -74,7 +67,13 @@
                   </div>
                 </div>
               </div>
-            
+              <p class="my-2 ">Find more detail</p>
+              <div class="list-group">
+                <a href="#" class="list-group-item">All Categories</a>
+                <a href="#" class="list-group-item">Man clothes</a>
+                <a href="#" class="list-group-item">Woman clothes</a>
+                <a href="#" class="list-group-item">Shoes</a>
+              </div>
             </div>
             
           </div>
@@ -92,7 +91,7 @@
                     <p class="card-title">
                       <p>{{product.name}}</p>
                     </p>
-                    <h6>Rp.{{product.price}}</h6>
+                    <h6>Rp.{{Number(product.price).toLocaleString()}}</h6>
                     <!-- <p class="card-text">{{product.description}}</p> -->
                   </div>
                   <div class="card-footer text-center">
@@ -308,7 +307,7 @@
                       <h6>Category</h6>
                       <p v-if="productDetail.category">{{productDetail.category.name}}</p>
                       <h6>Price</h6>
-                      <p>Rp.{{productDetail.price}}</p>
+                      <h5>Rp.{{Number(productDetail.price).toLocaleString()}}</h5>
                     </div>
                   </div>
                 </div> 
@@ -340,20 +339,24 @@
                         <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(index, list) in cartLists.productList">
+                      <tr v-if="cartLists.productList" v-for="(list, index) in cartLists.productList">
                         <td>{{index+1}}</td>
                         <td>{{list.name}}</td>
                         <td>1</td>
-                        <td>{{list.price}}</td>
+                        <td>Rp.{{Number(list.price).toLocaleString()}}</td>
+                        <td><a @click=deleteProductCart(list._id) class="btn text-danger" data-dismiss="modal" data-toggle="tooltip" data-placement="bottom" title="delete product from chart"><i class="material-icons">delete</i></a></td>
+                      </tr>
                     </tbody>
                   </table>
+                  <h4 class="mr-3 mt-2">Total Price : Rp.{{Number(totalCartPrice).toLocaleString()}} </h4>
                 </div> 
               </div>
               <div class="modal-footer">
-                <p>Total Price :    ${{totalCartPrice}}</p>
+                
                 <button v-if="!isAdmin && isLogin" @click="checkoutOrder(cartLists._id)" type="button" class="btn btn-danger" data-dismiss="modal">Checkout Order</button>
               </div>
             </div>
@@ -473,7 +476,7 @@
             password: this.passwordLogin
           }
           let self = this
-          axios.post('http://ecomserver.sumarsanaadi.com/users/login', loginUser)
+          axios.post('https://ecomserver.sumarsanaadi.com/users/login', loginUser)
             .then(response => {
               if (response.status == 200) {
                 localStorage.setItem('ecomm-token',response.data.token)
@@ -519,7 +522,7 @@
           firebase.auth().signInWithPopup(provider)
             .then(result => {
               let loginUser = { token: result.credential.accessToken }
-              axios.post('http://ecomserver.sumarsanaadi.com/users/loginfb', loginUser)
+              axios.post('https://ecomserver.sumarsanaadi.com/users/loginfb', loginUser)
                 .then(response => {
                   if (response.status == 200) {
                     swal({
@@ -565,7 +568,7 @@
               email: this.emailReg,
               password: this.passwordReg
             }
-            axios.post('http://ecomserver.sumarsanaadi.com/users/register', newUser)
+            axios.post('https://ecomserver.sumarsanaadi.com/users/register', newUser)
               .then(response => {
                 if (response.status == 200) {
                   swal({
@@ -614,7 +617,7 @@
             formData.append('price', this.addPriceProduct)
             formData.append('category', this.addCategoryProduct)
             axios
-              .post("http://ecomserver.sumarsanaadi.com/products/", formData, {
+              .post("https://ecomserver.sumarsanaadi.com/products/", formData, {
                 headers: { token: localStorage.getItem('ecomm-token') }
               })
               .then(response => {
@@ -638,7 +641,7 @@
           },
           addCagetory () {
             axios
-              .post("http://ecomserver.sumarsanaadi.com/category/", {
+              .post("https://ecomserver.sumarsanaadi.com/category/", {
                 name : this.addCategoryName
               }, {
                 headers: { token: localStorage.getItem('ecomm-token') }
@@ -676,7 +679,7 @@
             })
           },
           getAllProduct () {
-            axios.get('http://ecomserver.sumarsanaadi.com/products/getall')
+            axios.get('https://ecomserver.sumarsanaadi.com/products/getall')
               .then (products => {
                 this.showProductList = products.data.data
                 this.showProductName = "All Categories"
@@ -691,7 +694,7 @@
             })
             .then((willDelete) => {
               if (willDelete) { 
-                axios.delete(`http://ecomserver.sumarsanaadi.com/products/${product._id}`,
+                axios.delete(`https://ecomserver.sumarsanaadi.com/products/${product._id}`,
                 {
                   headers: {
                     token: localStorage.getItem('ecomm-token')
@@ -724,7 +727,7 @@
             this.editPriceProduct = product.price
           },
           saveEditProduct () {
-            axios.put(`http://ecomserver.sumarsanaadi.com/products/${this.editIdProduct}`, {
+            axios.put(`https://ecomserver.sumarsanaadi.com/products/${this.editIdProduct}`, {
               name: this.editNameProduct,
               description : this.editDescProduct,
               price : this.editPriceProduct,
@@ -755,7 +758,7 @@
             this.productDetail = product
           },
           addToChart (productId) {
-            axios.post('http://ecomserver.sumarsanaadi.com/orders/', {
+            axios.post('https://ecomserver.sumarsanaadi.com/orders/', {
               productId : productId
             }, {
               headers : {
@@ -786,17 +789,85 @@
               }
             })
               .then (openOrders => {
-                let totalPrice = 0 
+                if (openOrders.data.data[0]) {
+                  let totalPrice = 0 
                 this.cartLists = openOrders.data.data[0]
-                console.log(this.cartLists);
-                
+                // console.log(this.cartLists);
                 this.totalCarts = openOrders.data.data[0].productList.length
                 openOrders.data.data[0].productList.forEach (product => {
                   totalPrice += product.price
                 })
                 this.totalCartPrice = totalPrice
+                } else {
+                  this.cartLists = {}
+                  this.totalCarts = 0
+                  this.totalCartPrice = 0
+                }
               })
           },
+          deleteProductCart (productId) {
+            swal({
+              title: "Are you sure delete this product from cart?",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+            })
+            .then((willDelete) => {
+              if (willDelete) { 
+                axios.put('https://ecomserver.sumarsanaadi.com/orders/remove',{
+                  productId : productId
+                }, {
+                  headers : {
+                    token : localStorage.getItem("ecomm-token")
+                  }
+                })
+                .then(response => {
+                  swal({
+                    title: "Product deleted from cart!",
+                    icon: "success",
+                  })
+                    .then((value) => {
+                      this.getOpenOrder()
+                    })
+                })
+                .catch(err => {
+                  swal({
+                    title: "Failed Delete product !",
+                    text: "Something wrong happen",
+                    icon: "warning",
+                  })
+                })
+              }
+            })
+          },
+          checkoutOrder (orderId) {
+            console.log(orderId);
+            
+            axios.put('https://ecomserver.sumarsanaadi.com/orders/checkout',{
+                orderId : orderId
+                }, {
+                  headers : {
+                    token : localStorage.getItem("ecomm-token")
+                  }
+                })
+                .then(response => {
+                  swal({
+                    title: "Checkout Success, Thanks for shopping in our website",
+                    icon: "success",
+                  })
+                    .then((value) => {
+                      this.getOpenOrder()
+                    })
+                })
+                .catch(err => {
+                  console.log(err.message)
+                  swal({
+                    title: "Failed checkout order !",
+                    text: "Something wrong happen",
+                    icon: "warning",
+                  })
+                })
+          }
         }
       })
     </script>

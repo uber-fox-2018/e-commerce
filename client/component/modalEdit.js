@@ -39,11 +39,16 @@ Vue.component('modal-edit',{
             formData.append('item',this.dataitem.url)
             axios.post('http://localhost:3000/upload',formData)
             .then(result=>{
+                let token = localStorage.getItem('token')
                 axios.post(`http://localhost:3000/item/edit/${data._id}`,{
                     name :this.dataitem.name,
                     category : this.dataitem.category,
                     price : this.dataitem.price,
                     url : result.data.link
+                },{
+                    headers :{
+                        token : token
+                    }
                 })
                 .then(data=>{
                     

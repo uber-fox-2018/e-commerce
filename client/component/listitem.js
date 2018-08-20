@@ -32,6 +32,7 @@ Vue.component('list-item',{
                     <ul class="list-group">
                         <li class="list-group-item">Rp {{item.price}}</li>
                         <li class="list-group-item">{{item.category}}</li>
+                        {{admin}}
                     </ul>
                 </center>
                     <div class="container">  
@@ -39,14 +40,15 @@ Vue.component('list-item',{
                         <div class="col-md-4">
                         <a href="#" class="btn btn-outline-dark" v-on:click="addToCart(index)"><i class="fas fa-plus-circle"></i></a>
                         </div>
-                            <div class="col-md-4">
+                            
+                            <div class="col-md-4" v-if="admin">
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalEdit" v-on:click="editItem(item)">Edit</a>
                             </div>
                             
-                            <div class="col-md-4">
+                            <div class="col-md-4" v-if="admin">
                             <a href="#" class="btn btn-danger" v-on:click="deleteItem(item._id)">Delete</a>
-                            </div>
-                           
+                            
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -57,13 +59,18 @@ Vue.component('list-item',{
 </div>
 </div>
     `,
-    props :['items'],
+    props :['items','admin'],
     methods :{
         editItem(data){
             this.$emit('item-edit',data)
         },
         deleteItem(id){
-            axios.delete(`http://localhost:3000/item/delete/${id}`)
+            let token = localStorage.getItem('token')
+            axios.delete(`http://localhost:3000/item/delete/${id}`,{
+                headers : {
+                    token : token
+                }
+            })
             .then(data=>{
                 window.location ="http://localhost:8080"
             })

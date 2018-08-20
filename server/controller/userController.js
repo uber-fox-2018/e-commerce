@@ -37,9 +37,9 @@ class Controller{
     }
 
     static authentication(req,res,next){
-        var decoded = jwt.verify(req.headers.token, process.env.secretKey)
-        // console.log("===============",decoded)
-        if(decoded){
+        var decoded = jwt.verify(req.headers.token, 'easy')
+        console.log("===============",decoded)
+        if(decoded.email == "mario@mail.com"){
             next()
         }else{
             res.status(400).json('error')

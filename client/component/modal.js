@@ -38,11 +38,16 @@ Vue.component('modal',{
             formData.append('item',this.url)
             axios.post('http://localhost:3000/upload',formData)
             .then(result=>{
+                let token = localStorage.getItem('token')
                 axios.post('http://localhost:3000/item/addItem',{
                     name : this.itemName,
                     category : this.category,
                     price : this.price,
                     url : result.data.link
+                },{
+                    headers : {
+                        token : token
+                    }
                 })
                 .then(data=>{
                     console.log(data)

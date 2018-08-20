@@ -5,9 +5,25 @@ var app = new Vue({
         edit : null,
         cart : [],
         tes : 'asd',
-        total : 0
+        total : 0,
+        admin : false,
+        login : false
+
     },
     methods :{
+        checkLogin(){
+            let token = localStorage.getItem('token')
+            if(token){
+                this.login = true
+            }
+        },
+        checkAdmin(){
+            let checkadmin = localStorage.getItem('email')
+            console.log(checkadmin)
+            if(checkadmin == 'mario@mail.com'){
+                this.admin = true
+            }
+        },
         allItem(){
             axios.get('http://localhost:3000/item/listitem')
             .then(data=>{
@@ -52,5 +68,9 @@ var app = new Vue({
     mounted (){
         this.allItem()
         this.getItem()
+    },
+    created(){
+        this.checkAdmin()
+        this.checkLogin()
     }
 })

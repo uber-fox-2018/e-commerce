@@ -15,11 +15,11 @@
 </head>
 <body>
     <div id="main">
-        <navbar v-on:search="search"></navbar>
+        <navbar v-on:search="search" v-bind:admin="admin" v-bind:login="login"></navbar>
         <modal></modal>
         <modal-login></modal-login>
         <modal-regist></modal-regist>
-        <list-item v-bind:items="items" v-on:item-edit="getDataEdit" v-on:item-cart="getItem" ></list-item>
+        <list-item v-bind:items="items" v-on:item-edit="getDataEdit" v-on:item-cart="getItem" v-bind:admin="admin"></list-item>
         <modal-edit v-bind:edit="edit" ></modal-edit>
         <modal-cart v-bind:cart="cart" :total="total"></modal-cart>
         

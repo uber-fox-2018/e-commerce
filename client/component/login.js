@@ -34,7 +34,10 @@ Vue.component('modal-login',{
                 password : this.password
             })
             .then(data=>{
-                console.log((data));
+                localStorage.setItem('token',data.data.token)
+                localStorage.setItem('email',data.data.dataUser.email)
+                window.location ="http://localhost:8080/"
+                console.log(data.data);
                 
             })
         }

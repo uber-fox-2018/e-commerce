@@ -14,12 +14,15 @@ Vue.component('navbar',{
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Home  <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="#" data-toggle="modal" data-target="#exampleModal">Add</a>
+        <a class="nav-link active" href="#" data-toggle="modal" data-target="#exampleModal" v-if="admin">Add</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item" v-if="login">
+      <a class="nav-link active" href="#" v-on:click="logout">Log out</a>
+    </li>
+      <li class="nav-item dropdown" v-else>
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown
         </a>
@@ -28,6 +31,7 @@ Vue.component('navbar',{
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#registModal">Register</a>
           </div>
       </li>
+     
     
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -38,10 +42,15 @@ Vue.component('navbar',{
   </div>
 </nav>
     `,
+    props :["admin","login"],
     methods :{
       search(input){
         this.$emit('search',input)
         console.log(input)
+      },
+      logout(){
+        localStorage.clear()
+        window.location = "http://localhost:8080/"
       }
     }
 })

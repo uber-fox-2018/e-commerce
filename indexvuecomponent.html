@@ -17,51 +17,17 @@
     <div id="app">
         <navigationbar></navigationbar>
 
-        <ul id="slide-out" class="sidenav">
-            <li>
-                <div class="user-view">
-                    <div class="background">
-                        <img src="https://img.purch.com/h/1000/aHR0cDovL3d3dy5zcGFjZS5jb20vaW1hZ2VzL2kvMDAwLzAxMi84NTAvb3JpZ2luYWwvTWFuZ2FpYS1taWxreS13YXkuanBn">
-                    </div>
-                    <a href="#user">
-                        <img class="circle" src="https://i.pinimg.com/originals/c8/a0/c1/c8a0c1bbcde9bea244fb5c729ebb57ee.png">
-                    </a>
-                    <a href="#logout">
-                        <span class="white-text logout">Logout</span>
-                    </a>
-                    <a href="#name">
-                        <span class="white-text name">John Doe</span>
-                    </a>
-                    <a href="#email">
-                        <span class="white-text email">jdandturk@gmail.com</span>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <a href="#!">
-                    <i class="material-icons">home</i>Home</a>
-            </li>
-            <li>
-                <a href="#!">Second Link</a>
-            </li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li>
-                <a class="subheader">Select</a>
-            </li>
-            <li>
-                <a class="waves-effect" href="#!">Female</a>
-                <a class="waves-effect" href="#!">Male</a>
-            </li>
-        </ul>
-        <div class="container">
+        <sidenavbar></sidenavbar>
+
+        <!-- <div class="container">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit aut dolor, vel nulla sint at quae suscipit quo
                 porro quisquam aliquam obcaecati illo sapiente qui dolores, adipisci veritatis maiores minus. Lorem ipsum
                 dolor sit, amet consectetur adipisicing elit. Odit error incidunt maiores numquam dicta nisi tempore. Iure,
                 maiores quia dolor asperiores fugit minus. Hic praesentium magnam vitae assumenda, quo eius?
             </p>
-        </div>
+        </div> -->
+
+        <card-content></card-content>
         <div class="container">
             <div class="row">
                 <div class="col s12 m4 l3" v-for="item in cards">
@@ -167,12 +133,15 @@
                 </div>
             </div>
         </div>
+
         <foot-web></foot-web>
         
     </div>
 
     <script src="footer.js"></script>
     <script src="navbar.js"></script>
+    <script src="sidenav.js"></script>
+    <script src="cards.js"></script>
 
     <script>
         var app = new Vue({
@@ -186,9 +155,9 @@
                 ],
                 itemInModal: {},
                 cart: [],
-                'dropdown-content': 2,
-                isDropdownOpen: false,
-                isContent: true,
+                // 'dropdown-content': 2,
+                // isDropdownOpen: false,
+                // isContent: true,
                 total: 0
             },
             methods: {
@@ -225,12 +194,12 @@
                     alert(`"${obj.description}" added to cart`);
 
                 },
-                openDropdown: function () {
-                    this.isDropdownOpen = true
-                },
-                closeDropdown: function () {
-                    this.isDropdownOpen = false
-                },
+                // openDropdown: function () {
+                //     this.isDropdownOpen = true
+                // },
+                // closeDropdown: function () {
+                //     this.isDropdownOpen = false
+                // },
                 add: function (index) {
                     this.cart[index].qty += 1;
                     this.total += this.cart[index].price

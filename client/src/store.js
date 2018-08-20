@@ -14,7 +14,8 @@ export default new Vuex.Store({
     seen: true,
     allProducts: [],
     productsCategory: '',
-    show: true
+    show: true,
+    productEdit: ''
   },
   mutations: {
     forSeen (state, payload) {
@@ -149,7 +150,7 @@ export default new Vuex.Store({
       axios.put(`http://localhost:3000/products/edit/${payload.id}`, {
         name: payload.name,
         price: payload.price,
-        category: payload.newCategory,
+        category: payload.category,
         imgUrl: payload.imgUrl
       })
         .then(updatePro => {
@@ -183,6 +184,9 @@ export default new Vuex.Store({
     },
     checkout (context, payload) {
       router.push('/checkout')
+    },
+    forEdit (context, payload) {
+      this.state.productEdit = payload
     }
   }
 })

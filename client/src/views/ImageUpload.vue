@@ -19,8 +19,7 @@
             <td>{{cart.name}}</td>
             <td>{{cart.price}}</td>
             <td>{{cart.category}}</td>
-            <!-- {{cart._id}} -->
-            <td><a href="#" style="color:black"><i class="far fa-edit" data-toggle="modal" data-target="#exampleModal"></i></a> || <a href="#" style="color:black"><i class="far fa-trash-alt" @click="deleteProduct(cart._id)"></i></a></td>
+            <td><a href="#" style="color:black"><i class="far fa-edit" @click="forEdit(cart)" data-toggle="modal" data-target="#exampleModal"></i></a> || <a href="#" style="color:black"><i class="far fa-trash-alt" @click="deleteProduct(cart._id)"></i></a></td>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -33,9 +32,9 @@
                   <div class="modal-body">
                     <form id="formEdit">
                       <label>Product: </label><br>
-                      <input type="text" v-model="cart.name" id="inputEdit"><br>
+                      <input type="text" v-model="productEdit.name" id="inputEdit"><br>
                       <label>Price: </label><br>
-                      <input type="text" v-model="cart.price" id="inputEdit"><br><br>
+                      <input type="text" v-model="productEdit.price" id="inputEdit"><br><br>
                       <select v-model="newCategory" id="inputEdit">
                         <option disabled value="">Please select the category</option>
                         <option value="Party">Party</option>
@@ -46,8 +45,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <!-- {{cart._id}} -->
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnsave" @click="edit({id: cart._id, name: cart.name, price: cart.price, category: newCategory, imgUrl: cart.imgUrl})">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="btnsave" @click="edit({id: productEdit._id, name: productEdit.name, price: productEdit.price, category: newCategory, imgUrl: productEdit.imgUrl})">Save changes</button>
                   </div>
                 </div>
               </div>
@@ -78,7 +76,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'seen', 'allProducts'
+      'seen', 'allProducts', 'productEdit'
     ])
   },
   mounted () {
@@ -95,7 +93,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getAllProduct', 'edit', 'deleteProduct'
+      'getAllProduct', 'edit', 'deleteProduct', 'forEdit'
     ])
   }
 }

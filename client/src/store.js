@@ -24,7 +24,7 @@ export default new Vuex.Store({
   },
   actions: {
     getAllProduct (context, payload) {
-      axios.get('http://localhost:3000/products')
+      axios.get('https://server-pinjemdonk.setiaanggraeni.co/products')
         .then(products => {
           this.state.allProducts = products.data
           this.state.productsCategory = ''
@@ -67,9 +67,9 @@ export default new Vuex.Store({
     uploadToGcp (context, payload) {
       let formData = new FormData()
       formData.append('image', this.state.url)
-      axios.post('http://localhost:3000/products/upload', formData)
+      axios.post('https://server-pinjemdonk.setiaanggraeni.co/products/upload', formData)
         .then(result => {
-          axios.post('http://localhost:3000/products/uploadProduct', {
+          axios.post('https://server-pinjemdonk.setiaanggraeni.co/products/uploadProduct', {
             name: payload.name,
             category: payload.category,
             price: payload.price,
@@ -88,7 +88,7 @@ export default new Vuex.Store({
         })
     },
     register (context, payload) {
-      axios.post('http://localhost:3000/users/register', {
+      axios.post('https://server-pinjemdonk.setiaanggraeni.co/users/register', {
         name: payload.name,
         email: payload.email,
         password: payload.password
@@ -104,7 +104,7 @@ export default new Vuex.Store({
         })
     },
     login (context, payload) {
-      axios.post('http://localhost:3000/users/login', {
+      axios.post('https://server-pinjemdonk.setiaanggraeni.co/users/login', {
         email: payload.email,
         password: payload.password
       })
@@ -137,7 +137,7 @@ export default new Vuex.Store({
       router.push('/')
     },
     deleteProduct (context, payload) {
-      axios.delete(`http://localhost:3000/products/delete/${payload}`)
+      axios.delete(`https://server-pinjemdonk.setiaanggraeni.co/products/delete/${payload}`)
         .then(delProduct => {
           router.push('/upload')
           alert('Deleted!')
@@ -147,7 +147,7 @@ export default new Vuex.Store({
         })
     },
     edit (context, payload) {
-      axios.put(`http://localhost:3000/products/edit/${payload.id}`, {
+      axios.put(`https://server-pinjemdonk.setiaanggraeni.co/products/edit/${payload.id}`, {
         name: payload.name,
         price: payload.price,
         category: payload.category,
@@ -162,7 +162,7 @@ export default new Vuex.Store({
         })
     },
     filterByCategory (context, payload) {
-      axios.get(`http://localhost:3000/products/category?q=${payload}`)
+      axios.get(`https://server-pinjemdonk.setiaanggraeni.co/products/category?q=${payload}`)
         .then(products => {
           this.state.productsCategory = products.data
           this.state.show = false
@@ -173,7 +173,7 @@ export default new Vuex.Store({
     },
     search (context, payload) {
       console.log('---', payload)
-      axios.get(`http://localhost:3000/products/search?q=${payload}`)
+      axios.get(`https://server-pinjemdonk.setiaanggraeni.co/products/search?q=${payload}`)
         .then(products => {
           this.state.productsCategory = ''
           this.state.productsCategory = products.data

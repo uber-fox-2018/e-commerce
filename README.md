@@ -15,3 +15,9 @@ List of routes sticker:
 | /home/createItems    | POST     | Add new Item ,admin only                   |                |
 | /home/deleteItem/:id | delete   | delete Item ,admin only                    | item id        |
 | /home/editItem/:id   | put   | edit Item ,admin only                    | item id        |
+
+jwt_secret_key=superninja
+
+access admin
+"email": "oki@gmail.com",
+"password:masuk2311

@@ -2,6 +2,7 @@ Vue.component('list-items', {
     template : 
     `
     <div>
+        <div v-for="item in items">
                 <div class="container" id="\`items[0].category\`">
                     <div class="row items title">
                         <div class="col-md-2" style="margin-top: 1%">
@@ -33,8 +34,8 @@ Vue.component('list-items', {
                         </div>
                     </div>
                 </div>
+            </div>
             <hr>
-            {{dataItemToBuy}}
             <modal-to-buy v-bind:itemToBuy="dataItemToBuy"></modal-to-buy>
     </div>
     `,

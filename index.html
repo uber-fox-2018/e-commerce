@@ -373,10 +373,11 @@
                                 <img class="card-img-top" v-bind:src="bag.img" alt="Card image">
                                 <div class="card-body">
                                     <h6 class="card-title">
-                                        <b>{{bag.name}}</b>
+                                        <b>{{bag.name}}</b> {{role}}
                                     </h6>
                                     <!-- <p class="card-text"> {{bag.description}} </p> -->
                                     <p class="card-text"> {{formatPrice(bag.price)}} </p>
+                                    
                                     <div v-if="bag.stock < 1">
                                         <p class="card-text"> Stok Habis </p>
                                         <a href="#" class="btn btn-primary disabled" data-toggle="modal" data-target="#addtocart" v-on:click="itemToBuy(bag)" disabled>Buy</a>

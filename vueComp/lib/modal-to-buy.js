@@ -22,7 +22,7 @@ Vue.component('modal-to-buy',{
                             <table>
                                 <tr>
                                     <th>Name : </th>
-                                    <td> {{itemToBuy.name}} {{itemToBuy }} </td>
+                                    <td> {{itemToBuy.name}}</td>
                                 </tr>
                                 <tr>
                                     <th>Price : </th>

@@ -15,7 +15,8 @@ var app = new Vue({
         url : '',
         name :'',
         category : '',
-        price :''
+        price :'',
+        
 
     },
     methods :{
@@ -38,7 +39,7 @@ var app = new Vue({
                 this.items = data.data
             })
         },
-        getItem(index){
+        addToCart(index){
             let item = this.items[index]
             var found = false
             for(let i=0;i<this.cart.length;i++){

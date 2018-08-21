@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Paluguada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Paluguada by Susan Nio">
+
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/index.css" />
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Merienda" rel="stylesheet">
+
+  <!-- Font awesome 5 -->
+  <link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet">
+
+  <!-- Bootstrap4 files-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+  <!-- custom style -->
+  <link href="./css/uikit.css" rel="stylesheet" type="text/css" />
+  <link href="./css/responsive.css" rel="stylesheet" media="only screen and (max-width: 1200px)" />
+  <link rel="icon" href="./images/logo/paluguada.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <cart-component :cart="cart"></cart-component>
+    <nav-component></nav-component>
+    <top-carousel-component></top-carousel-component>
+    <mid-carousel-component @add-cart="addCart"></mid-carousel-component>
+    <footer-component></footer-component>
+
+  </div>
+</body>
+
+<script src="./components/topCarouselComponent.js"></script>
+<script src="./components/midCarouselComponent.js"></script>
+<script src="./components/cartComponent.js"></script>
+<script src="./components/navigationComponent.js"></script>
+<script src="./components/footerComponent.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="./js/index.js"></script>
+
+<script>
+  new Vue({
+    el: '#app',
+
+    data () {
+      return {
+        isLogin: false,
+        cart: [],
+      }
+    },
+
+    methods: {
+      addCart (data) {
+        console.log(data, 'dari index.html')
+        this.cart = data;
+      },
+      
+    }
+  })
+</script>
+
+</html>

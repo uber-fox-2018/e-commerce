@@ -22,8 +22,8 @@
               <option>All Categories</option>
               <option v-for="category in listCategory" :value="category._id">{{category.name}}</option>
             </select>
-            <input class="form-control mr-sm-1" type="search" placeholder="Search product" aria-label="Search">
-            <button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Search Product"><i class="material-icons">search</i></button>
+            <input v-model="searchName" class="form-control mr-sm-1" type="search" placeholder="Search product" aria-label="Search">
+            <button @click="searchCategoryName" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Search Product"><i class="material-icons">search</i></button>
           </form>
           <form class="form-inline ml-auto">
             <button v-if='isLogin && !isAdmin' type="button" class="btn btn-danger mx-1" data-toggle="modal" data-target="#cartModal"><i class="material-icons">shopping_cart</i><span class="badge badge-light">{{totalCarts}}</span></button>
@@ -47,7 +47,7 @@
                   <a href="" class="list-group-item">Show Completed Orders</a> -->
                 </div>
               </div>
-              <div v-if='!isAdmin'>
+              <div>
                 <p class="my-2">Filter</p>
                 <div class="list-group">
                   <div class="list-group-item">
@@ -55,24 +55,20 @@
                     <div class="form-group row">
                       <label for="minPrice" class="col-sm-2 col-form-label">min</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="minPrice" placeholder="min price">
+                        <input v-model="minPrice" type="text" class="form-control" id="minPrice" placeholder="min price">
                       </div>
                     </div>
                     <div class="form-group row">
                       <label for="maxPrice" class="col-sm-2 col-form-label">max</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" id="maxPrice" placeholder="max price">
+                        <input v-model="maxPrice" type="text" class="form-control" id="maxPrice" placeholder="max price">
                       </div>
                     </div>
+                    <p v-if="alertPrice" class="text-danger">please fill min and max price range and all value should be number</p>
+                    <button @click="filterPrice" type="button" class="btn btn-danger">Search</button>
+                    
                   </div>
                 </div>
-              </div>
-              <p class="my-2 ">Find more detail</p>
-              <div class="list-group">
-                <a href="#" class="list-group-item">All Categories</a>
-                <a href="#" class="list-group-item">Man clothes</a>
-                <a href="#" class="list-group-item">Woman clothes</a>
-                <a href="#" class="list-group-item">Shoes</a>
               </div>
             </div>
             
@@ -92,7 +88,6 @@
                       <p>{{product.name}}</p>
                     </p>
                     <h6>Rp.{{Number(product.price).toLocaleString()}}</h6>
-                    <!-- <p class="card-text">{{product.description}}</p> -->
                   </div>
                   <div class="card-footer text-center">
                     <button type="button" @click='detailProduct(product)' data-toggle="modal" data-target="#detailProductModal" class="btn btn-danger">See Detail</button>
@@ -408,6 +403,7 @@
           addCategoryName : "",
           //searchCategory
           searchCategory : "All Categories",
+          searchName : "",
           //editProduct
           editIdProduct : "",
           editNameProduct : "",
@@ -419,7 +415,11 @@
           //cart
           cartLists : {},
           totalCarts : 0,
-          totalCartPrice : 0
+          totalCartPrice : 0,
+          //filterPrice
+          minPrice : null,
+          maxPrice : null,
+          alertPrice : false,
 
         }
       },
@@ -673,6 +673,8 @@
             .then (categories => {
               // console.log(categories.data.data)
               this.listCategory = categories.data.data
+              // console.log(this.listCategory);
+              
             })
             .catch(err => {
               console.log(err)
@@ -867,6 +869,47 @@
                     icon: "warning",
                   })
                 })
+          },
+          searchCategoryName () {
+            if (this.searchCategory == "All Categories") {
+              axios.get (`https://ecomserver.sumarsanaadi.com/products/searchall?name=${this.searchName}`)
+                .then (products => {
+                  this.showProductList = products.data.data
+                  if (this.searchName == "" || this.searchName == null) {
+                    this.searchName = "all"
+                  }
+                  this.showProductName = `Filter by ${this.searchName} name in ${this.searchCategory}`
+                  this.searchName = ""
+                })
+            } else {
+              axios.get (`https://ecomserver.sumarsanaadi.com/products/searchcategory?category=${this.searchCategory}&name=${this.searchName}`)
+                .then (products => {
+                  this.showProductList = products.data.data
+                  if (this.searchName == "" || this.searchName == null) {
+                    this.searchName = "all"
+                  }
+                  for (let i = 0; i < this.listCategory.length ; i ++) {
+                    if (this.searchCategory == this.listCategory[i]._id) {
+                      this.showProductName = `Filter by ${this.searchName} name in ${this.listCategory[i].name}`
+                      break
+                    }
+                  }
+                  this.searchName = ""
+                })
+            }
+          },
+          filterPrice () {
+            if (this.minPrice == null || this.maxPrice == null) {
+              this.alertPrice = true
+            } else {
+              axios.get(`https://ecomserver.sumarsanaadi.com/products/filterprice?min=${this.minPrice}&max=${this.maxPrice}`)
+              .then (products => {
+                  this.showProductList = products.data.data
+                  this.showProductName = `Filter by price min Rp.${Number(this.minPrice).toLocaleString()} and max Rp.${Number(this.maxPrice).toLocaleString()}`
+                  this.minPrice = null,
+                  this.maxPrice = null
+                })
+            }
           }
         }
       })

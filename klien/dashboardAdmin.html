@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <title>SuperStore</title>
+
+</head>
+
+<body>
+  <div id="app">
+    <!-- navbar -->
+    <nav id="navbar" class="navbar navbar-dark navbar-expand-md sticky-top" style="background-color:mediumturquoise;">
+      <ul class="navbar-nav mr-auto">
+
+        <a class="navbar-brand" href="./dashboardAdmin.html">
+          SuperHeroStore
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      
+          <li class="nav-item">
+            
+            <a id = "cart" class="navbar-nav" href="#" data-toggle="modal" data-target="#exampleModal">
+              <strong>SuperAdmin</strong>
+            </a>
+          </li>
+        </div>
+      </ul>
+      <ul class="navbar-nav mr-auto"></ul>
+      <form class="form-inline my-2 my-sm-0">
+
+        <a class="nav-link text-white btn btn-primary ml-3" href="">REGISTER</a>
+        <a class="nav-link text-white btn btn-primary ml-3" href="">LOGIN</a>
+        <a class="nav-link text-white btn btn-primary ml-3" href="">LOGOUT</a>
+      </form>
+      </ul>
+    </nav>
+    <!-- navbar -->
+
+    
+    <!-- row1   -->
+    <div class="container">
+      <div class="row">
+
+          </div>
+        </div>
+      </div>
+      <!--row tutup-->
+    </div>
+    <!--container tutup -->
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="https://mdbootstrap.com/bootstrap-tutorial/"> MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+    <!--div app closed-->
+  </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-lx" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Transaction</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Item</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Price</th>
+                  <th scope= "col"> action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for = "dataCart in carts">
+                  <td><img v-bind:src=dataCart.image alt=""></td>
+                  <td>{{dataCart.qty}}</td>
+                  <td>{{ convertToRupiah(dataCart.price) }}</td>
+                  <td> 
+                    <input type="number" v-bind:value="dataCart.qty">  <a href="" class = "btn btn-danger"> delete</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">Total Price</td>
+                  <td>{{convertToRupiah(totalPrice)}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+           
+
+
+          </div>
+          <div class="modal-footer">
+            <a href="" class="btn btn-secondary" data-dismiss="modal">Close</a>
+            
+            <a href=""  class="btn btn-primary" @click="checkout()">Checkout</a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+
+
+
+</body>
+<script src="../script/dashboard.js"></script>
+
+</html>
